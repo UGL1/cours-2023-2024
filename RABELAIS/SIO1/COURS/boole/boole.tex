@@ -1,0 +1,427 @@
+
+\chapter{Algèbres de Boole}
+\begin{center}
+    \includegraphics[width=4cm]{boole/img/boole.jpg}
+\end{center}
+\section{Définition d'une algèbre de Boole}
+
+\begin{definition}[]
+    Une \textit{algèbre de Boole}, c'est un ensemble $E$ muni de :
+    \begin{itemize}
+        \item 	deux lois \textit{binaires} notées + et $\times$;
+        \item 	une loi \textit{unaire} qui à $a$ associe $\barmin{a}$;
+        \item 	deux éléments particuliers notés 0 et 1;
+    \end{itemize}
+    et telle que , pour tous éléments a, b et c de E :
+    \begin{itemize}
+        \item 	Les deux lois binaires sont \textit{commutatives} :
+              $a+b=b+a$ et $ab=ba$
+        \item 	elles sont aussi associatives :
+              $a+(b+c)=(a+b)+c$ et $a(bc)=(ab)c$
+        \item 	$\times$ se distribue sur $+$ :
+              $a(b+c)=ab+ac$
+        \item 	+ se distribue sur $\times$ :
+              $\boxed{a+bc=(a+b)(a+c)}$  \\[.5em]
+              c'est la seule propriété contre-intuitive, on la notera $(*)$
+        \item 	0 est neutre pour $+$: $0+a = a$
+        \item 	0 est absorbant pour $\times$ : $0a=0$
+        \item 	1 est neutre pour $\times$ : $1a=a$
+        \item 	1 est absorbant pour $+$ : $1+a=1$
+        \item 	on a $a+\barmin{a}=1$ et $a\barmin{a}=0$
+    \end{itemize}
+\end{definition}
+
+
+
+\begin{exemple}[s]
+    \begin{itemize}
+        \item 	L'ensemble $\lbrace 0;1\rbrace$ muni de $\vee$, $\wedge$ et $\barmin{\ \ }$ est la plus simple des algèbres de Boole.
+        \item 	Si on pose que deux propositions sont égales quand elles sont équivalentes, alors l'ensemble des propositions muni de $\vee$, $\wedge$ et $\barmin{\ \ }$  est une algèbre de Boole,
+              0 étant la proposition fausse et 1 la proposition vraie.
+        \item 	Comme on le verra au prochain chapitre, lorsqu'on se donne un ensemble $E$ et que l'on considère $\mathcal{P}(E)$, l'ensemble de ses parties, muni des opérations $\cap$ (intersection, joue le rôle de $\times$ ) et $\cup$ (union, joue le rôle de +), alors $P(E)$ est une algèbre de Boole, 0 étant l'\textit{ensemble vide} et 1 étant E lui-même.
+    \end{itemize}
+\end{exemple}
+
+\begin{exercice}[]
+    Montrer que :
+    \begin{enumerate}
+        \item 	$(a+b)(\barmin{a}+c)(\barmin{b}+\barmin{c})=a\barmin{b}c+\barmin{a}b\barmin{c}$
+        \item 	$\barmin{a}\barmin{b}\barmin{c}\barmin{d}+a\barmin{b}\barmin{c}\barmin{d}+	\barmin{a}b\barmin{c}\barmin{d}+ab\barmin{c}\barmin{d}=\barmin{b}\barmin{c}$
+        \item 	$ab+\barmin{a}\barmin{b}+ \barmin{a}b=\barmin{a}+b$
+    \end{enumerate}
+\end{exercice}
+
+\begin{propriete}[s]
+    \begin{itemize}
+        \item 			Dans une algèbre de Boole, pas besoin de multiplication par un entier car pour tout élément $a$ :
+              $$a+a = a$$
+              Donc $2a = a$ et par suite pour tout entier naturel non nul $n$ : $na=a$.
+        \item Pas besoin de puissances non plus  car pour tout élément $a$ :
+              $$aa = a$$
+              Donc $a^2 = a$ et par suite pour tout entier naturel non nul $n$ : $a^n=a$.
+    \end{itemize}
+\end{propriete}
+
+\textbf{Preuve :}\\
+Soit $a$ un élément de E:
+\begin{multicols}{2}
+    \begin{itemize}
+        \item 	\begin{tabbing}
+                  $a$ \= 	$=a+0$\\[.5em]
+                  \>	$=a+a\barmin{a}\qquad$ et on utilise $(*)$\\[.5em]
+                  \>	$=(a+a)(a+\barmin{a})$\\[.5em]
+                  \>	$=(a+a)1$\\[.5em]
+                  \>	$=a+a$
+              \end{tabbing}
+        \item 	\begin{tabbing}
+                  $a$ \= $=a\times 1$\\[.5em]
+                  \> $=a(a+\barmin{a})$\\[.5em]
+                  \> $=aa+a\barmin{a}$\\[.5em]
+                  \> $=aa+0$\\[.5em]
+                  \> $=aa$
+              \end{tabbing}
+    \end{itemize}
+\end{multicols}
+\begin{propriete}
+    Si 2 éléments $x$ et $y$ de E sont tels que $xy=0$ et $x+y=1$, alors $x=\barmin{y}$.
+\end{propriete}
+\textbf{Preuve :}
+\begin{tabbing}
+    $x+y=1\quad$	\=	$\Rightarrow\quad (x+y)\barmin{y}=\barmin{y}$\\[.5em]
+    \>	$\Rightarrow\quad x\barmin{y}+y\barmin{y}=\barmin{y}$\\[.5em]
+    \>	$\Rightarrow\quad x\barmin{y}+0=\barmin{y}$\\[.5em]
+    \>	$\Rightarrow\quad x\barmin{y}+xy=\barmin{y}$\\[.5em]
+    \>	$\Rightarrow\quad x(\barmin{y}+y)=\barmin{y}$\\[.5em]
+    \>	$\Rightarrow\quad x\times 1=\barmin{y}$\\[.5em]
+    \>	$\Rightarrow\quad x=\barmin{y}$
+\end{tabbing}
+
+\begin{propriete}[ : lois de De Morgan]
+    Quels que soient les éléments de $x$ et $y$ de E on a $$\barmin{x\times y}=\barmin{x}+\barmin{y}  \qquad\textrm{et}\qquad \barmin{x+y}=\barmin{x}\times\barmin{y}$$
+\end{propriete}
+
+\textbf{Preuve de la première égalité}.\\
+Si on pose $A=xy$ et $B=\barmin{x}+\barmin{y}$, alors on doit montrer que $\barmin{A}=B$.\\
+On utilise la propriété précédente et on montre donc que $A+B = 1$ et que $AB=0$ :
+\begin{multicols}{2}
+
+    \begin{tabbing}
+        $B+A$ 	\=	$=\barmin{x}+\barmin{y}+xy$ et on utilise $(*)$\\[.5em]
+        \>	$=(\barmin{x}+\barmin{y}+x)(\barmin{x}+\barmin{y}+y)$\\[.5em]
+        \>  $=(1+\barmin{y})(1+\barmin{x})$\\[.5em]
+        \>  $=1\times 1$\\[.5em]
+        \> 	$=1$
+    \end{tabbing}
+
+    \begin{tabbing}
+        $AB$ \=  $=(\barmin{x}+\barmin{y})xy$\\[.5em]
+        \>  $=\barmin{x}xy+\barmin{y}xy$\\[.5em]
+        \> 	$=0y+0x$\\[.5em]
+        \> 	$=0+0$\\[.5em]
+        \> 	$=0$
+    \end{tabbing}
+\end{multicols}
+\begin{exercice}[]
+    Montrer la deuxième loi en faisant la même chose.
+\end{exercice}
+
+
+
+\section{Diagrammes de Karnaugh}
+
+Cette méthode a été développée par Maurice Karnaugh en 1953. Elle fait appel à des tableaux qui représentent des expressions booléennes.\\
+On colorie les cases qui correspondent aux différents termes de l'expression. À la fin on peut reconnaître et lire une expression simplifiée.
+
+\begin{propriete}[]
+    Un produit correspond à une \textit{intersection}, une somme à une \textit{union}.
+\end{propriete}
+
+\subsection{Avec 2 variables}
+
+Le diagramme est un carré dont les quatre cases correspondent aux quatre produits $ab$, $a\barmin{b}$, $\barmin{a}b$, $\barmin{a}\barmin{b}$.
+
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        $ab$          & $a\barmin{b}$          \\
+        \hline
+        $\barmin{a}b$ & $\barmin{a}\barmin{b}$ \\
+        \hline
+    \end{tabular}
+\end{center}
+Ci dessous on représente a, b, $\barmin{a}$, $\barmin{b}$ et une dernière expression.
+\begin{center}
+    \includegraphics[width=\linewidth]{boole/img/karnaugh1.png}
+\end{center}
+
+Cette dernière peut se lire $a+\barmin{b}$ ou bien $ab+a\barmin{b}+\barmin{a}\barmin{b}$.
+
+\begin{exercice}[]
+    Propose une troisième interprétation du dernier diagramme.
+\end{exercice}
+
+\subsection{Avec 3 variables}
+
+Le diagramme est un rectangle dont les huit cases correspondent aux produits suivants.
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+
+        \hline
+        $abc$          & $ab\barmin{c}$          & $a\barmin{b}\barmin{c}$          & $a\barmin{b}c$          \\
+        \hline
+        $\barmin{a}bc$ & $\barmin{a}b\barmin{c}$ & $\barmin{a}\barmin{b}\barmin{c}$ & $\barmin{a}\barmin{b}c$ \\
+        \hline
+    \end{tabular}
+\end{center}
+\begin{center}
+    \includegraphics[width=\linewidth]{boole/img/karnaugh2.png}\\
+
+    \includegraphics[width=\linewidth]{boole/img/karnaugh3.png}
+\end{center}
+
+\begin{exercice}[]
+    Faire les tables de Karnaugh des expressions $ab$, $a\barmin{b}$, $ac$, $a\barmin{c}$,  $\barmin{a}b$, $\barmin{a}\barmin{b}$, $\barmin{a}c$, $\barmin{a}\barmin{c}$, $bc$, $\barmin{b}c$, $b\barmin{c}$, $\barmin{b}\barmin{c}$.
+\end{exercice}
+
+\section{Exercices}
+
+\begin{exercice}
+    $\mathcal{B}$ est une algèbre de Boole.
+    \begin{enumerate}
+        \item 	Montrer par le calcul que $\forall a\in\mathcal{B},\forall b\in\mathcal{B},\; a+ab = a$;
+        \item 	Montrer par le calcul que $\forall a\in\mathcal{B},\forall b\in\mathcal{B},\; a(a+b) = a$.
+        \item 	Montrer par le calcul que $\forall a\in\mathcal{B},\forall b\in\mathcal{B},\; a+\barmin{a}b = a+b$.
+    \end{enumerate}
+    Vérifier ces trois égalités avec des tables de Karnaugh.
+\end{exercice}
+
+\begin{exercice}
+    \'Ecrire de deux façons possibles l'expression booléenne représentée par le tableau de Karnaugh suivant.
+    \begin{center}
+        \includegraphics[width=4cm]{boole/img/ex29.png}
+    \end{center}
+\end{exercice}
+
+\begin{exercice}
+    \'Ecrire l'expression booléenne représentée par le tableau de Karnaugh suivant sous la forme d'une somme de deux variables booléennes prises parmi $x$, $y$, $z$, $\barmin{x}
+    $, $\barmin{y}$ et $\barmin{z}$.
+    \begin{center}
+        \includegraphics[width=4cm]{boole/img/ex30.png}
+    \end{center}
+\end{exercice}
+
+\begin{exercice}
+    $x$,$y$ et $z$ sont trois élément d'une algèbre booléenne B.\\
+
+    \'Ecrire l'expression $y\overline{(xy+z)}$ sous la forme d'un produit de trois variables booléennes prises parmi $x$, $y$, $z$, $\barmin{x}
+    $, $\barmin{y}$ et $\barmin{z}$.\\
+\end{exercice}
+
+
+\begin{exercice}
+    $a$,$b$ et $c$ sont trois élément d'une algèbre booléenne B.
+
+    \begin{enumerate}
+        \item 	\'Ecrire  l'expression $(a+\barmin{b}c)(b+\barmin{c})$ sous la forme d'une somme de deux produits de deux variables booléennes prises parmi $a$, $b$, $c$, $\barmin{a}
+              $, $\barmin{b}$ et $\barmin{c}$.
+        \item 	Représenter ce résultat dans une table de Karnaugh et en déduire une nouvelle expression.
+    \end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+    B est une algèbre booléenne. On définit l'opération « nor »{}, notée $\downarrow$ par : $$\forall a\in\mathcal{B},\forall b\in\mathcal{B},\; a\downarrow b = \overline{a+b}$$
+
+    Cette opération est dite \textit{universelle} car elle permet de retrouver toutes les autres opérations.
+
+    \begin{enumerate}
+        \item 	Montrer que $\forall a\in\mathcal{B}\; a\downarrow a = \overline{a}$.
+        \item 	En déduire que $$\forall a\in\mathcal{B},\forall b\in\mathcal{B},\; (a\downarrow b)\downarrow(a\downarrow b) = a+b$$
+        \item 	Comment à partir de $a$, $b$ et $\downarrow$ obtenir $ab$ ?\\
+    \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[ : Polynésie juin 2018]
+    Une société de fabrication et d'installation de fibre optique a besoin de recruter un informaticien, femme ou homme. La direction des ressources humaines considère qu'une candidature est recevable lorsqu'elle satisfait à l'une au moins des conditions suivantes:
+
+    \begin{itemize}
+        \item le candidat est âgé de 25 ans ou moins et est titulaire du BTS SIO;
+        \item le candidat est âgé de 25 ans ou moins, n'est pas titulaire du BTS SIO et possède de l'expérience;
+        \item le candidat est âgé de strictement plus de 25 ans  et est titulaire du BTS SIO;
+    \end{itemize}
+
+    \smallskip
+    On définit les variables booléennes $a$, $b$, $c$ de la façon suivante:
+    \begin{itemize}
+        \item $a=1$ si le candidat est âgé de strictement plus de 25 ans, $a=0$ sinon;
+        \item $b=1$ si le candidat est titulaire d'un BTS SIO, $b=0$ sinon;
+        \item $c=1$ si le candidat a de l'expérience, $c=0$ sinon.
+    \end{itemize}
+
+    \begin{enumerate}
+        \item Écrire une expression booléenne $E$ traduisant qu'une candidature est recevable, à l'aide des variables booléennes $a$, $b$, $c$.
+        \item À l'aide d'un tableau de Karnaugh, déterminer une écriture simplifiée de $E$ sous la forme d'une somme de deux termes. En déduire une interprétation simplifiée des conditions pour qu'une candidature soit recevable.
+        \item Une candidate a 21 ans, aucune expérience, mais est titulaire du BTS SIO. Remplit-elle les critères de recrutement?
+        \item Donner une expression simple de $\overline{E}$.\\
+    \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[ : Polynésie mai 2017]
+
+    Cinq joueurs, notés A, B, C, D et E, jouent régulièrement à un jeu en ligne.
+
+    Chaque partie de ce jeu oppose deux adversaires.
+
+    \begin{enumerate}
+        \item Dans cette question, on note $J = \lbrace A, B, C, D, E\rbrace$ l'ensemble des cinq joueurs.
+
+              On note $V(x~;~y)$ le prédicat : « le joueur $x$ a déjà battu le joueur $y$ ».
+
+              Ainsi, la valeur $V$(A ; B) est VRAI, et la valeur de $V$(B ; A) est FAUX.
+
+              \smallskip
+
+              On définit trois prédicats :
+
+
+              \textbf{P1} : $\forall x \in J,\: \exists\, y \in J,\: x \neq y$  et $V(x~;~y)$
+
+              \textbf{P2}: $\exists\, x \in J,\: \forall y \in J,\: x \neq y$  et $V(x~;~y)$
+
+              \textbf{P3}: $\exists\, y \in J,\: \forall x \in J,\: x \neq y$  et $V(x~;~y)$
+
+              \smallskip
+
+              Associer à chaque prédicat P1, P2, P3, celle des trois phrases suivantes qui lui correspond parmi
+              les phrases suivantes. Aucune justification n'est demandée.
+
+              « Il existe un joueur qui a été battu par tous les autres joueurs ».
+
+              « Tous les joueurs ont battu au moins un autre joueur  ».
+
+              « Il existe un joueur qui a battu tous les autres joueurs  ».
+
+        \item Un joueur reçoit un bonus lorsqu'il vérifie l'un au moins des trois critères suivants:
+
+              $\bullet~~$ le joueur a participé à 20 parties ou davantage, et il a affronté plusieurs adversaires
+              différents ;
+
+              $\bullet~~$  le joueur n'a pas affronté plusieurs adversaires différents, et il a obtenu strictement plus de
+              victoires que de défaites ;
+
+              $\bullet~~$  le joueur n'a pas obtenu strictement plus de victoires que de défaites, et il a participé à 20
+              parties ou davantage.
+
+              On définit les variables booléennes $a$, $b$, $c$ de la façon suivante:
+
+              $a = 1$ si le joueur a participé à 20 parties ou davantage ; $a = 0$ sinon;
+
+              $b = 1$ si le joueur a affronté plusieurs adversaires différents ; $b = 0$ sinon;
+
+              $c = 1$ si le joueur a obtenu strictement plus de victoires que de défaites ; $c = 0$ sinon.
+              \begin{enumalph}
+                  \item Écrire une expression booléenne $F$ traduisant les conditions permettant à un joueur d'obtenir le bonus.
+                  \item À l'aide d'un tableau de Karnaugh ou d'un calcul booléen, déterminer une écriture simplifiée de $F$ sous forme d'une somme de deux termes.
+                  \item En déduire une formulation simplifiée des critères permettant à un joueur d'obtenir le bonus.
+              \end{enumalph}
+    \end{enumerate}
+\end{exercice}
+
+
+\begin{exercice}[]
+    Soient $a$, $b$ et $c$ trois éléments d'une algèbre booléenne $\mathcal{B}$.
+
+    \begin{enumerate}
+        \item 	Soient $A=ab+\barmin{c}$ et $B=\barmin{a}+bc$, montrer par le calcul que $$\barmaj{A}=\barmin{a}c+\barmin{b}c$$ et que $$\barmaj{B}=a\barmin{c}+a\barmin{b}$$
+        \item 	Soit $C=\barmin{a}\,\barmin{b}\,\barmin{c}+a\barmin{b}c+\barmin{a}\,\barmin{b}+a\barmin{b}\,\barmin{c}$.\\
+              Utiliser un diagramme de Karnaugh pour simplifier C.\\
+    \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[]
+    Une salle dédiée à l'informatique va être aménagée au lycée.\\
+    Le réseau qui équipera cette salle doit satisfaire au moins l'une des conditions suivantes :
+
+    \begin{itemize}
+        \item le réseau compte 5 postes ou plus et il existe un poste qui ne reçoit pas de données en entrée
+        \item il existe un poste qui ne reçoit pas de données en entrée, et le réseau compte strictement moins  de 5 postes, et il comporte strictement plus de 12 connexions ;
+        \item le réseau comporte 12 connexions ou moins.
+    \end{itemize}
+
+    On définit les variables booléennes suivantes:
+
+
+    \begin{itemize}
+        \item $a = 1$ si le réseau compte 5 postes ou plus, $a = 0$ sinon;
+        \item $b = 1$ s'il existe un poste qui ne reçoit pas de données en entrée, $b = 0$ sinon;
+        \item $c = 1$ si le réseau comporte 12 connexions ou moins, $c = 0$ sinon.
+    \end{itemize}
+
+    \begin{enumerate}
+        \item Cette question est une question à choix multiple. Une seule réponse est correcte. Recopier sur la copie seulement la réponse correcte. On ne demande pas de justification.
+
+              Parmi les quatre phrases suivantes, donner celle qui traduit la variable $\overline{b}$ :
+
+
+              \begin{itemize}
+                  \item réponse A : « il existe un poste qui reçoit des données en entrée  » ;
+                  \item réponse B : « tout poste reçoit des données en entrée  » ;
+                  \item réponse C : « il existe un poste qui envoie des données en sortie  » ;
+                  \item réponse D : « aucun poste ne reçoit des données en entrée  ».
+              \end{itemize}
+
+        \item Donner l'expression booléenne E traduisant les critères voulus pour un réseau informatique.
+        \item À l'aide d'un tableau de Karnaugh ou par des calculs, exprimer $E$ comme somme de deux
+              variables booléennes.
+        \item Traduire les critères de sélection simplifiés, à partir de l'expression obtenue à la question 3.
+        \item Un réseau dans lequel 2 postes ne reçoivent pas de données en entrée et qui comporte 15
+              connexions répond-il aux critères voulus ? Justifier la réponse.
+    \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[ : multiplexeur]
+    Un multiplexeur est un peu comme une télécommande à 2 boutons : on peut le résumer par une expression booléenne $E$ dépendant de 3 variables $a$, $b$ et $c$.
+    \begin{itemize}
+        \item Lorsque $a=0$, la valeur de $E$ est celle de $b$.
+        \item Lorsque $b=0$, la valeur de $E$ est celle de $c$.
+    \end{itemize}
+    \begin{enumerate}
+        \item À l'aide de cette information, complète la table de vérité suivante.
+
+              \begin{center}
+                  \tabstyled
+                  \begin{tabular}{|c|c|c|c|}
+                      \hline
+                      
+                      \ccell a & \ccell b & \ccell c & \ccell E \\
+                      \hline
+                      0      & 0      & 0      &        \\
+                      \hline
+                      0      & 0      & 1      &        \\
+                      \hline
+                      0      & 1      & 0      &        \\
+                      \hline
+                      0      & 1      & 1      &        \\
+                      \hline
+                      1      & 0      & 0      &        \\
+                      \hline
+                      1      & 0      & 1      &        \\
+                      \hline
+                      1      & 1      & 0      &        \\
+                      \hline
+                      1      & 1      & 1      &        \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+        \item Renseigne ensuite la table de Karnaugh
+              \begin{center}
+                  \begin{tikzpicture}
+                      \draw (0,0) rectangle (1,1) rectangle(2,0) rectangle(3,1) rectangle(4,0);
+                      \draw (0,0) rectangle (1,-1) rectangle(2,0) rectangle(3,-1) rectangle(4,0);
+                  \end{tikzpicture}
+              \end{center}
+        \item Déduis-en une expression simple de $E$.
+
+        \item Dessine le circuit électronique qui représente E.
+    \end{enumerate}
+\end{exercice}

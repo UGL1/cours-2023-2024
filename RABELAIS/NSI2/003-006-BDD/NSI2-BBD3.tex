@@ -1,0 +1,443 @@
+\chapter{BDD partie 3}
+\section{Niveau physique Langage SQL}
+\subsection{Le SGBD}
+Il garantit entre autres
+\begin{itemize}
+    \item	\textit{l'indépendance physique} de la BDD : l'utilisateur n'a pas à se soucier des aspects matériels;
+    \item	\textit{l'indépendance logique} : les programmes qui utilisent la BDD sont indépendants de sa structure logique;
+    \item 	\textit{l'accès aux données} : il se fait grâce à un \textit{langage de manipulation des données} (LMD) optimisé pour la rapidité et l'accès simultané multiple en lecture/écriture;
+    \item 	\textit{la centralisation des données pour administration};
+    \item 	\textit{la non-redondance des données};
+    \item 	\textit{la sécurité des données} vis-à-vis du piratage mais aussi des pannes physiques.
+\end{itemize}
+
+
+\subsection{Principaux SGBD en 2020}
+\includegraphics[width=3cm]{img/mysql}\ \ \ \ \ \ \includegraphics[width=3cm]{img/postgresql}\ \ \ \ \ \ \includegraphics[width=3cm]{img/microsoftsqlserver}\\[2em]
+\includegraphics[width=3cm]{img/sqlite}\ \ \ \ \ \ \includegraphics[width=3cm]{img/oracle}\ \ \ \ \ \ \includegraphics[width=3cm]{img/mongodb}
+
+
+\subsection{Le SQL}
+\begin{itemize}
+    \item	\textit{Structured Query Langage} (langage de requêtes structuré).
+    \item	Créé en 1974, normalisé en 1986, dernière version parue en 2011.
+    \item 	Utilisé par la plupart des SGBD avec de petites différences.
+\end{itemize}
+
+
+
+\subsection{Exemple de requête}
+
+\footnotesize
+
+\begin{sql}
+    \begin{minted}{sql}
+SELECT DISTINCT nom, prenom
+FROM Auteur
+         JOIN Ecrire ON Ecrire.id_auteur = Auteur.id_auteur
+         JOIN Livre ON Livre.num_isbn = Ecrire.num_isbn
+WHERE Livre.titre LIKE '%s%';
+\end{minted}
+\end{sql}
+
+\normalsize
+Voici comment obtenir la liste des noms et prénoms des auteurs ayant écrit un livre dont le titre comporte la lettre « s». Nous expliquerons comment produire de telles requêtes plus tard.
+
+\subsection{Vocabulaire}
+En SQL, les relations s'appellent des \textit{tables}.\\
+
+Les éléments des tables s'appellent des \textit{tuples}.
+
+\subsection{Bilan des termes utilisés}
+\begin{center}
+    \includegraphics[width=12cm]{img/classification}
+\end{center}
+
+\subsection{Conventions}
+On écrira les mots-clés SQL en majuscules.\\
+
+On ne met pas d'accents ou d'espaces dans les noms des tables ou des attributs.\\
+
+Les espaces et tabulations n'ont qu'un rôle esthétique.\\
+
+Les requêtes peuvent prendre plusieurs lignes mais doivent se terminer par un point-virgule.\\
+
+On utilisera SQLite car on peut s'en servir avec DB Browser sans installation compliquée.
+
+\section{Création de la BDD}
+\subsection{Créer une BDD}
+
+\begin{sql}
+    \begin{minted}{sql}
+CREATE DATABASE Bibliotheque;
+USE Bibliotheque;
+\end{minted}
+\end{sql}
+
+On n'utilisera pas (ou peu) cette commande dans les exercices.
+
+
+\subsection{Supprimer une BDD}
+
+\begin{sql}
+    \begin{minted}{sql}
+DROP DATABASE Bibliotheque;
+	\end{minted}
+\end{sql}
+
+On n'utilisera pas cette commande non plus.
+
+
+\subsection{Créer une table}
+Voici comment créer la table \textbf{Pays} :
+
+\begin{sql}
+    \begin{minted}{sql}
+DROP TABLE IF EXISTS Pays; -- recréer la table de zéro
+CREATE TABLE Pays
+(
+    nom_pays   TEXT,
+    population INTEGER,
+    superficie INTEGER,
+    PRIMARY KEY (nom_pays), -- clé primaire
+    CHECK (population > 0), -- contraintes utilisateur
+    CHECK (superficie > 0)
+);
+\end{minted}
+\end{sql}
+
+
+
+\subsection{Table \textbf{Livre}}
+
+
+\begin{sql}
+    \begin{minted}{sql}
+DROP TABLE IF EXISTS Livre;
+CREATE TABLE Livre
+(
+    num_isbn INTEGER,
+    titre    TEXT,
+    annee    TEXT,
+    PRIMARY KEY (num_isbn),
+    CHECK (date(annee) BETWEEN '1900' AND '2100')
+);
+\end{minted}
+\end{sql}
+
+\mintinline{sql}{date(annee) BETWEEN '1900' AND '2100'} est l'équivalent SQL de\\\mintinline{python}{'1900' <= date(annee) <= '2100'} en Python.
+
+\begin{encadrecolore}{Attention}{UGLiRed}
+    SQLite ne connaît pas le type \mintinline{sql}{DATE}, il faut créer des attributs de type \mintinline{sql}{TEXT} et utiliser la fonction \mintinline{sql}{date}. 
+\end{encadrecolore}
+
+\subsection{Table \textbf{Livre}}
+\begin{sql}
+    \begin{minted}{sql}
+DROP TABLE IF EXISTS Auteur;
+CREATE TABLE Auteur
+(
+    id_auteur      INTEGER,
+    nom_pays       TEXT,
+    nom            TEXT,
+    prenom         TEXT,
+    date_naissance TEXT,
+    PRIMARY KEY (id_auteur),
+    UNIQUE (nom, prenom), -- contrainte d'unicité
+    FOREIGN KEY (nom_pays) REFERENCES Pays (nom_pays)
+    /*nom_pays est une clé étrangère*/
+        ON DELETE CASCADE
+        /*si on supprime des tuples dans Pays, automatiquement
+        (en cascade) on supprimera les tuples qui y font
+        réference dans Auteur*/
+        ON UPDATE CASCADE
+        /*si on met à jour les attributs nom_pays dans Pays,
+        alors le SGBD les mettra à jour aussi dans Auteur*/
+);\end{minted}
+\end{sql}
+
+\subsection{Ordre des créations des tables}
+On ne peut pas créer \textbf{Auteur} avant d'avoir crée \textbf{Pays} car \textbf{Auteur} possède une clé étrangère liée à \textbf{Pays}.
+
+
+\subsection{Table \textbf{Ecrire}}
+\begin{sql}
+    \begin{minted}{sql}
+DROP TABLE IF EXISTS Ecrire;
+CREATE TABLE Ecrire
+(
+    id_auteur    INTEGER,
+    num_isbn     INTEGER,
+    nb_chapitres INTEGER,
+    PRIMARY KEY (id_auteur, num_isbn),
+    FOREIGN KEY (id_auteur) REFERENCES Auteur (id_auteur)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (num_isbn) REFERENCES Livre (num_isbn)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+);
+\end{minted}
+\end{sql}
+
+\section{Variantes syntaxiques et autres}
+\subsection{\'Ecriture plus compacte}
+On peut signifier qu'un attribut est une clé étrangère dans sa définition même :
+\begin{sql}
+    \begin{minted}{sql}
+DROP TABLE IF EXISTS Ecrire;
+CREATE TABLE Ecrire
+(
+    id_auteur    INTEGER REFERENCES Auteur (id_auteur)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    num_isbn     INTEGER REFERENCES Livre (num_isbn)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    nb_chapitres INTEGER,
+    PRIMARY KEY (id_auteur, num_isbn)
+);
+\end{minted}
+\end{sql}
+
+
+\subsection{\'Ecriture plus compacte (bis)}
+On peut signifier qu'un attribut est une clé primaire dans sa définition même :
+\begin{sql}
+    \begin{minted}{sql}
+DROP TABLE IF EXISTS Livre;
+CREATE TABLE Livre
+(
+    num_isbn INTEGER PRIMARY KEY,
+    titre    TEXT,
+    annee    TEXT,
+    CHECK (date(annee) BETWEEN '1900' AND '2100')
+);
+\end{minted}
+\end{sql}
+
+
+
+\section{Insertion des données dans la BDD}
+
+
+\subsection{Données de \textbf{Pays}}
+\begin{sql}
+    \begin{minted}{sql}
+INSERT INTO Pays
+VALUES ('France', 672051, 67064000),
+       ('Italie', 301336, 66436000),
+       ('Royaume-Uni', 242900, 60317000);
+\end{minted}
+\end{sql}
+Les attributs des tuples sont dans le même ordre que lors de la création.
+
+
+\subsection{\textit{Et c\ae tera}}
+De même que lors de la création, on ne peut pas insérer de tuples dans \textbf{Auteur} avant d'avoir peuplé \textbf{Pays} : en effet dans un tuple de \textbf{Auteur} tel que \\
+
+\mintinline{sql}{(1, 'France', 'Hugo', 'Victor', '1802-02-26')}\\
+
+Les contraintes de référence font qu'un tuple « France» doit d'abord exister dans \textbf{Pays}.
+\section{Exercices}
+
+\begin{exercice}[]
+    Ouvrir le fichier \texttt{create\_Auteurs.sql} qui a servi à créer la BDD du cours (avec le bloc-notes ou autre).
+    \begin{enumerate}
+        \item 	Trouver une écriture compacte telle que vue dans le cours.
+        \item 	Trouver une écriture compacte qui n'avait pas été vue.
+        \item 	En fouillant « à vue d'\oe il» dans les données
+              \begin{enumalph}
+                  \item 	Combien y a-t-il de livres ?
+                  \item 	Combien y a t-il d'auteurs ?
+                  \item 	Où voit-on clairement qu'un auteur a écrit 2 livres ?
+              \end{enumalph}
+    \end{enumerate}
+\end{exercice}
+\begin{exercice}[]
+    \begin{enumerate}
+        \item Voici le modèle relationnel de l'exercice \textbf{Hotel Reservation Client Chambre} du chapitre précédent :\\
+              
+              \textbf{Hotel}(\uline{nom\_hotel TEXT}, adresse TEXT)\\
+              
+              \textbf{Chambre}(\uline{num\_ch INTEGER}, prix INTEGER, \dashuline{nom\_hotel TEXT})\\
+              
+              \textbf{Client}(\uline{num\_client INTEGER}, nom\_client TEXT)\\
+              
+              
+              \textbf{Reservation}(\uline{num\_resa INTEGER}, date\_resa DATE,\dashuline{ num\_client INTEGER},\dashuline{ num\_chambre INTEGER})\\
+              
+              Écrire le script SQL qui crée cette BDD.
+        \item Insérer 3 valeurs de votre choix dans chaque table.
+    \end{enumerate}
+\end{exercice}
+\begin{exercice}[]
+    On considère une base de données qui ne contient aucune table.\\
+    Dire quelles erreurs produisent les séquences SQL suivantes (tout au moins ce qui n'est pas acceptable du point de vue du cours).
+    \begin{enumerate}
+        \item 	\begin{minted}{sql}
+    DROP TABLE Client;
+    CREATE TABLE Client
+    (
+        cid             INTEGER,
+        nom             TEXT,
+        prenom          TEXT,
+        points_fidelite INTEGER NOT NULL,
+            PRIMARY KEY (cid),
+        CHECK (points_fidelite >= 0)
+    );
+        \end{minted}
+        \item 	\begin{minted}{sql}
+    CREATE TABLE Client
+    (
+        cid             INTEGER PRIMARY KEY,
+        nom             TEXT,
+        prenom          TEXT,
+        points_fidelite INTEGER NOT NULL,
+        CHECK (points_fidelite >= 0)
+    );
+    CREATE TABLE Commande
+    (
+        cid  INTEGER PRIMARY KEY, -- variante plus rapide et valide
+        pid  INTEGER,
+        date TEXT NOT NULL,
+        FOREIGN KEY (cid) REFERENCES Client (cid),
+        FOREIGN KEY (pid) REFERENCES Client (pid)
+    );
+    CREATE TABLE Produit
+    (
+        pid  INTEGER PRIMARY KEY,
+        nom  TEXT,
+        prix REAL(10, 2) -- 10 chiffres max avant la virgule, 2 après
+    );
+    \end{minted}
+              
+        \item \begin{minted}{sql}
+    CREATE TABLE Client
+    (
+        cid             INTEGER PRIMARY KEY,
+        nom             TEXT,
+        prenom          TEXT,
+        points_fidelite INTEGER NOT NULL,
+        CHECK (points_fidelite >= 0)
+    );
+    CREATE TABLE Produit
+    (
+        pid  INTEGER PRIMARY KEY,
+        nom  TEXT,
+        prix REAL(10, 2)
+    );
+    CREATE TABLE Commande
+    (
+        cid  TEXT REFERENCES Client (cid),
+        nomp  INTEGER REFERENCES Produit (nom),
+        date TEXT NOT NULL,
+        PRIMARY KEY (cid, pid)
+    );
+    \end{minted}
+              
+        \item	\begin{minted}{sql}
+    CREATE TABLE Client
+    (
+        cid             INTEGER PRIMARY KEY,
+        nom             TEXT,
+        prenom          TEXT,
+        points_fidelite INTEGER NOT NULL,
+        CHECK (points_fidelite >= 0)
+    );
+    CREATE TABLE Produit
+    (
+        pid  INTEGER PRIMARY KEY,
+        nom  TEXT,
+        prix REAL(10, 2)
+    );
+    CREATE TABLE Commande
+    (
+        cid  INTEGER,
+        pid  INTEGER,
+        date TEXT NOT NULL,
+        PRIMARY KEY (cid, nomp),
+        FOREIGN KEY (cid) REFERENCES Client (cid),
+        FOREIGN KEY (pid) REFERENCES Produit (pid)
+    );
+    
+    INSERT INTO Commande VALUES(0, 0, '2020-03-02')
+    \end{minted}
+    \end{enumerate}
+\end{exercice}
+
+
+\begin{exercice}
+    Liste les différents attributs de cette
+    relation. Donne le domaine de chaque
+    attribut. Pour chaque attribut dire s'il peut jouer ou non le rôle de clef primaire et pourquoi.
+    \begin{center}
+        \textbf{Film}\\[1em]
+        \tabstyle[UGLiOrange]
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \ccell id & \ccell titre                & \ccell ealisateur & \ccell ann\_sortie & \ccell note\_sur\_10 \\
+            \hline
+            1         & Alien, le huitième passager & Scott             & 1979               & 10                   \\
+            2         & Dune                        & Lynch             & 1985               & 5                    \\
+            3         & 2001 : l'Odysée de l'Espace & Kubrick           & 1968               & 9                    \\
+            4         & Blade Runner                & Scott             & 1982               & 10                   \\
+            \hline
+        \end{tabular}\\[2em]
+    \end{center}
+    
+\end{exercice}
+
+\begin{exercice}
+
+    Indique les attributs qui peuvent servir de lien entre ces deux relations.
+    
+    \begin{center}
+        \textbf{Auteur}\\[1em]
+        \tabstyle[UGLiOrange]
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \ccell id & \ccell nom & \ccell prenom & \ccell ann\_naiss & \ccell langue\_ecriture \\
+            \hline
+            1         & Orwell     & George        & 1903              & anglais                 \\
+            2         & Herbert    & Frank         & 1920              & anglais                 \\
+            3         & Asimov     & Isaac         & 1920              & anglais                 \\
+            4         & Barjavel   & René          & 1911              & français                \\
+            5         & Verne      & Jules         & 1828              & français                \\
+            ...       & ...        & ...           & ...               & ...                     \\
+            \hline
+        \end{tabular}\\[2em]
+    \end{center}
+    
+    \begin{center}
+        \textbf{Livre}\\[1em]
+        
+        \begin{tabular}{|c|c|c|c|c|}
+            \ccell id & \ccell titre          & \ccell id\_auteur & \ccell ann\_publi & \ccell note \\
+            \hline
+            ...       & ...                   & ...               & ...               & ...         \\
+            34        & La nuit des temps     & 4                 & 1968              & 7           \\
+            35        & De la Terre à la Lune & 5                 & 1865              & 10          \\
+            36        & Les Robots            & 6                 & 1950              & 9           \\
+            ...       & ...                   & ...               & ...               & ...         \\
+            \hline
+        \end{tabular}\\[2em]
+    \end{center}
+\end{exercice}
+
+\begin{exercice}
+    \begin{enumerate}
+        \item 	En partant de la relation \textbf{Film} ci-dessus, crée
+              une relation \textbf{Realisateur} (attributs de la
+              relation: \texttt{id}, \texttt{nom}, \texttt{prenom} et
+              \texttt{ann\_naissance}, tu trouveras toutes les
+              informations nécessaires sur le Web).
+              Modifie ensuite la relation \textbf{Film} afin d'établir
+              un lien entre les relations \textbf{Film} et
+              \textbf{Realisateur}. Tu préciseras l'attribut qui
+              jouera le rôle de clef étrangère.
+              
+        \item 	\'Ecris le code \textsc{SQL} permettant de générer les 2 tables.
+        \item   \'Ecris le code \textsc{SQL} pour insérer les films et les réalisateurs correspondants.
+    \end{enumerate}
+\end{exercice}

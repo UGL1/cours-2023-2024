@@ -1,0 +1,159 @@
+\documentclass[a4paper,12pt,french]{book}
+\usepackage[margin=2cm]{geometry}
+\usepackage[thinfonts]{uglix2}
+
+\setminted{fontsize=\small}\nouveaustyle
+\begin{document}
+\titre{BDD partie 4 - Corrigé}{NSI2}{2022} 
+
+
+\textbf{Exploration de la base}\\	
+
+En explorant la structure de la base de données, répondez aux questions suivantes :
+
+\begin{enumerate}
+	\item 	Combien de tables possède la base de données ? 
+            \begin{corrige}
+            La BDD possèdes 2 table : \texttt{Departement} et \texttt{Ville}.
+            \end{corrige}
+	\item 	Pour la table \textbf{Departement}
+	\begin{enumerate}[\bfseries a.]
+		\item 	Identifiez le type de chaque attribut.
+		\item 	Quelle est la clé primaire ?	
+	\end{enumerate}	
+            \begin{corrige}
+            \texttt{idDepartement} est un entier, c'est la clé primaire. \texttt{numero} et \texttt{nom} sont des chaines de caractères.
+            \end{corrige}
+	\item Pour la table \textbf{Ville}
+		\begin{enumerate}[\bfseries a.]
+		\item 	Identifiez le type de chaque attribut.
+		\item 	Quelle est la clé primaire ?
+		\item 	Quelle est la clé étrangère et quel attribut référence-t-elle ?	
+	\end{enumerate}	
+    \begin{corrige}
+    \texttt{idVille} est un entier et c'est la clé primaire. \texttt{nom} est une chaine de caractères, \texttt{codePostal}, \texttt{nbHabitants} et \texttt{idDepartement} sont des entiers et ce dernier attribut est une clé étrangère faisant référence à l'attribut \texttt{idDepartement} de la table précédente.
+    \end{corrige}
+	\item 	 Réalisez un schéma relationnel de cette base de données, sous la forme graphique, en précisant pour chaque attribut son type et s’il doit impérativement être rempli.
+    \begin{corrige}
+    Désolé je n'ai pas eu le courage. Demain je demanderai des schémas sous forme de lignes.
+    \end{corrige}
+\end{enumerate}
+
+
+\textbf{Collecte des informations}\\
+
+La base \textbf{Collectivites} est vide. Il faut la remplir. Pour cela, en vous aidant de Wikipedia, complétez les tableaux suivants.
+C'est à vous de remplir comme bon vous semble les colonnes idCommune et idDepartement.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	\rowcolor{UGLiOrange}\color{white} idCommune &\color{white}	\textbf{Commune} & \color{white}\textbf{Code postal} & \color{white}\textbf{Département} &\color{white} \textbf{Nombre d'habitants} \\
+	\hline\color{black}
+	&Rouen &  &  &  \\
+	\hline
+	&Dieppe &  &  &  \\
+	\hline
+	&Envermeu &  &  &  \\
+	\hline
+	&Le Neubourg &  &  &  \\
+	\hline
+	&Igoville &  &  &  \\
+	\hline
+\end{tabular}\\[1em]
+
+\begin{tabular}{|c|c|c|}
+	\hline
+\rowcolor{UGLiOrange}\color{white} idDepartement &\color{white}	\textbf{Département} & \color{white}\textbf{Code d'immatriculation} \\
+	\hline
+	&Seine-Maritime  & \\
+	\hline
+	&Eure&  \\
+\hline
+	&Calvados&  \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\textbf{Exploitation des informations}\\
+
+En utilisant l’onglet « Exécuter le SQL», indiquez le code SQL permettant de répondre aux consignes suivantes :\\
+\begin{enumerate}
+	\setcounter{enumi}{4}
+	\item 	Insérez le département de Seine-Maritime.
+            \begin{sql}
+INSERT INTO Departement VALUES (1, '76', 'Seine-Maritime');
+            \end{sql}
+	\item 	Insérez la commune de Rouen.
+\begin{sql}
+INSERT INTO Ville VALUES (1, 'Rouen', 76000, 110145, 1);
+\end{sql}
+	\item 	Faîtes de même, en une seule requête, avec les communes de Dieppe et d’Envermeu.
+	\item 	Insérez la commune d’Igoville.
+	\item 	Insérez la commune du Neubourg.	\\
+\end{enumerate}
+\begin{corrige}
+C'est pareil...
+\end{corrige}
+En recherchant éventuellement les informations manquantes, indiquez le code SQL permettant de répondre aux consignes suivantes :\\
+\begin{enumerate}
+		\setcounter{enumi}{9}
+	\item 	Trouville, Mézidon-Canon et Crèvecoeur-en-Auge sont des villes du Calvados.
+    \begin{sql}
+INSERT INTO Ville VALUES 
+(6,'Trouville', 14360, 4628, 3),
+(7,'Mézidon-Canon', 14270, 4838, 3),
+(8,'Crèvecoeur-en-Auge', 14340, 480, 3);    
+\end{sql}
+	\item 	Le vrai nom de Trouville est en fait Trouville-Sur-Mer.	
+\begin{sql}
+UPDATE Ville
+SET nom = 'Trouville-Sur-Mer'
+WHERE nom = 'Trouville';
+\end{sql}
+	\item 	Médizon-Canon et Crèvecoeur-en-Auge n’existent plus. Elles ont fusionné pour donner une nouvelle commune : Mézidon-Vallée-d’Auge.\\
+\begin{sql}
+DELETE FROM Ville
+WHERE nom = 'Médizon-Canon' OR nom = 'Crèvecoeur-en-Auge';
+INSERT INTO Ville VALUES 
+(9,'Mézidon-Vallée-d’Auge', 14431, 9 712, 3),
+
+\end{sql}
+\end{enumerate}
+\textbf{Vérification des données}\\
+
+En trouvant les requêtes SQL adéquates, répondez aux questions suivantes.
+
+\begin{enumerate}
+	\setcounter{enumi}{12}
+\item  Combien il y a-t-il de départements différents enregistrés dans la base ? (réponse : 3)
+\begin{sql}
+SELECT COUNT(*) from Departement
+\end{sql}
+\item Combien il y a-t-il de communes différentes enregistrées dans la base ? (réponse : 7)
+\begin{sql}
+SELECT COUNT(*) from Ville
+\end{sql}
+\item Combien il y a-t-il de communes dans l’Eure enregistrées dans la base ?
+\begin{sql}
+SELECT COUNT(*) from Ville
+    JOIN Departement ON Ville.idDepartement = Departement.idDepartement
+    WHERE Departement.nom = 'Eure';
+\end{sql}
+
+\item  Combien il y a-t-il de communes en Seine-Maritime enregistrées dans la base ? 
+\begin{corrige}
+C'est pareil...
+\end{corrige}
+\item Combien il y a-t-il de communes dans le Calvados enregistrées dans la base ? 
+\begin{corrige}
+C'est pareil...
+\end{corrige}
+\end{enumerate}
+
+
+
+
+
+
+\end{document}

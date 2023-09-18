@@ -1,0 +1,126 @@
+\documentclass[a4paper,12pt,french]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[thinfonts]{uglix2}
+<<<<<<< Updated upstream:NSI2/022-Programmation fonctionnelle/PF-exos.tex
+<<<<<<< Updated upstream:NSI2/022-Programmation fonctionnelle/exos.tex
+\pagestyle{empty}
+=======
+>>>>>>> Stashed changes:NSI2/022-Programmation fonctionnelle/PF-exos.tex
+=======
+>>>>>>> Stashed changes:NSI2/022-Programmation fonctionnelle/exos.tex
+\begin{document}
+\titre{Programmation fonctionnelle}{NSI2}{02/2023}
+
+\begin{exercice}[ : appliquer une fonction à une liste]
+	\'Ecrire une fonction \mintinline{python}{apply} qui
+\begin{enumerate}[--]
+	\item 	en entrée prend une fonction \mintinline{python}{f(x : float) -> float} et \mintinline{python}{lst} une liste de \mintinline{python}{float};
+	\item 	renvoie la liste dont les éléments sont les images des éléments de \mintinline{python}{lst} par \mintinline{python}{f}, dans le même ordre.
+\end{enumerate}
+\textbf{Exemple d'utilisation :}
+\begin{minted}{python}
+def f(x):
+    return 2 * x + 1
+
+
+print(apply(f, [1, 2, 3]))  # [3, 5, 7]
+\end{minted}
+
+\end{exercice}
+
+\begin{exercice}[ : vérification d'une propriété]
+	On considère une fonction \mintinline{python}{p} qui
+	\begin{enumerate}[--]
+		\item 	en entrée prend un \mintinline{python}{int x};
+		\item 	en sortie renvoie \mintinline{python}{True} ou \mintinline{python}{False} selon que \mintinline{python}{x} vérifie ou non une certaine propriété (être pair, être premier, être compris entre 1 et 100, \textit{et c\ae tera).})
+	\end{enumerate}
+	\'Ecrire une fonction \mintinline{python}{verify} qui
+\begin{enumerate}[--]
+	\item 	en entrée prend \mintinline{python}{p} une fonction comme spécifié plus haut et \texttt{l} une liste d'\mintinline{python}{int};
+	\item 	en sortie renvoie
+		\begin{enumerate}[--]
+			\item 	le premier élément \mintinline{python}{x} de \mintinline{python}{l} tel que \mintinline{python}{p(x)} vaut \mintinline{python}{True} s'il y en a un;
+			\item 	\mintinline{python}{None} s'il n'y en a pas.	
+		\end{enumerate} 
+\end{enumerate}
+\textbf{Exemple d'utilisation :}
+\begin{minted}{python}
+def p(x: int) -> bool:
+    return x % 10 == 2
+
+
+print(verify(p, [1, 3, 293, 202, 14])) # renvoie 202
+\end{minted}
+\end{exercice}
+
+\begin{exercice}[ : équation réduite de droite]
+	\'Ecrire une fonction \mintinline{python}{affine_function2} qui 
+\begin{enumerate}[--]
+	\item 	en entrée prend quatre \mintinline{python}{float xA, yA, xB, yB} qui sont les coordonnées de deux points $A$ et $B$ dans un repère du plan;
+	\item 	en sortie renvoie 
+	\begin{enumerate}[--]
+		\item 	\mintinline{python}{None} si \mintinline{python}{xA} et \mintinline{python}{xB} sont égaux ;
+		\item 	la fonction affine dont la représentation graphique est la droite $(AB)$ sinon.
+	\end{enumerate}
+\end{enumerate}
+\textbf{Exemple d'utilisation :}
+\begin{minted}{python}
+f = affine_function2(0, 2, 1, 5)  # points sur y = 3 * x + 2
+print(f(4))  # 14
+\end{minted}
+\end{exercice}
+
+\begin{exercice}[ : composée de deux fonctions]
+	\'Ecrire une fonction \mintinline{python}{compose} qui 
+\begin{enumerate}[--]
+	\item 	en entrée prend deux fonctions \mintinline{python}{f} et \mintinline{python}{g} qui représentent deux fonctions de $\R$ dans $\R$;
+	\item 	en sortie renvoie la fonction qui correspond à l'enchaînement de \mintinline{python}{g} puis de \mintinline{python}{f}, c'est à dire à la fonction qui à tout \mintinline{python}{float x}  associe \mintinline{python}{f(g(x)))}.
+\end{enumerate}
+\textbf{Exemple d'utilisation :}
+\begin{minted}{python}
+def u(x):
+    return x + 1
+
+
+def v(x):
+    return 2 * x
+
+
+w = compose(u, v)  # w(x) = u(v(x)) = u(2x) = 2x + 1
+
+print(w(4))  # 2*4 + 1 = 9
+\end{minted}
+
+\end{exercice}
+
+\begin{exercice}[]
+	\'Ecrire une fonction \mintinline{python}{evaluate_with_delay} qui 
+	\begin{enumerate}[--]
+		\item 	en entrée prend fonction \mintinline{python}{f(x : float )-> float}, un \mintinline{python}{int n} et un \texttt{float d}; 
+		\item 	en sortie affiche les résultats \mintinline{python}{f(0)}, \mintinline{python}{f(1)}, ..., \mintinline{python}{f(n-1)} en faisant une pause de \mintinline{python}{d} millisecondes entre chaque affichage.
+	\end{enumerate}
+On pourra utiliser la fonction \mintinline{python}{sleep} du module \mintinline{python}{time} de \textsc{Python} : \mintinline{python}{sleep(t : float)} met le programme en pause pendant \mintinline{python}{t} secondes.\\
+\textbf{Exemple d'utilisation :}
+\begin{minted}{python}
+evaluate_with_delay(lambda x: x * 2, 10, 1000) 
+# affiche 0 2 4 6 8 10 12 14 16 18  seconde par seconde
+\end{minted}
+\end{exercice}
+
+\begin{exercice}[ : mesurer le temps d'exécution d'une fonction]
+	\'Ecrire une fonction \mintinline{python}{get_execution_time} qui
+\begin{enumerate}[--]
+	\item 	en entrée prend une fonction \mintinline{python}{f(x : int)} et un \mintinline{python}{int x};
+	\item 	en sortie renvoie le temps nécessaire à l'exécution (évaluation) de \mintinline{python}{f(x)} en millisecondes.
+\end{enumerate}
+On pourra utiliser la la fonction \mintinline{python}{perf_counter} du module \mintinline{python}{time} qui indique combien de millisecondes se sont écoulées depuis le lancement d'un programme \textsc{Python}.\\
+
+
+\textbf{Exemple d'utilisation :}
+\begin{minted}{python}
+duration = get_execution_time(sum_first_int, 10**8)
+print(f"Duration : {duration} milliseconds.")
+# affiche Duration : 5.8542724999999995 milliseconds.
+\end{minted}
+\end{exercice}
+\end{document}

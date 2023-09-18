@@ -1,0 +1,45 @@
+\documentclass[a4paper,12pt,eval]{nsi}
+\pagestyle{empty}
+\titre{Interrogation 01}
+\classe{NSI2}
+\begin{document}
+\maketitle
+
+
+\question Explique \textit{brièvement} (la réponse doit rentrer dans le cadre) et sans donner d'exemple ce qu'est une fonction récursive.\bareme{2pts}\\
+
+% une fonction récursive peut renvoyer un résultat dans un cas d'arrêt, sinon elle s'appelle elle-même une ou plusieurs fois avec un de ses paramètres qui devient plus petit. Une pile d'appels est utilisée
+\carreauxseyes{16.8}{6.4}\\
+
+\question \'Ecris ici une version \textsc{Python} de la fonction récursive \pythoninline{fibo} qui
+\begin{itemize}
+	\item 	en entrée prend un entier positif \pythoninline{n};
+	\item 	en sortie renvoie la valeur de $F_n$ définie par $$F_n=\begin{cases}
+		1 & \mbox{si } n=0\mbox{ ou }n=1\\
+		F_{n-1}+F_{n-2} &\mbox{sinon}
+	\end{cases}$$
+    \bareme{2pts}
+\end{itemize}
+
+\carreauxseyes{16.8}{6.4}\\
+
+\question Voici une première fonction récursive :
+\inputminted{python}{scripts/mystere1.py}
+Calcule \pythoninline{mystery1(0)},  \pythoninline{mystery1(1)} et \pythoninline{mystery1(2)}. \bareme{1pt}\\
+
+\carreauxseyes{16.8}{11.2}\\
+
+Explique ce que fait cette fonction.\bareme{2pts}\\
+
+\carreauxseyes{16.8}{4}\\
+\newpage
+\question En voici une deuxième :
+\inputminted{python}{scripts/mystere2.py}
+Explique ce que renvoient \pythoninline{mystery2([1])} et \pythoninline{mystery2([7, 3, 5])}.\bareme{1pt}\\
+
+\carreauxseyes{16.8}{9.6}\\
+
+Explique ce que fait cette fonction.\bareme{2pts}\\
+
+\carreauxseyes{16.8}{3.2}
+\end{document}

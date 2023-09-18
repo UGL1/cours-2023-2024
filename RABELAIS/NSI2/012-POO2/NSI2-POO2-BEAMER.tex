@@ -1,0 +1,146 @@
+\documentclass[10pt]{nsibeamer}
+
+\title{Programmation Objet - 2\eme partie}
+\subtitle{Chapitre 10}
+\author{NSI2}
+
+\begin{document}
+\maketitle
+\section{Les bonnes pratiques d'encapsulation}
+
+\begin{frame}[fragile]{Définition de la classe}
+	\inputminted{python}{scripts/classe1.py}
+	Cette classe modélise une personne avec un âge, un prénom (\textit{name}) et un nom de famille \textit{surname}.
+\end{frame}
+
+\begin{frame}[fragile]{Utilisation de la classe}
+
+\begin{minted}{python}
+>>> p = person(30,'Louise','Dupont')
+>>> print(p.surname) # pour afficher le nom de la dame
+Dupont
+>>> p.surname = 'Durant' # madame s'est mariée
+\end{minted}
+\end{frame}
+\begin{frame}{Problème}
+	Cela fonctionne très bien mais va à l'encontre des règles d'encapsulation et de modularité : on ne devrait pas pouvoir modifier \alert{directement} l'attribut \texttt{surname} d'une instance.
+\end{frame}
+\begin{frame}{Solution}
+On va donc créer des attributs privés commençant par «\texttt{\_}» et pour chacun d'entre eux 
+\begin{enumerate}[--]
+	\item 	une méthode appelée \alert{accesseur} (getter en Anglais) qui permet d'accéder à la valeur de l'attribut;
+	\item 	une méthode appelée \alert{mutateur} (setter en Anglais) pour changer la valeur de l'attribut.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]{Code Python}
+\inputminted[fontsize=\scriptsize]{python}{scripts/classe2.py}
+\end{frame}
+\begin{frame}{Pourquoi c'est mieux}
+Du point de vue de l'\alert{encapsulation} : les attributs de l'objet restent cachés mais on peut les voir et les modifier \textit{via} des méthodes.\\
+
+Du point de vue de la \alert{modularité} : si on veut changer les attributs (ou autre chose, pour une raison ou une autre) dans la classe \texttt{Person}, on peut garder les \textit{getters} et les \textit{setters}.
+
+
+\begin{block}{Remarque}
+		Les \textit{getters} et les \textit{setters} font partie de l'interface d'une classe.
+\end{block}	
+\end{frame}
+\begin{frame}[fragile]{Utilisation}
+
+\begin{minted}{python}
+>>> p = person(30,'Louise','Dupont')
+>>> print(p.get_surname()) # pour afficher le nom de la dame
+Dupont
+>>> p.set_surname('Durant') # madame s'est mariée
+\end{minted}
+\end{frame}
+\section{Les autres méthodes dunder de Python}
+\begin{frame}{La méthode \texttt{\_\_str\_\_}}
+	On a déjà vu cette méthode, il y en a d'autres.
+\end{frame}
+\begin{frame}[fragile]{La méthode \texttt{\_\_equ\_\_}}
+	
+Ce morceau de code nous navre :
+	
+\begin{minted}{python}
+>>> p1 = Person(10,'Tom','Dupont')
+>>> p2 = Person(10,'Tom','Dupont')
+>>> print(p1==p2)
+False
+\end{minted}
+C'est parce que deux instances différentes d'une même classe sont stockées à des endroits différents de la mémoire, comme on peut le voir ainsi :
+\begin{minted}{python}
+>>> print(id(p1))
+140411289495248
+>>> print(id(p2))
+140411291729200
+\end{minted}
+\end{frame}
+\begin{frame}[fragile]{solution}
+On peut redéfinir la méthode \mintinline{python}{__eq__} de la classe \texttt{Person} :
+\begin{minted}{python}
+def __eq__(self, other):
+    return self._age == other._age 
+           and self._name == other._name 
+           and self._surname == other._surname
+\end{minted}
+Et ainsi
+\begin{minted}{python}
+>>> print(p1==p2)
+True
+\end{minted}
+Ouf, tout rentre dans l'ordre !
+\end{frame}
+\begin{frame}[fragile]{Remarque}
+	La méthode \mintinline{python}{__eq__} prend évidemment \texttt{self} en paramètre, et un deuxième appelé \texttt{other} qui est censé être la deuxième instance de la classe \texttt{Person} avec laquelle on veut comparer la première.
+
+\end{frame}
+\begin{frame}{Dunders de conteneurs}
+\inputminted[fontsize=\scriptsize]{python}{scripts/examplegetitem.py}
+\end{frame}
+\begin{frame}{Explications}
+L'exemple précédent permet de simuler une mémoire à 10 cases, vides au départ mais que l'on peut remplir comme on veut. Ce qui est intéressant c'est que l'objet garde en mémoire le nombre de fois où une case a été changée. \texttt{len} donne le nombre de cases \textit{non vides} et quand on itère sur l'objet on n'itère que sur ses cases non-vides.
+\end{frame}
+\begin{frame}[fragile]{Utilisation}
+\begin{minted}{python}
+>>> a = MyList()
+>>> len(a)
+0
+>>> a[1]=2
+>>> a[3]=4
+>>> len(a)
+2
+>>> for x in a:
+>>> ...     print(x)
+>>> ...
+2
+4
+\end{minted}
+\end{frame}
+\begin{frame}{D'autres dunders utiles}
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline\rowcolor{UGLiBlue!50!black}
+        \color{white}\textbf{Dunder}&\color{white}\textbf{opérateur} \\
+        \hline
+        \mintinline{python}{__lt__(self, other)}  &< \\\hline
+        \mintinline{python}{__le__(self, other)} & <= \\\hline
+        
+        \mintinline{python}{__ne__(self, other)} &!= \\\hline
+        \mintinline{python}{__gt__(self, other)} &>\\\hline
+        \mintinline{python}{__ge__(self, other)} &>=\\\hline
+        \mintinline{python}{__add__(self, other)} &+\\\hline
+        \mintinline{python}{__sub__(self, other)} & –  \\\hline
+        \mintinline{python}{__mul__(self, other)} &* \\\hline
+        \mintinline{python}{__truediv__(self, other)} & / \\\hline
+        \mintinline{python}{__floordiv__(self, other)} &//\\\hline
+    \end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}{Exemple et surcharge}
+Lorsqu'on implémente \mintinline{python}{__add__} pour une classe, alors on peut écrire \mintinline{python}{c = a + b}, pour \mintinline{python}{a} et \mintinline{python}{b} instances de cette classe.
+\begin{block}{Définition}
+    Lorsqu'on attribue un sens supplémentaire à un opérateur pour une nouvelle classe, on dit qu'on \alert{surcharge} cet opérateur. Les dunders précédents servent donc à surcharger.
+\end{block}
+\end{frame}
+\end{document}

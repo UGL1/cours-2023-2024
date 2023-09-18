@@ -1,0 +1,255 @@
+\documentclass[a4paper,10pt,cours,firamath]{nsi}
+\setcounter{chapter}{7}
+\begin{document}
+\chapter{POO - partie 1}
+\introduction{La POO c'est la classe !}
+
+
+\begin{aretenir}
+    \begin{itemize}
+        \item     Pour représenter des  entités qui ont des caractéristiques et des fonctionnalités communes, on fabrique  une \textit{classe} qui décrit le modèle général que suit une entité;
+        \item     chaque entité qu'on crée suivant la classe s'appelle \textit{une instance} de cette classe, c'est un \textit{objet} qui a ses propres \textit{membres} :
+              \begin{itemize}
+                  \item     ses variables, appelées \textit{attributs};
+                  \item     ses propres fonctions, appelées \textit{méthodes}.
+              \end{itemize}
+        \item     la classe elle même peut avoir ses propres attributs et méthodes;
+        \item     les objets peuvent interagir entre eux, avec la classe et « avec l'extérieur».
+    \end{itemize}
+    
+\end{aretenir}
+
+La \textit{programmation orientée objet} (ou programmation objet, ou POO) est un \textit{paradigme de programmation} qui pousse un peu plus loin la notion de modularité et d'encapsulation que nous avons déjà vue. 
+
+\section{Un exemple simple et complet}
+
+\subsection{Pourquoi concevoir un objet ?}
+On imagine qu'on veut représenter une liste de rectangles, chacun ayant ses propres dimensions. On peut les représenter par une liste de listes :
+\begin{pyc}
+    rectangles=[
+    [3, 4], 
+    [5, 6], 
+    [7, 8]
+    ]
+\end{pyc}
+Ce n'est pas très parlant. 
+Supposons maintenant qu'on veuille calculer la surface d'un rectangle. Avec des listes on écrira
+\begin{pyc}
+    def area(rect : list)-> float :
+    return rect[0]*rect[1]
+\end{pyc}
+Ça marche, mais comme écrit précédemment, ce n'est pas très élégant et si on utilise cette méthode pour des structures plus complexes qu'un simple rectangle dans des programmes longs, on risque fort de finir par se tromper.\\
+
+On peut alors se dire qu'on va utiliser une liste de dictionnaires :
+\begin{pyc}
+    rectangles=[
+    {'width' : 3, 'height' : 4}, 
+    {'width' : 5, 'height' : 6}, 
+    {'width' : 7, 'height' : 8}
+    ]
+\end{pyc}
+
+C'est encore assez encombrant même si c'est mieux. Autant passer le cap et définir un objet.
+\subsection{Créons la classe}
+
+\begin{pyc}
+    \begin{minted}{python}
+    class Rectangle:
+    
+    def __init__(self, w: float, h: float):
+    self.width = w
+    self.height = h
+    \end{minted}
+\end{pyc}
+
+On a donc défini une \textit{classe} \mintinline{python}{Rectangle} (les noms de classe commencent par des majuscules) à l'intérieur de laquelle on a défini la \textit{méthode} \mintinline{python}{__init__}.\\
+
+\begin{definition}[ : classe, membres, methodes, attributs]
+    Une \textit{classe} est un ensemble de membres.\\
+    Un \textit{membre} peut être une méthode ou un attribut.\\
+    Une \textit{méthode} est une fonction.
+    Un \textit{attribut} est une variable ou une constante.
+\end{definition}
+
+Cette méthode \mintinline{python}{__init__} est spéciale, comme sa forme le laisse penser. En \textsc{Python} les méthodes spéciales sont entourées de 2 "\_" de part et d'autre. Ces « doubles tirets bas » se disent \textit{double underscore} en Anglais et on abrège souvent en \textit{dunder}. \mintinline{python}{__init__} peut donc se lire/dire \textit{dunder init}.\\
+Cette méthode s'appelle le constructeur.
+\begin{definition}[ : constructeur]
+    Un constructeur est une méthode qui crée et renvoie un \textit{objet}. On dit que cet objet est \textit{une instance de la classe}.
+\end{definition}
+
+Dans le code de \mintinline{python}{__init__}, on remarque que le premier paramètre s'appelle \mintinline{python}{self} : il fait référence à l'objet que la méthode crée.\\
+À partir de 2 \mintinline{python}{float}, ce constructeur instancie un objet de la classe \mintinline{python}{Rectangle}. Cet objet possède 2 attributs : \mintinline{python}{width} et \mintinline{python}{height}. Voici comment on s'en sert :
+
+\begin{pyc}
+    \begin{minted}{python}
+>>> r1 = Rectangle(3,4)
+>>> r1.width
+3
+>>> r1.height
+4
+>>>  r2 = Rectangle(5,6)
+>>> r2.width
+5
+>>> r2.height
+6
+        \end{minted}
+\end{pyc}
+On a crée 2 objets différents, chacun d'eux possède \textit{les mêmes attributs} mais avec \textit{des valeurs différentes}.
+
+\subsection{Créons des méthodes}
+
+On veut pouvoir calculer le périmètre et l'aire d'un rectangle, donc, toujours à l'intérieur de la classe, on définit les méthodes suivantes :
+
+\begin{pyc}
+    def perimeter(self):
+    return (self.width + self.height) * 2
+    
+    def area(self):
+    return self.width * self.height
+\end{pyc}
+
+
+On peut maintenant les utiliser 
+
+\begin{pyc}
+    \begin{minted}{python}
+>>> r1.perimeter()
+14
+>>> r1.area()
+>>> 12
+    \end{minted}
+\end{pyc}
+\begin{remarque}[]
+    Il faut bien noter qu'on écrit \mintinline{python}{r.perimeter()} \textit{avec des parenthèses}, pour évaluer le résultat de cette méthode . Sans parenthèses, on fait référence à la méthode elle-même.\\
+\end{remarque}
+D'ailleurs certaines méthodes requièrent un ou plusieurs paramètres, comme par exemple celle-ci :
+
+\begin{pyc}
+    \begin{minted}{python}
+    def rescale_by_factor(self, f: float):
+        self.width *= f
+        self.height *= f
+    \end{minted}
+\end{pyc}
+Cette méthode sert à redimensionner le rectangle. Il faut remarquer que quand une méthode s'applique à une instance de la classe, alors son premier paramètre \textit{doit impérativement} être \mintinline{python}{self}.
+
+\begin{pyc}
+    \begin{minted}{python}
+>>> r1.rescale_by_factor(10)
+>>> r1.width
+30
+>>> r1.height
+40
+        \end{minted}
+\end{pyc}
+
+\subsection{Différence entre classe et instance}
+
+\begin{definition}[s]
+    \begin{itemize}
+        \item     Un \textit{attribut d'instance} est une variable attachée à chaque instance de la classe. Deux instances différentes peuvent donc très bien présenter des valeurs différentes pour cet attribut.\\
+              Un \textit{attribut de classe} est une variable qui n'est pas directement liée aux instances de la classe mais à la classe elle-même.
+        \item     De la même manière on distingue les \textit{méthodes d'instances} des \textit{ méthodes de classe} : on peut dire qu'une méthode d'instance prend cette instance en paramètre (c'est ce fameux \mintinline{python}{self}) alors qu'une méthode de classe non.
+    \end{itemize}
+\end{definition}
+
+Redéfinissons la classe \mintinline{python}{Rectangle} (on garde les mêmes méthodes d'instance \mintinline{python}{area} et \mintinline{python}{perimeter}) pour qu'elle garde une trace des objets créés.
+
+\begin{pyc}
+    \begin{minted}{python}
+    class Rectangle:
+        rectangle_list = []
+    
+    @staticmethod
+    def rectangles_count() -> int:
+        return len(Rectangle.rectangle_list)
+    
+    def __init__(self, w: float, h: float):
+        self.width = w
+        self.height = h
+        Rectangle.rectangle_list.append(self)
+        \end{minted}
+\end{pyc}
+
+\begin{itemize}
+    \item     On a ajouté un attribut de classe \mintinline{python}{rectangle_list}. Ce nom d'attribut est valable à l'intérieur de définition la classe, mais partout ailleurs, y compris dans les méthodes d'instances, on devra l'appeler \mintinline{python}{Rectangle.rectangle_list}.
+    \item     On a ajouté une méthode statique, comme on peut le voir à l'aide du \textit{décorateur}\\ \mintinline{python}{@staticmethod} (un décorateur c'est une notion assez compliquée que l'on verra peut-être plus tard).\\
+          Elle est dite \textit{statique} car ne prend aucun paramètre en entrée. Elle renvoie simplement la longueur de la liste \mintinline{python}{Rectangle.rectangle_list}.
+    \item    Enfin à l'intérieur du constructeur \mintinline{python}{__init__} on rajoute l'objet créé \mintinline{python}{self} à la liste\\ \mintinline{python}{Rectangle.rectangle_list}. Pour ce dernier point on peut se demander comment on peut ajouter un objet en train d'être créé, et qui va sans doute être modifié plus tard, à la liste. La réponse est que \mintinline{python}{self} est une référence, pas une valeur, tout comme pour les listes.
+\end{itemize}
+\section{Exercices}
+
+\begin{exercice}[ : angles]
+    Créer une classe \mintinline{python}{Angle}:
+    \begin{itemize}
+        \item     une instance de cette classe contient un unique attribut appelé \mintinline{python}{mesure}, qui est un \mintinline{python}{float} compris entre 0 inclus et 360 exclu;
+        \item     le constructeur \mintinline{python}{__init__} prend en paramètre un \mintinline{python}{float} mais doit s'arranger pour que \mintinline{python}{mesure} reste bien entre 0 et 360;
+        \item     implémenter une méthode \mintinline{python}{affiche} : par exemple \mintinline{python}{a.affiche()} doit afficher \mintinline{python}{angle de 60 degrés};
+        \item    implémenter une méthode \mintinline{python}{ajoute} qui prend en paramètre une autre instance de la classe \mintinline{python}{Angle} et renvoie un angle dont la mesure est la somme des deux angles. Par exemple si \mintinline{python}{a} et \mintinline{python}{b} sont deux angles de mesures 200 et 300, alors \mintinline{python}{a.ajoute(b)} doit renvoyer un angle de mesure 140.
+        \item     implémenter les méthodes \mintinline{python}{cos} et \mintinline{python}{sin} à l'aide des fonctions du module \mintinline{python}{math}. Attention, ceux-ci fonctionnent en radian donc pour convertir les degrés en radians il faut multiplier par $\frac{\pi}{180}$.
+    \end{itemize}
+\end{exercice}
+
+\begin{exercice}[ : Domeeno's Pizza]
+    \begin{center}
+        \includegraphics[width=4cm]{img/domeeno}
+    \end{center}
+    Bravo à toi, tu viens d'obtenir un stage chez Domeeno's Pizza ! 
+    
+    \begin{enumerate}
+        \item     Tu dois écrire une classe \mintinline{python}{Pizza} :
+              \begin{itemize}
+                  \item     le constructeur permet de créer une pizza « vide»;
+                  \item     les attributs d'une instance sont :
+                        \begin{itemize}
+                            \item     la taille : M, L ou XL;
+                            \item     la pâte : classique, fine, pan ou mozza crust pour une M, pan ou fine pour L, fine pour XL;
+                            \item     la sauce de base : BBQ, tomate ou crème;
+                            \item     un maximum de 6 ingrédients parmi la liste ci-dessous
+                        \end{itemize}
+                        Tous ces attributs seront initialisés à \mintinline{python}{None} par le constructeur;
+                  \item pour composer la pizza on pourra créer les méthodes suivantes :
+                        \begin{itemize}
+                            \item     \mintinline{python}{select_size} pour la taille;
+                            \item     \mintinline{python}{select_dough} pour la pâte;
+                            \item     \mintinline{python}{add_ingredient} pour ajouter un ingrédient;
+                            \item     \mintinline{python}{remove_ingredient} pour en enlever un;
+                        \end{itemize}
+                  \item quand la pizza est prête   on appelera \mintinline{python}{get_price} pour obtenir son prix;
+              \end{itemize}
+              Pour les ingrédients et leur prix, le plus sage est de créer un dictionnaire dans la classe \mintinline{python}{Pizza} (un peu comme la variable \mintinline{python}{rectangle_list} du cours.)
+              \begin{center}
+                  \tabstyle[UGLiOrange]
+                  \begin{tabular}{|c|>{\centering\arraybackslash}m{1.3cm}|}              
+                      \ccell Article    & \ccell Prix \\
+                      \hline
+                      taille M          & 7,99        \\
+                      \hline
+                      taille L          & 7,99        \\\hline
+                      taille XL         & 16,50       \\\hline
+                      mozza crust       & 2,90        \\\hline
+                      pan               & 1,50        \\\hline
+                      base crème        & gratuit     \\\hline
+                      base BBQ          & gratuit     \\\hline
+                      base tomate       & gratuit     \\\hline
+                      ananas            & 1,30        \\\hline
+                      bacon             & 2,00        \\\hline
+                      boulettes b\oe uf & 1,80        \\\hline
+                      champignons       & 1,30        \\\hline
+                      mozzarella        & 2,00        \\\hline
+                      oignons           & 1,00        \\\hline
+                      poivrons          & 1,50        \\\hline
+                      piments           & 1,00        \\\hline
+                      
+                      
+                      \hline
+                  \end{tabular}
+              \end{center}
+        \item     Implémenter une méthode de classe \mintinline{python}{order} qui prend en paramètre une pizza et
+              \begin{itemize}
+                  \item     stocke cette instance dans une variable de classe de type liste;
+                  \item     ajoute son prix à une variable de classe \mintinline{python}{total_income}.
+              \end{itemize}
+    \end{enumerate}
+\end{exercice}
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass[a4paper,12pt,french]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[thinfonts]{uglix2}
+\nouveaustyle
+
+\begin{document}
+\titre{Listes - Exercices}{NSI2}{2021}
+
+\begin{exercice}
+Ouvrir le fichier \texttt{LinkedList\_stump.py} (\textit{stump} veut dire moignon en anglais) et regarder en détail l'implémentation de la structure de liste chaînée vue en cours.\\
+Pour l'utiliser inclure \mintinline{python}{from LinkedList_stump import LinkedList} dans votre code.
+    \'Ecrire une fonction \mintinline{python}{liste_N} qui
+    \begin{enumerate}[--]
+        \item en entrée prend un \mintinline{python}{int} n;
+        \item renvoie la liste chaînée composée des éléments 1, 2, ..., n.
+    \end{enumerate}
+\end{exercice}
+\begin{exercice}[ : Terminer l'implémentation objet]
+Le fichier \texttt{LinkedList\_stump.py}  est incomplet. Tu vas devoir le compléter. Une fois ceci fait tu pourras lui donner le nom \texttt{LinkedList.py}.
+\begin{enumerate}
+    \item À quoi sert la méthode \mintinline{python}{__getitem__} ?
+    \item En s'inspirant de la méthode précédente, écrire la méthode \mintinline{python}{find}.
+    \item Coder la méthode \mintinline{python}{extend} qui
+          \begin{enumerate}[--]
+              \item en entrée prend une deuxième liste chaînée;
+              \item ajoute tous les éléments de cette liste à la première, dans l'ordre
+          \end{enumerate}
+            Par exemple, si \mintinline{python}{L} vaut \texttt{<1, 2, 4>} et si \mintinline{python}{L2} vaut \texttt{<6, 5>} alors \mintinline{python}{L.extend(L2)} vaut \texttt{<1, 2, 4, 6, 5>}.
+     \item Coder la méthode \mintinline{python}{__eq__} qui
+     \begin{enumerate}[--]
+         \item en entrée prend une seconde liste chaînée;
+         \item renvoie \mintinline{python}{True} si les deux listes ont les mêmes éléments aux mêmes places et \mintinline{python}{False} sinon.
+     \end{enumerate}
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[ : Algorithmes récursifs]
+\'Ecrire un script \texttt{recursive\_functions.py} qui importe \texttt{LinkedList.py} et
+\begin{enumerate}
+    \item \'Ecrire la fonction \mintinline{python}{recursive_length} qui
+    \begin{enumerate}[--]
+        \item en entrée prend une liste chainée;
+        \item en sortie renvoie un \mintinline{python}{int} qui est sa longueur en procédant de manière récursive.
+    \end{enumerate}
+    \item \'Ecrire la fonction \mintinline{python}{recursive_find} qui
+    \begin{enumerate}[--]
+    \item en entrée prend une liste chainée et un élément;
+    \item en sortie renvoie un \mintinline{python}{int} qui est la position de l'élément s'il figure dans la liste, et -1 sinon.\\
+            Cette fonction procède récursivement.
+\end{enumerate}
+\textbf{Conseil :} Pour chacune de ces fonctions, écrire une sous-fonction récursive qui procède sur des données de type \mintinline{python}{Cell} et qui sera appelée par la fonction principale.
+\end{enumerate}
+\end{exercice}
+\end{document}

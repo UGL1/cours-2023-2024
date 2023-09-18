@@ -1,0 +1,805 @@
+\chapter{Matrices}
+\section{Notion de matrice}
+\begin{definition}[ : matrice]
+	Une matrice $A$ peut être vue comme « un tableau de nombres ».\\
+	Supposons qu'elle comporte n lignes et p colonnes (n et p sont des entiers plus grands que 1), on la note ainsi
+	$$A = \begin{matrice}
+			a_{11}      & a_{12}&\cdots & a_{1p} \\
+			a_{21}  & a_{22}& \cdots & a_{2p} \\
+			\vdots 	& \vdots & \ddots & \vdots \\
+			a_{n1}  & a_{n2}    & \cdots & a_{np}
+		\end{matrice}$$
+	L'élément qui se situe à la i\eme ligne et à la j\eme colonne est noté $a_{ij}$. On l'appelle également \textit{coefficient}.\\
+	
+	\textbf{Attention} : les indices des lignes et des colonnes commencent à 1 (et non à zéro comme dans la plupart des langages informatiques).\\
+	
+	Pour résumer l'écriture précédente on écrit
+	$$A=(a_{ij})_{\substack{1\leqslant i\leqslant n\\1\leqslant j\leqslant p}}$$
+	
+	On dit aussi que $A$ est une matrice $n\times p$. Si $n=p$ on dit que $A$ est une \textit{matrice carrée d'ordre $n$}.
+\end{definition}
+
+\begin{exemple}[s]
+	\begin{itemize}
+		\item 	$B =	\begin{matrice}
+				      1      & 2 & 4 \\
+				      -3  & 5 & 0
+			      \end{matrice}$ est une matrice à 2 lignes et 3 colonnes. On a $b_{21}=-3$.
+		\item 	$C =	\begin{matrice}
+				      2,4      & 7 & 4 & -1 \\
+				      -3  & 5 & 10,1 & 1 \\
+				      0,01 & 3 & 12 & 100
+			      \end{matrice}$ est une matrice à 3 lignes et 4 colonnes. On a $c_{33}=12$.
+		\item 	$D =	\begin{matrice}
+				      4      & 2\\
+				      2  &8
+			      \end{matrice}$ est une matrice carrée d'ordre 2.
+		      
+		      
+	\end{itemize}
+\end{exemple}
+
+\begin{exercice}[]
+	On considère 	$E =	\begin{matrice}
+			-4      & 7,6 & 4 & -1 & 12 \\
+			8 & -3  & 5,7 & 101 & 1 \\
+			12 & 0,01 & 3 & 12 & 1
+		\end{matrice}$.\\
+	
+	Donne les valeurs de $e_{12}$, $e_{21}$, $e_{35}$ et $e_{24}$.
+\end{exercice}
+
+Le script \textsc{Python} suivant permet de générer une matrice $n\times p$ avec des coefficients entiers aléatoires compris entre -100 et 100.
+
+\begin{pyc}
+	\begin{minted}{python}
+		from random import randint
+
+		n = int(input("Entrez le nombre de lignes : "))
+		p = int(input("Entrez le nombre de colonnes : "))
+
+		matrice = []  # une matrice est une liste de lignes
+
+		for i in range(n):  # il y a n lignes
+			ligne = []  # on construit une ligne vide
+			for j in range(p):  # il y a p colonnes
+				ligne.append(randint(-100, 100))  # on remplit la ligne aléatoirement
+			matrice.append(ligne)  # on ajoute la ligne à la liste de lignes
+	\end{minted}
+\end{pyc}
+\begin{exercice}[]
+	\begin{enumerate}
+		\item \'Ecris complètement la matrice suivante : $M=(m_{ij})_{\substack{1\leqslant i\leqslant 3\\1\leqslant j\leqslant 5}}$ où $m_{ij}=i$ si i=j et 0 sinon.
+		\item 	\'Ecris complètement la matrice suivante : $M=(m_{ij})_{\substack{1\leqslant i\leqslant 4\\1\leqslant j\leqslant 5}}$ où $m_{ij}=0$ si i<j et 1 sinon.
+		\item 	\'Ecris complètement la matrice suivante : $M=(m_{ij})_{\substack{1\leqslant i\leqslant 3\\1\leqslant j\leqslant 3}}$ où $m_{ij}=1$ si $i+j$ est pair et 0 sinon.
+		\item \textsc{bonus} : écris des programmes \textsc{Python} qui génèrent ces matrices.
+	\end{enumerate}
+\end{exercice}
+
+\begin{definition}[s : Matrices nulles et identités]
+	\begin{itemize}
+		\item 	Une matrice dont tous les coefficients sont nuls est dite \textit{nulle} (c'est « un tableau de zéros »);
+		\item 	la matrice \textit{carrée d'ordre $n$} dont tous les éléments sont nuls sauf ceux de la \textit{diagonale} (c'est-à-dire ceux qui s'écrivent $a_{ii})$ qui valent 1 s'appelle \textit{la matrice identité d'ordre $n$} et se note $I_n$.
+	\end{itemize}
+\end{definition}
+
+\begin{exemple}[]
+	La matrice identité $I_3$ est
+	$I_3= \begin{matrice}
+			1&0&0\\
+			0&1&0\\
+			0&0&1
+		\end{matrice}$.
+\end{exemple}
+
+\section{Opérations sur les matrices}
+
+\begin{definition}[ : addition]
+	Soient $A$ et $B$ deux matrices $n\times p$, on note $A+B$ la matrice $n\times p$ obtenu en ajoutant les coefficients correspondants de $A$ et de $B$ :
+	
+	$$\begin{matrice}
+			a_{11}      & \cdots & a_{1p} \\
+			
+			\vdots 	& \ddots & \vdots \\
+			a_{n1}      & \cdots & a_{np}
+		\end{matrice} +\begin{matrice}
+			b_{11}      & \cdots & b_{1p} \\
+			
+			\vdots 	& \ddots & \vdots \\
+			b_{n1}      & \cdots & b_{np}
+		\end{matrice}=
+		\begin{matrice}
+			a_{11} +b_{11}     & \cdots & a_{1p}+b_{1p} \\
+			
+			\vdots 	& \ddots & \vdots \\
+			a_{n1}+n_{n1}      & \cdots & a_{np}+b_{np}
+		\end{matrice}$$
+\end{definition}
+
+\begin{exemple}[]
+	Prenons $A = \begin{matrice}
+			3&1\\
+			4&7\\
+			-2&8
+		\end{matrice}$ et $B = \begin{matrice}
+			2&5\\
+			1&-3\\
+			-5&9
+		\end{matrice}$, alors $A+B=\begin{matrice}
+			5&6\\5&4\\-7&17
+		\end{matrice}$.\end{exemple}
+\begin{remarque}[]
+	\textbf{Attention :} on ne peut ajouter deux matrices que si elles ont les mêmes dimensions (c'est-à-dire même nombre de lignes et même nombre de colonnes).
+\end{remarque}
+\begin{definition}[ : multiplication par un réel]
+	Soient $A$ une matrice $n\times p$ et $k$ un nombre réel, on note $kA$ la matrice $n\times p$ obtenue en multipliant chaque coefficient de $A$ par $k$ :
+	
+	$$k\begin{matrice}
+			a_{11}      & \cdots & a_{1p} \\
+			\vdots 	& \ddots & \vdots \\
+			a_{n1}      & \cdots & a_{np}
+		\end{matrice}=\begin{matrice}
+			k\times a_{11}      & \cdots & k\times a_{1p} \\
+			\vdots 	& \ddots & \vdots \\
+			k\times a_{n1}      & \cdots &k\times a_{np}
+		\end{matrice}
+	$$
+\end{definition}
+
+\begin{exemple}[]
+	Prenons $A = \begin{matrice}
+			8&3&1\\
+			4&7&2\\
+			-2&1&8
+		\end{matrice}$ et $k=5$, alors on obtient que $5A = \begin{matrice}
+			40&15&5\\
+			20&35&10\\
+			-10&5&40
+		\end{matrice}$.\end{exemple}
+
+
+La propriété suivante énonce quelques résultats utiles pour calculer.
+\begin{propriete}[ : règles de calcul]
+	Soient $A$, $B$ et $C$ trois matrices de mêmes dimensions et $k$ et $k'$ 2 réels.
+	\begin{itemize}
+		\item 	$A+B = B+A$
+		\item 	$(A+B)+C = A+(B+C)$
+		\item 	$k(A+B) = kA + kB$
+		\item 	$(k+k')A = kA+k'A$
+	\end{itemize}
+\end{propriete}
+
+\begin{exercice}[]
+	On pose $A=\begin{matrice}
+			1&2\\3&-4
+		\end{matrice}$, $B=\begin{matrice}
+			11&10\\-9&7
+		\end{matrice}$ et $C=\begin{matrice}
+			-3&-2\\5&-5
+		\end{matrice}$.\\
+	
+	Montrer que $B-2A+3C$ est une matrice nulle.
+\end{exercice}
+
+\begin{definition}[ : multiplication de deux matrices]
+	
+	Soient $A$ une matrice $n\times p$ et $B$ une matrice $p\times q$ (le nombre de colonnes de la 1\ere est égal au nombre de lignes de la 2\eme) alors il est possible de définir la matrice $C=A\times B$, produit de $A$ par $B$.\\
+	C'est une matrice $n\times q$ dont les coefficients sont ainsi :
+	\begin{center}
+		\begin{tabular}{cc}
+			                                                                                                                                    & $\begin{matrice}
+					                                                                                                                                       b_{11}   &\cdots   &\cellcolor{lightgray!50}\color{UGLiOrange}b_{1j}& \cdots & a_{1q} \\
+					                                                                                                                                       \vdots 	& \ddots &\cellcolor{lightgray!50}\color{UGLiOrange}\cdots&\dots & \vdots \\
+					                                                                                                                                       b_{k1} & \cdots & \cellcolor{lightgray!50}\color{UGLiOrange}b_{kj}&\cdots & b_{kq}\\
+					                                                                                                                                       \vdots 	& \cdots &\cellcolor{lightgray!50}\color{UGLiOrange}\cdots&\ddots & \vdots \\
+					                                                                                                                                       b_{p1}    &\cdots  &\cellcolor{lightgray!50}\color{UGLiOrange}b_{pj} & \cdots &b_{pq}
+				                                                                                                                                       \end{matrice}$ \\
+			
+			$\begin{matrice}
+					 a_{11}   &\cdots   &\cdots& \cdots & a_{1p} \\
+					 \vdots 	& \ddots &\cdots&\dots & \vdots \\
+					 \rowcolor{lightgray!50} \color{UGLiGreen}    a_{i1} & \color{UGLiGreen}\cdots &\color{UGLiGreen} a_{ik}&\color{UGLiGreen}\cdots & \color{UGLiGreen}a_{ip}\\
+					 \rowcolor{white}\vdots 	& \cdots &\cdots&\ddots & \vdots \\
+					 a_{n1}    &\cdots  & \cdots & \cdots &a_{np}
+				 \end{matrice}$ & 
+			$\begin{matrice}
+					 c_{11}   &\cdots   &\cdots& \cdots & c_{1q} \\
+					 \vdots 	& \ddots &\cdots&\dots & \vdots \\
+					 \vdots & \cdots &\cellcolor{lightgray!50} \color{UGLiRed}c_{ij}&\cdots & \vdots\\
+					 \vdots 	& \cdots &\cdots&\ddots & \vdots \\
+					 c_{n1}    &\cdots  & \cdots & \cdots &c_{nq}
+				 \end{matrice}$
+		\end{tabular}
+	\end{center}
+	{\LARGE$$ {\color{UGLiRed}c_{ij}} = {\color{UGLiGreen}a_{i1}}\times {\color{UGLiOrange}b_{1j}}+ {\color{UGLiGreen}a_{i2}}\times {\color{UGLiOrange}b_{2j}}+\ldots+ {\color{UGLiGreen}a_{ip}}\times {\color{UGLiOrange}b_{pj}}$$}
+\end{definition}
+
+\begin{exemple}[]
+	
+	Prenons $A=\begin{matrice}
+			1&3 & -2 \\5 &-3&4
+		\end{matrice}$ et $B=\begin{matrice}
+			-5 & 1 & 0 & 2\\2& 1 & -1 & -8\\3 &4 & 0 & 9
+		\end{matrice}$ alors $A$ est une matrice $2\times 3$, $B$ est une matrice $3\times 4$ donc il est possible de définir la matrice $C=A\times B$, ce sera une matrice $2\times 4$.
+	\begin{center}
+		\begin{tabular}{cc}
+			                                                                      & $\begin{matrice}
+					                                                                         -5 & 1 & \color{UGLiOrange}0 & 2\\2& 1 & \color{UGLiOrange}-1 & -8\\3 &4 & \color{UGLiOrange}0 & 9
+				                                                                         \end{matrice}$ \\
+			$\begin{matrice}
+					 1&3 & -2 \\\color{UGLiGreen}5 &\color{UGLiGreen}-3&\color{UGLiGreen}4
+				 \end{matrice}$ & $\begin{matrice}
+					                   -5&-4&-3&-40\\-19&18&\color{UGLiRed}3&70
+				                   \end{matrice}$
+		\end{tabular}
+	\end{center}
+	Par exemple, pour calculer $c_{33}$, on fait ${\color{UGLiGreen}5}\times {\color{UGLiOrange}0}+ {\color{UGLiGreen}(-3)}\times {\color{UGLiOrange}(-1)}+ {\color{UGLiGreen}4}\times {\color{UGLiOrange}0}={\color{red}3} $.
+\end{exemple}
+
+\begin{remarque}[]
+	\textbf{Attention :}
+	\begin{itemize}
+		\item 	on ne peut multiplier $A$ par $B$ que si le nombre de colonnes de $A$ est égal au nombre de lignes de $B$;
+		\item 	ce n'est pas parce qu'on peut calculer $A\times B$ qu'on peut calculer $B\times A$ : les matrices de l'exemple précédent ne permettent pas de calculer $B\times A$ car le nombre de colonnes de $B$ n'est pas égal au nombre de lignes de $A$:
+		      \begin{center}
+			      \begin{tabular}{cc}
+				                                                                                                         & $\begin{matrice}
+						                                                                                                            1&3 & -2 \\\color{UGLiGreen}5 &\color{UGLiGreen}-3&\color{UGLiGreen}4
+					                                                                                                            \end{matrice}$ \\
+				      $\begin{matrice}
+						       -5 & 1 & \color{UGLiOrange}0 & 2\\2& 1 & \color{UGLiOrange}-1 & -8\\3 &4 & \color{UGLiOrange}0 & 9
+					       \end{matrice}$ & Impossible
+			      \end{tabular}
+		      \end{center}
+		\item pour pouvoir calculer $A\times B$ et $B\times A$ il faut que ces deux matrices soient carrées d'ordre $n$ et \textit{en général} on n'a pas $A\times B=B\times A$.
+	\end{itemize}
+\end{remarque}
+
+\begin{exercice}[]
+	\begin{itemize}
+		\item 	On pose $A=\begin{matrice}
+				      1&2\\3&0
+			      \end{matrice}$ et $B=\begin{matrice}
+				      5&2\\0&3
+			      \end{matrice}$.\\
+		      
+		      Calculer $AB$ et $BA$.
+		      
+		\item 	Recommencer avec $A=\begin{matrice}
+				      -4&6\\-3&5
+			      \end{matrice}$ et $B=\begin{matrice}
+				      8&-10\\5&-7
+			      \end{matrice}$.
+	\end{itemize}
+\end{exercice}
+
+\begin{propriete}[s de calcul]
+	
+	$A$, $B$ et $C$ sont des matrices.\\
+	Lorsque les opérations sont possibles (bonnes dimensions des matrices) on a :
+	\begin{itemize}
+		\item 	$A(BC)=(AB)C$;
+		\item 	$(A+B)C=AC+BC$;
+		\item 	$A(B+C)=AB+AC$.\\
+	\end{itemize}
+	Soit $k$ un nombre réel alors on a également $A\times kB=kAB$.\\
+	
+	Si $A$ est \textit{carrée d'ordre} $n$ on a
+	\begin{itemize}
+		\item 	$AI_n=I_nA=A$ où $I_n$ est la matrice identité d'ordre $n$.
+		\item 	$A\times 0=0\times A=0$ en notant 0 la matrice carrée d'ordre $n$ nulle.
+	\end{itemize}
+\end{propriete}
+
+\section{Exemple concret d'utilisation}
+
+Imaginons une école qui forme des ingénieurs en informatique, avec seulement 3 matières.
+Trois élèves de première année ont obtenu les résultats suivants :
+
+\begin{center}
+	\textbf{Résultats pour le premier trimestre}\\[1em]
+	\tabstyle[UGLiBlue]
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\bcell   & \ccell Maths & \ccell Physique & \ccell Info \\
+		\hline
+		Adam     & 12           & 8               & 16          \\
+		\hline
+		Bertrand & 18           & 14              & 12          \\
+		\hline
+		Charles  & 5            & 20              & 15          \\
+		\hline
+	\end{tabular}\\
+	
+	\textbf{Résultats pour le deuxième trimestre}\\[1em]
+	
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\bcell   & \ccell Maths & \ccell Physique & \ccell Info \\
+		\hline
+		Adam     & 10           & 10              & 14          \\
+		\hline
+		Bertrand & 18           & 12              & 14          \\
+		\hline
+		Charles  & 7            & 14              & 17          \\
+		\hline
+	\end{tabular}
+\end{center}
+
+Ces deux tableaux peuvent s'écrire matriciellement
+$S_1= \begin{matrice}
+		12 & 8 & 16 \\
+		18 & 14 & 12 \\
+		5 & 20 & 15 \\
+	\end{matrice}$
+et $S_2= \begin{matrice}
+		10 & 10 & 14 \\
+		18 & 12 & 14 \\
+		7 & 14 & 17 \\
+	\end{matrice}$\\
+
+Pour calculer les moyennes mensuelles des élèves « en une fois » on peut définir $M=0,5(S_1+S_2)$:
+
+$$M = 0,5 \times \left[\begin{matrice}
+			12 & 8 & 16 \\
+			18 & 14 & 12 \\
+			5 & 20 & 15 \\
+		\end{matrice}+\begin{matrice}
+			10 & 10 & 14 \\
+			18 & 12 & 14 \\
+			7 & 14 & 17 \\
+		\end{matrice}\right]$$
+
+$$M = 0,5\times \begin{matrice}
+		22 & 18 & 30 \\
+		36 & 16 & 26 \\
+		12 & 34 & 32 \\
+	\end{matrice}$$
+
+$$M = \begin{matrice}
+		11 & 9 & 15 \\
+		18 & 8 & 13 \\
+		6 & 17 & 16 \\
+	\end{matrice}$$
+
+Le coefficient des mathématiques est 1, celui de la physique est 2 et celui de l'informatique est 5.\\
+Pour passer en deuxième année, il faut un total de points supérieur ou égal à 120.
+
+Pour faire « d'un coup » le total des points, on peut considérer la matrice de coefficients $C=\begin{matrice}
+		1\\2\\5
+	\end{matrice}$.\\
+
+Les points des élèves sont donnés par la matrice $$P=MC$$
+$$P = \begin{matrice}
+		11 & 9 & 15 \\
+		18 & 8 & 13 \\
+		6 & 17 & 16 \\
+	\end{matrice}\begin{matrice}
+		1\\2\\5
+	\end{matrice}$$
+
+$$P = \begin{matrice}
+		104\\109\\120\\
+	\end{matrice}$$
+
+Ainsi seul Charles est admis à passer en 2\eme année.
+
+\section{Matrices inversibles et systèmes}
+
+\begin{definition}[ et propriété : Matrice inversible, inverse d'une matrice]
+	Soit $A$ une matrice \textbf{carrée d'ordre $n$}. S'il existe une matrice $B$ d'ordre $n$ telle que
+	$$AB = I_n\qquad\text{ou}\qquad BA=I_n$$
+	
+	alors automatiquement les deux égalités sont vérifiées, $B$ est nécessairement \textit{unique} et on dit alors que $B$ \textit{est l'inverse de $A$}. De manière symétrique $A$ est également l'inverse de $B$ si bien qu'on dit que $A$ et $B$ sont inverses l'une de l'autre.
+	
+	On note ceci $A=B^{-1}$ ou, ce qui revient au même, $B=A^{-1}$.
+\end{definition}
+
+\begin{exemple}[]
+	$A=\begin{matrice}
+			-1&2\\-2&3
+		\end{matrice}$ et $B=\begin{matrice}
+			3&-2\\2&-1
+		\end{matrice}$ sont inverses l'une de l'autre :
+	\begin{center}
+		\begin{tabular}{cc}
+			 & $\begin{matrice}
+					    3&-2\\2&-1
+				    \end{matrice}$ \\
+			$\begin{matrice}
+					 -1&2\\-2&3
+				 \end{matrice}$
+			 & $\begin{matrice}
+					    1&0\\0&1
+				    \end{matrice}$
+		\end{tabular}
+	\end{center}
+\end{exemple}
+\begin{exercice}[]
+	Montrer que $A=\begin{matrice}
+			3 & -2&1\\
+			-2&2&-1\\
+			1&-1&1
+		\end{matrice}$ et
+	$B=\begin{matrice}
+			1& 1&0\\
+			1&2&1\\
+			0&1&2
+		\end{matrice}$ sont inverses.
+	
+\end{exercice}
+\begin{remarque}[]
+	Il existe des matrices non inversibles, par exemple $\begin{matrice}
+			1 & 2\\ 2 & 4
+		\end{matrice}$.
+\end{remarque}
+
+
+\newcolumntype{C}{>{{}}c<{{}}} % for columns with binary operators
+\renewcommand\vv{\multicolumn{1}{c}{\vdots}}
+\begin{methode}[ : résoudre des systèmes avec des matrices]
+	On considère un \textit{système de $n$ équations à $n$ inconnues} :
+	
+	$$\left\lbrace
+		\setlength{\arraycolsep}{0pt}
+		\begin{array}{c<{x_1} C c<{x_2} C c C c<{x_n} C l}
+			a_{11} & + & a_{12} & + & \cdots & + & a_{1n} & = & b_1    \\
+			a_{21} & + & a_{22} & + & \cdots & + & a_{2n} & = & b_2    \\
+			\vv    &   & \vv    &   &        &   & \vv    &   & \vdots \\
+			a_{n1} & + & a_{n2} & + & \cdots & + & a_{nn} & = & b_n    \\
+		\end{array}\right.$$
+	
+	On connaît tous les nombres $a_{ij}$ et tous les $b_i$, et on veut trouver les valeurs des inconnues $x_i$.\\
+	
+	Ce système peut se réécrire de manière matricielle :
+	
+	$$\begin{matrice}
+			a_{11}      & a_{12}&\cdots & a_{1n} \\
+			a_{21}  & a_{22}& \cdots & a_{2n} \\
+			\vdots 	& \vdots & \ddots & \vdots \\
+			a_{n1}  & a_{n2}    & \cdots & a_{nn}
+		\end{matrice}
+		\begin{matrice}
+			x_{1}       \\
+			x_2\\
+			\vdots \\
+			x_n
+		\end{matrice}
+		=\begin{matrice}
+			b_{1}       \\
+			b_2\\
+			\vdots \\
+			b_n
+		\end{matrice}$$
+	
+	Ou encore :
+	$$AX=B$$
+	
+	Si la matrice $A$ est inversible (en pratique ce sera toujours le cas parce qu'on nous donnera sa matrice inverse ou bien parce qu'on l'aura déterminée à l'aide de la calculatrice) alors, on peut reprendre l'égalité précédente et écrire : $A^{-1}AX=A^{-1}B$, ce qui donne $I_nX=A^{-1}B$. En définitive on a $$X = A^{-1}B$$
+	
+	Ainsi pour trouver les valeurs des inconnues $x_i$, on effectue simplement le produit matriciel $A^{-1}B$ : chacune de ses lignes nous donne la valeur du $x_i$ correspondant.
+\end{methode}
+
+\begin{remarque}[]
+	Pour savoir comment utiliser la calculatrice, regarder ici :
+	\begin{itemize}
+		\item 	modèles \textsc{CASIO} \texttt{https://youtu.be/yjvQx13Vhlk}
+		\item 	modèles \textsc{Texas Instrument} \texttt{https://youtu.be/rxDxBnIwaGo}
+	\end{itemize}
+\end{remarque}
+
+\begin{exemple}[]
+	On considère le système suivant : \systeme{2x+5y+2z=1,
+		5x-3y-2z=2,
+		-x+2y+z=-3}\\
+	
+	Il peut se réécrire de manière matricielle :
+	
+	$$\begin{matrice}
+			2 & 5 & 2 \\
+			5 & -3 & -2\\
+			-1 & 2 & 1
+		\end{matrice}
+		\begin{matrice}
+			x \\ y \\ z
+		\end{matrice}=
+		\begin{matrice}
+			1 \\ 2 \\ -3
+		\end{matrice}$$
+	
+	Appelons $A$ la matrice carrée du membre de gauche. On détermine que $A$ est inversible avec la calculatrice et que son inverse est
+	$$A^{-1}=\begin{matrice}
+			1 & -1 & -4 \\
+			-3 & 4 & 14\\
+			7 & -9 & -31
+		\end{matrice}$$
+	On a donc
+	
+	$$\begin{matrice}
+			x \\ y \\ z
+		\end{matrice}=\begin{matrice}
+			1 & -1 & -4 \\
+			-3 & 4 & 14\\
+			7 & -9 & -31
+		\end{matrice}\begin{matrice}
+			1 \\ 2 \\ -3
+		\end{matrice}$$
+	C'est à dire, en effectuant le produit dans le membre de droite
+	
+	$$\begin{matrice}
+			x \\ y \\ z
+		\end{matrice}=\begin{matrice}
+			11\\-37\\82
+		\end{matrice}$$
+	
+	On a donc résolu le système : \systeme{x=11,y=-37,z=82}
+\end{exemple}
+\begin{exercice}[]
+	\begin{enumerate}
+		\item 	Effectue le produit suivant : $\begin{matrice}
+				      1 & 2 \\ -3 & 3\end{matrice}\begin{matrice}x\\y\end{matrice}$.
+		\item 	\'A l'aide de la calculatrice détermine l'inverse de la matrice $\begin{matrice}
+				      1 & 2 \\ -3 & 3\end{matrice}$.
+		\item Résous le système suivant : \systeme{x+2y = 15,-3x+3y = -6}
+	\end{enumerate}
+\end{exercice}
+
+
+\section{Exercices}
+
+\begin{exercice}
+
+	Dans un parc d’une ville, deux marchands ambulants vendent des beignets,
+	des crêpes et des gaufres. On a noté les ventes de chacun pour samedi et dimanche derniers.
+	
+	\begin{center}
+		Marchand 1\\[1em]
+		\tabstyled
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\bcell   & \ccell beignets & \ccell crêpes & \ccell gaufres \\
+			\hline
+			samedi   & 20              & 36            & 12             \\
+			\hline
+			dimanche & 26              & 40            & 18             \\
+			\hline
+		\end{tabular}\ \\[2em]
+		
+		Marchand 2\\[1em]
+		
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\bcell   & \ccell beignets & \ccell crêpes & \ccell gaufres \\
+			\hline
+			samedi   & 30              & 40            & 22             \\
+			\hline
+			dimanche & 30              & 48            & 38             \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	
+	On peut retenir l’information donnée par un tableau en conservant uniquement les
+	nombres disposés de la même façon. On représente le 1er tableau par la matrice A :
+	$$A=\begin{matrice}
+			20&36&12\\
+			26&40&18
+		\end{matrice}$$
+	
+	\begin{enumerate}
+		\item 	Donner la matrice B représentant le deuxième tableau.
+		\item 	Que valent $a_{12}$, $a_{11}$, $a_{23}$ et $b_{11}$ ?
+		\item 	Calculer $A+B$ et donner la signification de la matrice.
+		\item 	Calculer $A-B$ et donner la signification de la matrice.
+		\item  	Samedi et dimanche prochains, weekend de fête, on prévoit que les ventes vont augmenter de 50\%.\\
+		      Par quel nombre k faut-il multiplier chacune des ventes du 1\er marchand ? \'Ecrire la matrice  kA.\\
+		      Donner la matrice kB correspondant aux ventes du 2\eme marchand.
+		\item 	Un beignet est vendu 2 euros, une crêpe 1 euro et une gaufre 1,50 euro.\\
+		      On note V la matrice des prix de vente
+		      $$V=\begin{matrice}
+				      2\\
+				      1\\
+				      1,5
+			      \end{matrice}$$
+		      Quelle opération matricielle donne le montant des ventes par jour pour le 1\er marchand ? Pour le 2\eme ?
+		\item 	 Les deux marchands travaillent pour le compte du même patron, qui leur demande	de calculer les coûts d’achats et les revenus pour chaque jour. Le coût d’achat d’un
+		      beignet est 0,40 euro, d’une crêpe 0,25 euro, d’une gaufre 0,30 euro. On note T la matrice donnant prix d’achat et prix de vente par catégorie
+		      $$T=\begin{matrice}
+				      0,4 & 2\\
+				      0,25 & 1\\
+				      0,3 & 1,5
+			      \end{matrice}$$
+		      Quelle opération matricielle permet le calcul des coûts d’achat et revenus par jour
+		      pour le 1\er marchand ?\\
+		      Calculer, de même, les coûts d’achats et les revenus par jour pour le 2\eme marchand
+		      puis, globalement, pour le patron.
+	\end{enumerate}
+\end{exercice}
+
+
+\begin{exercice}[]
+	$A=\begin{matrice}
+			1&0&-2\\
+			2&3&1
+		\end{matrice}$,
+	$B=\begin{matrice}
+			1&0&1\\
+			2&1&3\\
+			3&-1&-2
+		\end{matrice}$ et
+	$C=\begin{matrice}
+			3&0&-2&0\\
+			-2&1&1&1\\
+			1&-1&0&3
+		\end{matrice}$.\\
+	
+	\begin{enumerate}
+		\item 	Calculer $A\times B$, puis $(A\times B)\times C$.
+		\item 	Calculer $B\times C$, puis $A\times(B\times C)$.
+		\item   Pouvait-on prévoir ce résultat ?\\
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+	$A=\begin{matrice}
+			1&3\\
+			2&6
+		\end{matrice}$,
+	$B=\begin{matrice}
+			-3&-6\\
+			1&2
+		\end{matrice}$,
+	$C=\begin{matrice}
+			1&1&2\\
+			2&2&4\\
+			3&3&6
+		\end{matrice}$ et
+	$D=\begin{matrice}
+			1&2&-6\\
+			1&2&-6\\
+			1&-2&6
+		\end{matrice}$.
+	
+	\begin{enumerate}
+		\item 	Calculer le produit $A\times B$.
+		\item 	Calculer le produit $C\times D$.
+		\item  Que peut-on en conclure ?
+	\end{enumerate}
+	
+\end{exercice}
+
+
+\begin{exercice}[ ]
+	
+	$A=\begin{matrice}
+			1&1\\
+			0&1
+		\end{matrice}$.\\
+	
+	Calculer $A^5$.
+\end{exercice}
+
+\begin{exercice}[ : Calculs à la main]
+	
+	On considère les matrice $A=\begin{matrice}
+			-5&2\\
+			-3&1
+		\end{matrice}$ et $B=\begin{matrice}
+			1&-2\\
+			3&-5
+		\end{matrice}$.
+	
+	\begin{enumerate}
+		\item 	Montrer \textit{à la main} que A et B sont inverses.
+		\item 	On considère le système (S) suivant :
+		      $$\begin{cases}
+				      -5x+2y & =7 \\
+				      -3x+y  & =8
+			      \end{cases}$$
+		      
+		      Montrer que ce système peut se réécrire matriciellement $$AX=Y$$ et préciser $X$ et $Y$
+		\item 	En déduire \textit{à la main} les solutions du système (S).\\
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[ : À la calculatrice]
+	
+	On considère les matrice $A=\begin{matrice}
+			8&11&3\\
+			4&7&2\\
+			1&3&1\\
+		\end{matrice}$ et $B=\begin{matrice}
+			1&-2&1\\
+			-2&5&-4\\
+			5&-13&12
+		\end{matrice}$.
+	
+	\begin{enumerate}
+		\item 	Comment avec la calculatrice vérifie-t-on que A et B sont inverses ?
+		\item 	On considère le système (S) suivant :
+		      $$\begin{cases}
+				      8x+11y+3z & =1 \\
+				      4x+7y+2z  & =2 \\
+				      x+3y+z    & =3
+			      \end{cases}$$
+		      
+		      Montrer que ce système peut se réécrire matriciellement $$AX=Y$$ et préciser $X$ et $Y$
+		\item 	En déduire \textit{à la main} les solutions du système (S).\\
+	\end{enumerate}
+	
+\end{exercice}
+
+\begin{exercice}
+	À la papeterie:
+	\begin{itemize}
+		\item 	3 stylos, 2 cahiers et 4 gommes coûtent 6,30€;
+		\item 	5 stylos, 7 cahiers et 1 gomme coûtent 15€;
+		\item 	10 stylos, 1 cahier et 6 gommes coûtent 6€.
+	\end{itemize}
+	À l'aide de la calculatrice et en expliquant la démarche, déterminer le prix de chaque article.
+\end{exercice}
+
+\begin{exercice}[]
+	
+	Une société produit trois types de fibres optiques à partir de silice, forme naturelle du dioxyde de silicium (SiO$_2$) qui entre dans la composition de nombreux minéraux. Elle produit:
+	
+	\begin{itemize}
+		\item $x$ pièces du type A, dont le débit supporté vaut 1 gigabit par seconde;
+		\item $y$ pièces du type B, dont le débit supporté vaut 10 gigabits par seconde;
+		\item $z$ pièces du type C, dont le débit supporté vaut 100 gigabits par seconde.
+	\end{itemize}
+	
+	
+	Pour une pièce, la masse de silice utilisée et le temps de production de chacun de ces types de fibres sont récapitulés dans le tableau suivant.
+	
+	\begin{center}
+		\tabstyled
+		\begin{tabular}{c|c|c|c}
+			\hline
+			\ccell Type de fibre                        & A & B & C \\
+			\hline
+			\ccell Masse de silice en kg (par pièce)    & 3 & 4 & 7 \\
+			\hline
+			\ccell Temps de production en h (par pièce) & 2 & 3 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	La société modélise cette fabrication afin d'envisager différents scénarios sur une période donnée. Pour cette période, on note $N$ le nombre total de pièces produites, $S$ la masse totale en kg de silice utilisée et $H$ le temps total de production exprimé en heure.
+	
+	\begin{enumerate}
+		\item  Justifier le fait que $x$, $y$, $z$ vérifient le système
+		      $\left\lbrace
+			      \begin{array}{l !{=} l}
+				      x+y+z    & N \\
+				      3x+4y+7z & S \\
+				      2x+3y+5z & H
+			      \end{array}
+			      \right .$.
+		      
+		\item On considère les matrices colonnes
+		      $X= \begin{matrice} x \\ y \\ z \end{matrice}$ et
+		      $Y= \begin{matrice} N \\ S \\ H \end{matrice}$.
+		      Déterminer la matrice carrée $M$ qui traduit le système ci-dessus par l'équation matricielle $M\times X = Y$.
+		      
+		\item Calculer $Y$ lorsque
+		      $X= \begin{matrice} 20 \\ 10 \\ 30 \end{matrice}$.
+		      Interpréter les résultats obtenus dans le contexte de l'exercice.
+		      
+		\item On considère la matrice carrée
+		      $P=
+			      \begin{matrice}
+				      1 & 2 & -3 \\
+				      1 & -3 & 4 \\
+				      -1 & 1 & -1 \\
+			      \end{matrice}$.
+		      
+		      \begin{enumalph}
+			      \item Calculer le produit matriciel $P\times M$.
+			      \item Montrer que si $M\times X = Y$, alors $X = P\times Y$.
+			      \item Pour une période donnée, l'entreprise dispose de 94~kg de silice et de 67 heures de production. Elle souhaite fabriquer 21 pièces de fibres.
+			      
+			      Combien de pièces de chaque type peut-elle fabriquer?
+		      \end{enumalph}
+	\end{enumerate}
+\end{exercice}

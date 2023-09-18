@@ -1,0 +1,204 @@
+
+\chapter{\'Ecriture des « réels » }
+\introduction{Tout cela est-il bien réel ?}
+
+\section{\'Ecriture décimale et arrondi}
+On sait que tout nombre réel admet une écriture décimale :
+\begin{itemize}
+	\item 	« un et demi  »  s'écrit $\np{1,500000}$\ldots\ et on enlève les zéros inutiles, cela fait $1,5$.
+	\item 	«trois septièmes  »  s'écrit $\np{0,4285714285714285714285714}\ldots$ et pour insister sur le fait que le motif 428571
+	      se répète indéfiniment on écrit $0,\underline{\np{428571}}$.
+	\item 	$\pi$ a une écriture décimale qui commence par $\np{3,14159265359}$ mais son écriture décimale comporte une infinité de chiffres
+	      \textit{sans qu'aucun motif ne se répète}.
+\end{itemize}
+On est souvent amenés à \textit{arrondir} les nombres réels : soit le nombre n'est «pas très grand »  et on ne veut garder que quelques chiffres
+après la virgule, soit il est «plutôt grand »  et on ne veut garder que quelques chiffres significatifs :
+
+\begin{methode}[ 1]
+	On veut arrondir $\frac{3}{7}$ à $10^{-3}$ près, c'est-à-dire à 3 chiffres après la virgule.\\
+	Il y a trois possibilités :
+	\begin{itemize}
+		\item 	\textbf{Arrondi par défaut} : On «coupe »  après le troisième chiffre :\\
+		      $$\frac{3}{7}\approx 0,428\quad\textrm{à }10^{-3}\textrm{ près par défaut.}$$
+		\item 	\textbf{Arrondi par excès} : On «coupe »  après le troisième chiffre et on ajoute $10^{-3}$,
+		      c'est-à-dire un \textit{millième} :\\
+		      $$\frac{3}{7}\approx 0,429\quad\textrm{à }10^{-3}\textrm{ près par excès.}$$
+		\item 	\textbf{Arrondi au plus près} : On regarde le chiffre immédiatement après le troisième (celui qui correspond
+		      à $10^{-4}$). Si c'est 0,1,2,3 ou 4, on prend l'arrondi par défaut, si c'est 5,6,7,8 ou 9, on prend l'arrondi
+		      par excès.
+		      $$\frac{3}{7}\approx 0,429\quad\textrm{à }10^{-3}\textrm{ au plus proche.}$$
+	\end{itemize}
+\end{methode}
+
+\begin{exercice}[]
+	Utiliser la méthode 1 pour déterminer
+	\begin{enumerate}
+		\item 	L'arrondi de $\frac{13}{11}$ à $10^{-2}$ près par défaut
+		\item 	L'arrondi de $\sqrt{2}$ à $10^{-4}$ près par excès.
+		\item 	L'arrondi de $\frac{149}{999}$ à $10^{-3}$ au plus près.
+	\end{enumerate}
+\end{exercice}
+
+\begin{methode}[ 2]
+	On veut arrondir $\np{273692,291}$ à $10^{4}$, c'est à dire à la dizaine de milliers.\\
+	Là encore il y a trois possibilités. On commence par remarquer que le chiffre correspondant à $10^4$ est le 7.
+	\begin{itemize}
+		\item 	\textbf{Arrondi par défaut} : On remplace tous les chiffres à droite du 7 par des zéros. La partie décimale disparaît.
+		      $$ \np{273692,291}\approx \np{270000}\quad\textrm{à }10^{4}\textrm{ près par défaut.}$$
+		\item  	\textbf{Arrondi par défaut} : On prend l'arrondi par défaut et on ajoute $10^4$.
+		      $$ \np{273692,291}\approx \np{280000}\quad\textrm{à }10^{4}\textrm{ près par excès.}$$
+		\item 	\textbf{Arrondi au plus près} : On regarde le chiffre immédiatement après celui de $10^4$ (celui qui correspond
+		      à $10^{3}$). Si c'est 0,1,2,3 ou 4, on prend l'arrondi par défaut, si c'est 5,6,7,8 ou 9, on prend l'arrondi
+		      par excès.
+		      $$ \np{273692,291}\approx \np{270000}\quad\textrm{à }10^{4}\textrm{ au plus proche.}$$
+	\end{itemize}
+\end{methode}
+
+\begin{exercice}[]
+	Utiliser la méthode 2 pour déterminer
+	\begin{enumerate}
+		\item 	L'arrondi de $\np{38564526}$ à $10^3$ près par défaut
+		\item 	L'arrondi de $\np{281 564 526}$ à $10^8$ près par excès.
+		\item 	L'arrondi de $\np{9524}$ à $10^{3}$ au plus près.
+	\end{enumerate}
+\end{exercice}
+
+\section{\'Ecriture dyadique et arrondi}
+
+\subsection{\'Ecriture dyadique}
+Lorsqu'on écrit un nombre décimal tel que $\np{3,719}$, on a l'égalité suivante:
+$$\np{3,719}=3\times 10^0+7\times 10^{-1}+1\times 10^{-2}+9\times 10^{-3}$$
+Il est possible de faire la même chose en base 2 : on ajoute des puissances de 2 d'exposants négatifs.
+
+\begin{methode}[ : retrouver l'écriture décimale à partir d'une écriture dyadique]
+	On considère le nombre $n=(1010,011)_2$. Quelle est son écriture décimale ?
+	\begin{itemize}
+		\item 	Sa partie entière est $(1010)_2$, ce qui vaut 10.
+		\item 	Sa partie décimale est
+		      \begin{tabbing}
+			      $(0,011)_2$ \= $=2^{-2}+2^{-3}$\\
+			      \>  $=0,25+0,125$\\
+			      \>	$=0,375$
+		      \end{tabbing}
+	\end{itemize}
+	Ainsi $$n=10,375$$
+\end{methode}
+\begin{exercice}[]
+	Utiliser la méthode précédente pour déterminer les écriture décimales de
+	\begin{enumerate}
+		\item 	$(0,101)_2$
+		\item 	$(11,01)_2$
+		\item 	$(1111,1111)_2$
+	\end{enumerate}
+\end{exercice}
+
+\begin{methode}[ : construire un nombre dyadique]
+	On veut l'écriture du nombre $5,75$ en base 2. Pour la partie entière, c'est simple : $$5=(101)_2$$
+	Pour la partie décimale, on remarque que
+	\begin{tabbing}
+		$0,75$ \= $=0,5+0,25$\\
+		\> 	$=\frac{1}{2}$ +$\frac{1}{4}$\\
+		\>	$=2^{-1}+2^{-2}$\\
+	\end{tabbing}
+	Ainsi $$0,75 = (0,11)_2$$
+	Finalement $$5,75=(101,11)_2$$
+\end{methode}
+
+\begin{exercice}[]
+	Utiliser la méthode précédente pour déterminer les écriture dyadiques de
+	\begin{enumerate}
+		\item 	$3,25$
+		\item 	$12,625$
+		\item 	$7,8125$
+	\end{enumerate}
+\end{exercice}
+
+\begin{remarque}[]
+	Un nombre décimal n'a pas généralement une écriture dyadique «qui se termine » .\\
+	Par exemple 0,1 (qui est pourtant le nombre décimal le plus simple auquel on puisse penser) s'écrit
+	$$0,1 = (0,\ 0001\ 1001\ 1001\ \underline{1001} ...)_2$$
+\end{remarque}
+
+\subsection{Arrondi}
+
+Pour arrondir un nombre en base 2, on fait pareil qu'en base 10 :
+
+\begin{exemple}[s]
+	\begin{enumerate}
+		\item 	Arrondissons $n=(1101\ 1010)_2$ à $2^4$ au plus proche :\\
+		      L'arrondi par défaut est $(1101\ 0000)_2$ mais comme le bit juste à droite du bit de $2^4$ est un 1, il faut rajouter $2^4$ à
+		      notre valeur arrondie, pour avoir la valeur par excès qui, elle, est plus proche :
+		      \begin{center}
+			      \begin{tabular}{ccccccccc}
+				        &   &   & $_1$ &   &   &   &   &   \\
+				        & 1 & 1 & 0    & 1 & 0 & 0 & 0 & 0 \\
+				      + & 0 & 0 & 0    & 1 & 0 & 0 & 0 & 0 \\
+				      \hline
+				      = & 1 & 1 & 1    & 0 & 0 & 0 & 0 & 0 \\
+			      \end{tabular} \\[2em]
+
+			      Ainsi $n\approx (1110\ 0000)_2$ à $2^4$ au plus proche.
+		      \end{center}
+		\item 	Pour les nombres dyadiques, c'est la même chose. Arrondissons $m=(11,\ 0011\ 1001)_2$ à $2^{-5}$ au plus proche :\\
+		      Le bit de $2^{-6}$ est un 0, donc la bonne valeur arrondie est par défaut :
+		      $$m\approx(11,\ 0011\ 1)_2\textrm{ à }2^{-5}\textrm{ au plus proche.}$$
+	\end{enumerate}
+\end{exemple}
+
+\begin{remarque}
+	Quand on nous demande d'arrondir sans préciser, on convient que c'est au plus proche.
+\end{remarque}
+
+\begin{exercice}[]
+	Utiliser la méthode précédente pour déterminer
+	\begin{enumerate}
+		\item 	L'arrondi de $(1101\,1010)_2$ à $2^3$ près par défaut.
+		\item 	L'arrondi de $(1,1110\,101)_2$ à $2^{-3}$ près par excès.
+		\item 	L'arrondi de $(0,001)$ à $2^{-1}$ au plus proche.
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[]
+	Donner l'écriture décimale des nombres suivants\begin{enumerate}
+		\item 	$(101,1)_2$
+		\item 	$(1,011)_2$
+		\item 	$(0,1111\ 111)_2$ en remarquant que c'est «$(111\ 1111)_2$ divisé par $2^7$.
+	\end{enumerate}
+\end{exercice}
+\begin{exercice}[]
+	\'Ecrire en base 2 les nombres suivants :
+	\begin{enumerate}
+		\item 	3,5
+		\item 	7,75
+		\item 	27,625
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[]
+	\begin{enumerate}
+		\item 	Quel est l'arrondi de $(10,011)_2$ à $(0,1)_2$ près ?
+		\item 	Quel est l'arrondi de $(1 1011)_2$ à $(100)_2$ près ?
+		\item 	Quel est l'arrondi de $(0,0010 11)_2$ à $(0,0001)_2$ près ?
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[]
+	\begin{enumerate}
+		\item 	Quel est l'arrondi de $(11,0101)_2$ à $2^{-2}$ près ?
+		\item 	Quel est l'arrondi de $(1011 1011)_2$ à 32 près près ?
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[**]
+	On aimerait trouver l'écriture dyadique (illimitée) de $\dfrac{1}{3}$.
+	On note donc $$\dfrac{1}{3}=(0,a_1a_2a_3\ldots)_2$$
+	où $a_i$ vaut 1 ou 0.
+	\begin{enumerate}
+		\item 	Expliquer pourquoi $a_1$ vaut \textit{nécessairement 0}.
+		\item 	On note $x=\frac{1}{3}$. Montrer que $x$ vérifie $4x=1+x$.
+		\item 	Quelle est l'écriture dyadique de $4x$ ?
+		\item 	Quelle est celle de $1+x$ ?
+		\item 	En écrivant que ces 2 écritures représentent le même nombre, en déduire que $$\dfrac{1}{3}=(0,0101\ 0101\ldots )_2$$
+	\end{enumerate}
+\end{exercice}
+

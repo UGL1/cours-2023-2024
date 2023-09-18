@@ -1,0 +1,29 @@
+\documentclass[a4paper,12pt,french]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[thinfonts]{uglix2}
+\nouveaustyle
+
+\begin{document}
+\titre{Listes - Exercices supplémentaires}{NSI2}{2021}
+
+
+\begin{exercice}
+\'Ecrire une méthode \texttt{extrait\_inf} qui
+\begin{enumerate}[--]
+	\item 	prend en paramètre un entier \texttt{n};
+	\item 	extrait de la liste  toutes les cellules contenant des valeurs inférieures à l’entier n;
+    \item les cellules enlevées ne seront pas supprimées physiquement mais elles formeront une autre liste que méthode renverra.
+\end{enumerate}
+Par exemple, appliquée à la liste \texttt{< 5, 7, 2, 1, 9, 8, 10, 15, 4, 20 >} et à l’entier 6, la fonction doit construire et renvoyer la nouvelle liste \texttt{< 5, 2, 1, 4 >} et elle doit transformer la liste de départ en  \texttt{< 7, 9, 8, 10, 15, 20 >}.
+\end{exercice}
+
+
+
+\begin{exercice}
+Dans un nouveau fichier, implémenter la structure de liste doublement chaînée (aller voir sur Internet pour la définition).
+\end{exercice}
+
+\begin{exercice}
+Faire de même avec une liste doublement  chaînée circulaire.
+\end{exercice}
+\end{document}

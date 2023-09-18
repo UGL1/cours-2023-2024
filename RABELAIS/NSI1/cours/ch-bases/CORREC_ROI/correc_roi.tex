@@ -1,0 +1,54 @@
+\documentclass[12pt]{nsibeamer}
+
+\title{Correction}
+\subtitle{Le Roi et ses nains}
+\author{NSI2}
+
+\begin{document}
+	\maketitle
+
+\begin{frame}{Résultat préliminaire}
+    \pause
+    Chaque puissance de 2 est plus grande que la somme de toutes celles qui précèdent.\pause\\
+
+    Plus précisément :\pause
+
+    Soit $n\in\N$,\pause
+    $$2^{n+1} > 2^n + 2^{n-1}+\ldots + 2^1+2^0$$
+\end{frame}
+
+\begin{frame}{Preuve}
+    $2^{n+1} + 2^{n}+\ldots + 2^1+2^0$ s'écrit $ \left(\underbrace{1\ldots 1}_{n+1\textrm{ chiffres}}\right)_2$ en binaire.\\\pause
+    On a montré que cela vaut $2^{n+1}-1$ dans un exercice précédent.\\
+    Donc c'est bien plus petit que $2^n$.
+\end{frame}
+
+\begin{frame}[standout]
+    \Large
+    Ce résultat nous sert pour résoudre l'exercice.
+\end{frame}
+\begin{frame}{Solution}
+    \pause
+    Le roi dispose des nains, numérotés de 0 à 7.\\\pause
+    Il demande au nain numéro $n$ d'apporter $2^n$ pièces.\\\pause
+    Il pèse l'ensemble et regarde combien il manque de grammes par rapport à la somme.\\\pause
+
+    Soit $M$ ce nombre. On l'écrit en base 2.\pause
+
+    $$M = (b_7b_6b_5b_4b_3b_2b_1b_0)_2$$\pause
+
+    Les voleurs sont les nains dont le bit est à 1 !
+\end{frame}
+
+\begin{frame}{Preuve}
+    Si le nain 7 est voleur il manque au moins 128 grammes et $b_7$ est à 1.\\\pause
+    Réciproquement s'il manque au moins 128 grammes c'est que le bit $b_7$ est à 1 car même si tous les autres nains sont voleurs, il ne peuvent au total voler que $2^6+\ldots+2^0=127$ grammes. Donc le nain 7 est un voleur.\\\pause 
+    
+    Si c'est le cas on met le nain 7 au cachot et $M$ devient $M-128$.\\\pause
+\end{frame}
+\begin{frame}{Preuve}
+    Puis on recommence avec le nain 6 et 64 grammes.\\\pause
+
+    Et ainsi de suite. 
+\end{frame}
+\end{document}

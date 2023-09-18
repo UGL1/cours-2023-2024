@@ -1,0 +1,1 @@
+DELETE FROM Ecrire WHERE id_auteur = 1;

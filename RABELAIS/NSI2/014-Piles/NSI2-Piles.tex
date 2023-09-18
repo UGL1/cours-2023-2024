@@ -1,0 +1,149 @@
+\documentclass[10pt,cours,firamath,a4paper]{nsi}
+
+\begin{document}
+\chapter{Piles}
+\section{Principe}
+\picleft{0.5}{img/cours_stack}{On part d'une structure vide sur laquelle on peut empiler au fur et à mesure.\\
+
+Seul l'élément du sommet est immédiatement accessible.\\
+
+On peut dépiler, les dernières valeurs empilées sont les premières dépilées : on parle de LIFO (\textit{Last In First Out}).}
+
+\begin{encadrecolore}{Applications}{UGLiGreen}
+	\begin{itemize}
+		\item 	Lors de la navigation sur le web, on peut considérer que les liens sont sauvegardés sur une pile par le navigateur.
+		\item 	De même pour les logiciels qui utilisent la fonction \texttt{annuler} (le fameux \texttt{CTRL+Z}).
+		\item	Lors d'appels de fonctions, les états-mémoires sont sauvegardés sur une pile (notamment lors d'appels récursifs, on l'a déjà vu).
+		\item 	Des piles sont utilisées dans divers algorithmes, notamment pour parcourir un arbre « en profondeur ».
+		\item 	D'autres applications sont données en exercice.
+	\end{itemize}
+\end{encadrecolore}
+
+
+\subsection{Interface de la structure de données pile}
+
+Elle est très simple !
+\begin{encadrecolore}{Interface de la pile}{UGLiBlue}
+	\begin{itemize}
+		\item \textit{pile\_vide()} créée une pile vide ;
+		\item \textit{empiler(pile,valeur)} empile la valeur sur la pile ;
+		\item  \textit{depiler(pile)} renvoie la valeur sur la pile et l'enlève de la pile ;
+		\item \textit{est\_vide()} indique si la pile est vide on non ;
+	\end{itemize}
+\end{encadrecolore}
+\subsection{Implémentations de l'interface}
+\begin{itemize}
+	\item Simple liste python..
+	\item Liste encapsulée dans un objet.
+	\item Listes imbriquées (pour se compliquer la vie) :\\
+	      \begin{minted}{python}
+[]
+[1] # on a empilé 1
+[2, [1]] # puis 2
+[3, [2, [1]]] # puis 3
+...
+\end{minted}
+\end{itemize}
+
+\begin{encadrecolore}{Implémentation objet en Python}{UGLiPurple}
+\begin{minted}{python}
+class Stack:
+    def __init__(self):
+        """ Creates an empty stack """
+        self.content = []
+        
+    def is_empty(self) -> bool:
+        """ Indicates whether the stack's empty or not """
+        return self.content == []
+\end{minted}
+
+
+\begin{minted}{python}
+    def push(self, value):
+        """ Pushes the value on the top of the stack """
+        self.content.append(value)
+
+    def pop(self):
+        """ Retrieves the value from the top of the stack """
+        if self.is_empty():
+            raise IndexError('Stack Empty')
+        return self.content.pop()
+	\end{minted}
+\end{encadrecolore}
+
+\section{Exercices}
+
+\begin{exercice}[ : Implémentation objet]
+	\'Ecrire une classe \mintinline{python}{Stack} qui implémente la structure de pile vue en cours. 
+
+	Sauvegarder dans un module \texttt{Stack.py}. Celui-ci servira pour les exercices suivants.
+\end{exercice}
+
+\begin{exercice}[ : Les piles c'est renversant]
+\'Ecrire une fonction \mintinline{python}{reverse_with_stack} qui utilise une pile et
+\begin{itemize}
+	\item 	en entrée prend un \mintinline{python}{str};
+	\item 	en sortie renvoie un \mintinline{python}{str} qui est la chaîne passée en paramètre, mais dans l'autre sens.	
+\end{itemize}
+\end{exercice}
+
+\begin{exercice}[ : Expressions bien parenthésées]
+L'expression $(a+b\times(c+(a+b)^2))^3$ est bien parenthésée. $(a-b)\times c)$ ne l'est pas.
+\begin{enumerate}
+	\item 	\'Ecrire une fonction \mintinline{python}{is_valid} qui utilise une pile et
+	\begin{itemize}
+		\item 	en entrée prend in \mintinline{python}{str} qui est l'expression à tester.
+		\item 	en sortie renvoie un \mintinline{python}{bool} : \mintinline{python}{True} si elle est bien parenthésée, \mintinline{python}{False} sinon.
+	\end{itemize}
+	\item 	Proposer un ensemble de tests unitaires.	
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[ : \'Egalité de deux piles]
+	\begin{enumerate}
+		\item 	\'Ecrire une fonction \mintinline{python}{are_equal} qui
+		\begin{itemize}
+			\item 	en entrée prend 2 piles.
+			\item 	en sortie renvoie un \mintinline{python}{bool} : \mintinline{python}{True} si les deux piles ont les mêmes éléments (même nombre et même ordre), \mintinline{python}{False} sinon.
+		\end{itemize}
+		La fonction doit remettre les piles telles quelles.
+	\item 	Proposer un ensemble de tests unitaires.	
+	\end{enumerate}
+
+\end{exercice}
+
+\begin{exercice}[ : Notation polonaise inversée]
+La Notation Polonaise Inverse (NPI), ou notation post-fixée, est une marnière d'écrire les expressions mathématiques en se passant des parenthèses. Elle a été introduite par le mathématicien polonais Jan Lucasievicz dans les années 1920.\\
+Le principe de cette méthode est de placer chaque opérateur juste après ses deux opérandes.\\
+Par souci de simplicité nous ne considèrerons que des expressions mettant en jeu des entiers naturels.\\
+
+L'expression $2 + 3$ devient en NPI  2 3 +.
+\begin{itemize}
+	\item $2 + 6 − 1 $ s'écrit  2\ 6 + 1 −
+	\item $5 \times 3 + 4$ s'écrit  5\ 3 * 4 +
+	\item $((1 + 2) \times 4) + 3$ s'écrit 1 2 + 4 * 3 +
+\end{itemize}
+
+\'Evaluer une expression post-fixée est facile. Pour cela il suffit de lire l'expression de gauche à
+droite et d'appliquer chaque opérateur aux deux opérandes qui le précèdent. Si l'opérateur n'est
+pas le dernier symbole on replace le résultat intermédiaire dans l'expression et on recommence avec
+l'opérateur suivant.\\
+
+On peut écrire un programme en Python qui utilise une pile s pour évaluer les expressions en NPI en suivant cet exemple
+\begin{itemize}
+	\item 	on considère une chaine de caractères : \mintinline{python}{c = '23 6 + 1 -'};
+	\item 	on la transforme en une liste : \mintinline{python}{lst = c.split()};
+	\item 	la valeur de \mintinline{python}{lst} est alors \mintinline{python}{['23', '6', '+', '1', '-']};
+	\item 	on constate que \mintinline{python}{'23'} et \mintinline{python}{'6'} ne sont pas des symboles d'opérateurs donc sont convertibles en \mintinline{python}{int} et on empile ces deux entiers dans s;
+ 	\item 	le prochaine élément de \mintinline{python}{lst} est \mintinline{python}{'+'} donc on dépile les deux entiers 6 et 23, on les ajoute, et on empile le résultat 29;
+ 	\item	on continue : on empile 1;
+ 	\item	on arrive à \mintinline{python}{'-'}, on dépile les 2 entiers  1 et 29 et on les soustrait (dans le bon ordre) et on empile le résultat final 28.
+\end{itemize}
+
+\'Ecrire une fonction \mintinline{python}{mpi_compute} qui
+\begin{itemize}
+	\item 	en entrée prend un \mintinline{python}{str} qui est une expression NPI;
+	\item 	en sortie renvoie un \mintinline{python}{float} qui est l'évaluation de cette expression (\mintinline{python}{float} car l'expression peut comporter des divisions).	
+\end{itemize}
+\end{exercice}
+\end{document}

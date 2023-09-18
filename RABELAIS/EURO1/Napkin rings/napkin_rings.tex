@@ -1,0 +1,38 @@
+\documentclass[12pt,a4paper]{nsiarticle}
+\pagestyle{empty}
+\begin{document}
+\titre{Napkin rings}
+\classe{Euro 1\ere}
+\maketitle
+\section{A fun fact}
+\floatpictureleft{0.2}{img/napkin}{Take a sphere and use a cylinder to remove a portion of it, just like you would take the core out of an apple. Let's call the remaining shape a \textit{napkin ring} (because honestly, it looks like one). Depending on the radius of the sphere and the one of the cylinder, you get different napkin ring shapes.
+}
+\floatpictureright{0.4}{img/02}{
+Now, lay it flat upon a table an consider its height. Here's an interesting fact : all napkin rings with equal heights have equal volumes.}
+
+\floatpictureleft{0.4}{img/01}{
+Indeed, the volume of a napkin ring only depends on its height and not on the radius of the sphere in which it has been carved, and this property also gives us a fairly easy way to calculate its volume.}
+
+
+\section{Cavalieri's Principle}
+\begin{encadrecolore}{Proposition}{UGLiRed}
+    Suppose two regions in three-space (solids) are included between two parallel planes. If every plane parallel to these two planes intersects both regions in cross-sections of equal area, then the two regions have equal volumes.
+\end{encadrecolore}
+\floatpictureleft{0.6}{img/03}{
+In order to show that these two napkin rings have equal volumes, we will apply Cavalieri's Principle : it suffices to prove that for any given plane parallel to the one drawn in grey, the blue and the red cross-section have equal areas.}\medskip\par
+In fact, when calculated, these areas do not even depend on the radius of the initial sphere, but only on the height of the napkin and on the distance which separates the cutting plane from the center of the sphere.
+
+\section{From a 3d ring to 2d rings}
+
+\floatpictureright{0.2}{img/ring}{To calculate the area of the ring, you only need to know the lengths of its inner and outer diameter.}
+
+\begin{encadrecolore}{TODO}{UGLiBlue}
+    \begin{itemize}
+        \item Identify all the words and/or sentances which need to be defined or clarified.
+        \item Find appropriate notations for all the relevant quantities of this problem.
+        \item With the help of a 2d drawing, prove the result announced at the end of section 2 (all you need is the Pythagorean theorem).
+        \item Find references on Cavalieri's Principle.
+        \item Prepare a 5 minute talk on your results, which you could present to the others.
+    \end{itemize}
+\end{encadrecolore}
+\end{document}

@@ -1,0 +1,82 @@
+\documentclass[12pt,a4paper,article]{nsi}
+\pagestyle{empty}
+\begin{document}
+\titre{Benford's Law}
+\classe{Euro 1\ere}
+\maketitle
+\picright{0.3}{img/Frank_Benford}{
+    Benford's law, also called the first-digit law, is a phenomenological law about the
+    frequency distribution of leading digits in many (but not all) real-life sets of numerical data.
+
+    The law states that in many naturally occurring collections of numbers the small digits occur
+    disproportionately often as leading significant digits. For example, in sets which obey the law the number 1 would appear as the most significant digit about 30\% of the time, while larger digits would occur in that position less frequently : 9 would appear less than 5\% of the time.
+
+    It has been shown that this result applies to a wide variety of data sets, including electricity bills, street addresses, population numbers\ldots}
+
+
+\begin{enumerate}
+    \item If all digits were distributed uniformly in a collection of numbers, what percentage would
+          correspond to each number ?
+    \item Give other examples where Benford’s law could be observed.
+    \item The population of European Union countries in 2015 is given in the table below.
+          \tabstyle[UGLiBlue]
+          \begin{center}
+              \begin{tabular}{l|l||||||||l|l}
+                  Germany  & 81 829 901 & Italy          & 60 808 668 \\
+                  Austria  & 8 507 786  & Latvia         & 2 028 200  \\
+                  Belgium  & 11 209 044 & Lithuania      & 2 941 953  \\
+                  Bulgaria & 7 351 234  & Luxembourg     & 562 958    \\
+                  Cyprus   & 1 172 45   & Malta          & 433 504    \\
+                  Croatia  & 4 242 067  & Netherlands    & 16 791 405 \\
+                  Danmark  & 5 566 856  & Poland         & 38 509 789 \\
+                  Spain    & 46 439 864 & Portugal       & 10 427 301 \\
+                  Estonia  & 1 315 819  & Czech Republic & 10 537 800 \\
+                  Finland  & 5 450 614  & Romania        & 19 779 963 \\
+                  France   & 66 627 602 & United Kingdom & 64 596 752 \\
+                  Greece   & 10 775 557 & Slovakia       & 5 404 322  \\
+                  Hungary  & 9 908 798  & Slovenia       & 2 059 313  \\
+                  Ireland  & 4 609 600  & Sweden         & 9 639 741
+              \end{tabular}
+          \end{center}
+          Complete the table below with the number of countries whose leading digit is on line 1.
+
+          Work out
+          the frequencies of these numbers.
+          \begin{center}
+              \begin{tabular}{l|c|c|c|c|c|c|c|c|c}
+                  Leading digit       & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+                  Number of countries &   &   &   &   &   &   &   &   &   \\
+                  Relative frequency  &   &   &   &   &   &   &   &   &   \\
+              \end{tabular}
+          \end{center}
+    \item The following graph represents the distribution of first digits, according to Benford's law. Each
+          bar represents a digit, and the height of the bar is the percentage of numbers that starts with that
+          digit.
+          \begin{center}
+              \begin{tikzpicture}[yscale=.2]
+                  \draw[ystep=5,dotted,UGLiBlue] (0,0)grid(10,35);
+                  \foreach \x in {1,...,9}
+                      {\node at (\x ,-5em) {$\x$};
+                          \draw[UGLiBlue,fill=UGLiBlue!10] (\x-.5,0) rectangle (\x+.5,{(log10(\x+1)-log10(\x))*100});}
+
+                  \foreach \x in {0,5,10,...,35}
+                      {\node at (-1em,\x) {$\x$};}
+                  \node at (5,-15em){digit};
+                  \node[rotate=90] at (-3em,17.5){probability in \%};
+              \end{tikzpicture}
+          \end{center}
+    \item Complete the following graph with the data you gathered in the table above. Does the population of European Union countries in 2015 follow Benford's Law ?
+          \begin{center}
+              \begin{tikzpicture}[yscale=.2]
+                  \draw[ystep=5,dotted,UGLiBlue] (0,0)grid(10,35);
+                  \foreach \x in {1,...,9}
+                      {\node at (\x ,-5em) {$\x$};
+                      }
+                  \foreach \x in {0,5,10,...,35}
+                      {\node at (-1em,\x) {$\x$};}
+                  \node at (5,-15em){digit};
+                  \node[rotate=90] at (-3em,17.5){probability in \%};
+              \end{tikzpicture}
+          \end{center}
+\end{enumerate}
+\end{document}

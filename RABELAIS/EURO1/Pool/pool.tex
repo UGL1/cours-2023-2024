@@ -1,0 +1,37 @@
+\documentclass[12pt,a4paper,article]{nsi}
+\pagestyle{empty}
+\begin{document}
+\titre{A Pool Story}
+\classe{Euro 1\ere}
+\maketitle
+\picright{0.4}{img/pool.jpg}{
+    Because of the evaporation, the volume of water contained in a pool decreases by 3\% per week.
+    The initial volume of water is 90 m$^3$.
+    
+    Use your calculator to answer the following questions, and explain your method.
+    \begin{enumerate}
+        \item Compute the volume of water in the pool after 2 weeks, after 8 weeks.
+        \item Jack says that the volume of water will have decreased by 30\% after 12 weeks. Do you agree with him? Explain your answer.
+    \end{enumerate}}
+In order to compensate for the loss of water, 2.4 m$^3$
+of water are added in the pool every week.
+Let’s consider the following  \textsc{Python} script :
+\begin{pyc}
+    \begin{minted}{python}
+        from math import *
+
+        def pool():
+            n = 0
+            u = 90
+            while u > 88:
+                n = n + 1
+                u = 0.97 * u + 2.4
+            return n
+    \end{minted}
+\end{pyc}
+\begin{enumerate}
+    \setcounter{enumi}{2}
+    \item Describe and explain this script. How does it relate to the problem?
+    \item What is the result when you execute \mintinline{python}{pool()} ? What does it mean? Draw a conclusion.
+\end{enumerate}
+\end{document}

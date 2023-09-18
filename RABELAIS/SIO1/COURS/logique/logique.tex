@@ -1,0 +1,404 @@
+\chapter{Logique propositionnelle}
+\section{Notion de proposition}
+
+
+\begin{definition}[ : proposition]
+	Une proposition est un énoncé qui a un sens et pour lequel on peut dire avec certitude qu'il est vrai ou faux. On dit qu'on peut lui associer une \textit{valeur de vérité}. Cette valeur peut se noter \textsc{vrai} ou \textsc{faux} mais on peut aussi choisir de la noter 0 (pour faux) ou 1 (pour vrai).
+\end{definition}
+\begin{exemple}[s]
+	\begin{itemize}
+		\item 	« $2+2 = 5$ » est une proposition fausse.
+		\item 	« $2+2\equiv 1\ [3]$ » est une proposition vraie.
+	\end{itemize}
+\end{exemple}
+
+\begin{exercice}[]
+	L'affirmation « Cette affirmation est fausse » est-elle une proposition ?
+\end{exercice}
+\section{Connecteurs logiques}
+\begin{definition}[ : négation d'une proposition]
+	L'opérateur de négation se note avec une barre $\barmaj{\ }$. C'est un opérateur \textit{unaire}, c'est à dire qu'il s'applique à \textit{une} proposition.\\
+	Il est défini par la table de vérité suivante :
+	\tabstyle[UGLiGreen]
+	\begin{center}
+		\begin{tabular}{|c|c|}
+			\ccell $P$ & \ccell $\barmaj{ P}$ \\
+			0          & 1                    \\
+			1          & 0                    \\
+		\end{tabular}
+	\end{center}
+	$\barmaj{P}$ se lit « non P ».
+\end{definition}
+
+\begin{definition}[ : conjonction de deux propositions]
+	L'opérateur de \textit{conjonction} correspond au \texttt{and} de \textsc{Python}, au \texttt{And} de \textsc{Visual Basic}, au \texttt{\&\&} de \textsc{C++}.
+	Il se note $\wedge$, c'est un opérateur \textit{binaire} car il s'applique à deux propositions.\\
+	Il est défini par la table de vérité suivante :
+	\begin{center}
+		\tabstyled
+		\begin{tabular}{|c|c|c|}
+			\rowcolor{UGLiGreen}
+			\ccell $P$ & \ccell $Q$ & \ccell $P\wedge Q$ \\
+			
+			
+			0                  & 0                  & 0                          \\
+			
+			
+			0                  & 1                  & 0                          \\
+			
+			
+			1                  & 0                  & 0                          \\
+			
+			1                  & 1                  & 1                          \\
+		\end{tabular}
+	\end{center}
+	$P\wedge Q$ se lit « P et Q » et n'est vrai que si P est vrai et Q aussi.
+\end{definition}
+
+\begin{definition}[ : disjonction de deux propositions]
+	L'opérateur de \textit{disjonction} correspond au \texttt{or} de \textsc{Python}, au \texttt{Or} de \textsc{Visual Basic}, au \texttt{||} de \textsc{C++}.
+	Il se note $\vee$, c'est un opérateur \textit{binaire}.	Il est défini par la table de vérité suivante :
+	\begin{center}
+		\tabstyled
+		\begin{tabular}{|c|c|c|}
+			
+			\rowcolor{UGLiGreen}
+			\ccell\boldmath$P$ & \ccell\boldmath$Q$ & \ccell\boldmath$P\vee Q$ \\
+			
+			\rowcolor{white}
+			0                  & 0                  & 0                        \\
+			
+			\rowcolor{white}
+			0                  & 1                  & 1                        \\
+			
+			\rowcolor{white}
+			1                  & 0                  & 1                        \\
+			
+			1                  & 1                  & 1                        \\
+		\end{tabular}
+	\end{center}
+	$P\vee Q$ se lit « P ou Q » et est vrai dès que P est vrai ou Q est vrai.
+\end{definition}
+
+\begin{definition}[ : équivalence de deux propositions]
+	Il se note $\Leftrightarrow$, c'est un opérateur \textit{binaire}.
+	Il est défini par la table de vérité suivante :
+	\begin{center}
+		\tabstyled
+		\begin{tabular}{|c|c|c|}
+			\rowcolor{UGLiGreen}
+			\ccell $P$ & \ccell $Q$ & \ccell $P\Leftrightarrow Q$ \\
+			0                  & 0                  & 1                                   \\
+			0                  & 1                  & 0                                   \\
+			1                  & 0                  & 0                                   \\
+			1                  & 1                  & 1                                   \\
+		\end{tabular}
+	\end{center}
+	$P\Leftrightarrow Q$ se lit « P équivaut à Q » et n'est vrai que si P et Q ont la même valeur de vérité.
+\end{definition}
+
+
+\begin{definition}[ : implication]
+	Il se note $\Rightarrow$, c'est un opérateur \textit{binaire}.
+	Il est défini par la table de vérité suivante :
+	\begin{center}
+		\tabstyled
+		\begin{tabular}{|c|c|c|}
+			\rowcolor{UGLiGreen}
+			\ccell\boldmath$P$ & \ccell\boldmath$Q$ & \ccell\boldmath$P\Rightarrow Q$ \\
+			0                  & 0                  & 1                               \\
+			0                  & 1                  & 1                               \\
+			1                  & 0                  & 0                               \\
+			1                  & 1                  & 1                               \\
+		\end{tabular}
+	\end{center}
+	$P\Rightarrow Q$ se lit « P implique Q ».
+	\begin{itemize}
+		\item 	Quand P est fausse, $P\Rightarrow Q$ est vraie : « le faux implique n'importe quoi ».
+		\item 	Quand P est vraie, $P\Rightarrow Q$ n'est vraie que si Q est aussi vraie : « le vrai n'implique que le vrai ».
+	\end{itemize}
+\end{definition}
+
+\begin{exercice}[]
+	On note P et Q les affirmations suivantes :\\
+	P = « Paul aime le foot  »\\
+	Q = « Paul aime les maths  »\\
+	Représenter les affirmations suivantes sous forme symbolique en utilisant P, Q et des
+	connecteurs logiques.\\
+	• A = « Paul aime le foot mais pas les maths  »\\
+	• B = « Paul n'aime ni le foot, ni les maths »\\
+	• C = « Paul aime le foot ou il aime les maths et pas le foot  »\\
+	• D = « Paul aime les maths et le foot ou il aime les maths mais pas le foot  »\\
+\end{exercice}
+
+\begin{exercice}[]
+	Donner les valeurs de vérité des propositions suivantes :\\
+	• A = $(\pi = 5)\wedge(2 + 3 = 5)$\\
+	• B = $(\pi = 5)\vee( 2 + 3 = 5)$\\
+	• C = $(\pi=3,14)\Rightarrow (5+6=11)$\\
+	• D = $(\pi=5)\Rightarrow(2 +3=5)$\\
+	• E = $(4 = 5)\Rightarrow A$\\
+	• F = $(5+5=10)\Leftrightarrow(\pi=11)$
+\end{exercice}
+
+\begin{exercice}[ (à faire plus tard)]
+	Donner les valeurs de vérité des propositions suivantes :\\
+	• A = $(11>0)\wedge(3<2)$\\
+	• B = $(11>0)\vee( 3 <2)$\\
+	• C = $(3>6)\vee (6>20)$\\
+	• D = $(3<2)\Rightarrow(5=5)$\\
+	• E = $(4 \neq 1)\Rightarrow (4=1)$\\
+	• F = $(4<5)\Leftrightarrow(10+1=11)$
+\end{exercice}
+
+
+\begin{methode}[ : Montrer qu'une proposition est vraie]
+	On peut montrer qu'une proposition composée est vraie en faisant prendre toutes les valeurs de vérités possibles aux propositions qui la compose et en trouvant sa table de vérité :\\
+	
+	Montrons que $(P\wedge Q)\Leftrightarrow(Q\wedge P)$ est vraie quelque soient les valeurs de vérité de P et de Q.
+	
+	\tabstyled
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|}
+			\rowcolor{UGLiPurple}
+			\ccell\boldmath$P$ & \ccell\boldmath$Q$ & \ccell\boldmath$P\wedge Q$ & \ccell\boldmath$Q \wedge P$ & \ccell\boldmath$(P\wedge Q)\Leftrightarrow(Q\wedge P)$ \\
+			0                  & 0                  & 0                          & 0                           & 1                                                      \\
+			0                  & 1                  & 0                          & 0                           & 1                                                      \\
+			1                  & 0                  & 0                          & 0                           & 1                                                      \\
+			1                  & 1                  & 1                          & 1                           & 1                                                      \\
+		\end{tabular}
+	\end{center}
+\end{methode}
+
+\begin{exercice}[ : l'implication]
+	Vérifier que la table de vérité de $P\Rightarrow Q$ est la même que celle de $\barmaj{P}\vee Q$.
+\end{exercice}
+
+\begin{exercice}[ : l'équivalence comme double implication]
+	Vérifier que la table de vérité de $P\Leftrightarrow Q$ est la même que celle de $(P\Rightarrow Q)\wedge(Q\Rightarrow P)$.
+\end{exercice}
+
+\begin{exercice}[ : le ou exclusif]
+	
+	Notons $xor$ cet opérateur binaire. $P\ xor\ Q$ est vraie si (et seulement si) une et une seule des 2 propositions est vraie.
+	\begin{enumerate}
+		\item 	Donner la table de vérité de P xor Q.
+		\item 	Vérifier que c'est la même que $(P\wedge \barmaj{Q})\vee(\barmaj{P}\wedge Q)$
+		\item 	Vérifier que c'est la même que celle de $(P\vee Q)\wedge(\barmaj{P\wedge Q})$
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[ : les lois de De Morgan]
+	
+	\begin{enumerate}
+		\item 	Montrer que $\barmaj{P\wedge Q}\Leftrightarrow \barmaj{P} \vee \barmaj{Q}$
+		\item 	Montrer que $\barmaj{P\vee Q}\Leftrightarrow (\barmaj{P} \wedge \barmaj{Q})$
+	\end{enumerate}
+\end{exercice}
+
+\begin{propriete}[ : équivalences classiques]
+	Les propositions suivantes sont vraies quelles que soient les valeurs de vérité de P, Q et R.\\
+	On dit que ce sont des \textit{tautologies}.
+	
+	\begin{tabbing}
+		$(P\wedge Q) \Leftrightarrow(Q\wedge P)$ 		\hspace{4cm}	\=commutativité de $\wedge$ \\
+		$(P\vee Q) \Leftrightarrow(Q\vee P)$ 						 	\>commutativité de $\vee$ \\
+		$((P\vee Q)\vee R) \Leftrightarrow(P\vee(Q\vee R))$ 			\>associativité de $\vee$ \\
+		$((P\wedge Q)\wedge R) \Leftrightarrow(P\wedge(Q\wedge R))$ 	\>associativité de $\wedge$ \\
+		$(P\wedge (Q\vee R))\Leftrightarrow((P\wedge Q)\vee(P\wedge R))$ \>distributivité de $\wedge$ sur $\vee$\\
+		$(P\vee (Q\wedge R))\Leftrightarrow((P\vee Q)\wedge(P\vee R))$ \>distributivité de $\vee$ sur $\wedge$\\
+		$(P\Rightarrow Q)\Leftrightarrow(\barmaj{P} \vee Q)$\\
+		$\barmaj{P\wedge Q}\Leftrightarrow (\barmaj{P}\vee \barmaj{Q})$ \> loi de De Morgan\\
+		$\barmaj{P\vee Q}\Leftrightarrow (\barmaj{P} \wedge \barmaj{Q})$ \> loi de De Morgan\\
+	\end{tabbing}
+\end{propriete}
+
+\begin{exemple}[ : utilité de le proposition suivante]
+	
+	\begin{itemize}
+		\item 	« Il viendra mardi et il apportera son PC ou bien il viendra mercredi et il apportera son PC »\\
+		      se simplifie en :\\	« Il viendra mardi ou mercredi et il apportera son PC ».
+		\item 	« On n'a pas :  Jean est gentil ou Jean est drôle » peut se réécrire :\\
+		      « Jean n'est pas gentil et Jean n'est pas drôle ».
+	\end{itemize}
+\end{exemple}
+
+\begin{exercice}[]
+	Simplifier « On n'a pas : Pierre habite Saint Brieuc et Pierre est brun ».
+\end{exercice}
+
+
+\section{Calcul des prédicats}
+
+\begin{definition}[s : quantificateurs, variables, prédicats]
+	
+	Le symbole $\forall$ se lit « pour tout » et s'appelle \textit{quantificateur universel}.\\
+	Le symbole $\exists\,$ se lit « il existe » et s'appelle \textit{quantificateur existentiel}.\\
+	
+	Une \textit{variable} est un symbole qui peut prendre plusieurs valeurs.
+	
+	Un \textit{prédicat} est un énoncé sans valeur de vérité qui contient au moins une variable, et qui devient une proposition en ajoutant un ou des quantificateurs.
+\end{definition}
+
+\begin{exemple}[s]
+	\begin{itemize}
+		\item 	« $x<1$ » est un prédicat comportant une variable $x$.
+		\item 	$\exists\, x\in R,\ x<1$ est une proposition. Cette proposition est vraie : il existe un nombre réel strictement plus petit que 1 (et même une infinité) : 0 par exemple.
+		\item 	$\forall x\in\R,\ x<1$ est une autre proposition... fausse ! Tout nombre réel n'est pas strictement plus petit que 1 : 2 par exemple.
+	\end{itemize}
+\end{exemple}
+
+\begin{propriete}[ : ordre des quantificateurs]
+	Dans un prédicat à plusieurs variables, quand plusieurs quantificateurs de la même catégorie se suivent, on peut les échanger librement.\\
+	On \textit{ne peut pas} échanger un quantificateur $\exists\,$ et un quantificateur $\forall$.
+\end{propriete}
+
+\begin{exemple}[s]
+	\begin{itemize}
+		\item 	$\forall x\in\R,\ \forall y\in\R,\ \exists\, z \in\R, x+y<z$ est une proposition vraie : pour tous réels x et y on peut prendre z égal à $x+y+1$.\\
+		      On peut échanger les quantificateurs universels : $\forall y\in\R,\ \forall x\in\R,\ \exists\, z \in\R, x+y<z$ est équivalent à la proposition précédente.
+		\item 	$\forall x\in\R,\ \exists\, y \in\R, x<y$ est une proposition vraie mais on ne peut pas échanger les quantificateurs : on obtient :
+		      $\exists\, y\in\R,\ \forall x \in\R, x<y$ est fausse : cela voudrait dire qu'il existe un réel $y$ plus grand que tous les autres !
+	\end{itemize}
+\end{exemple}
+
+\begin{propriete}[ : négation d'une proposition quantifiée]
+	On obtient la négation d'une proposition quantifiée en changeant les $\exists\,$ en $\forall$, les $\forall$ en $\exists\,$ et en changeant le prédicat final par sa négation.
+\end{propriete}
+
+\begin{exemple}[]
+	On considère la propriété P : $$\forall n\in\N,\ \exists\, k\in\N,\ n=2k$$
+	Sa négation est $\barmaj{P}$ :  $$\exists\, n\in\N,\ \forall k\in\N,\ n\neq 2k$$
+	P est fausse puisqu'elle affirme que tout entier naturel est divisible par 2 !\\ Sa négation est vraie : elle affirme qu'il existe un entier naturel qui n'est pas divisible par 2 (3 par exemple).
+\end{exemple}
+
+\begin{methode}[s : preuve de propositions quantifiées]
+	\begin{itemize}
+		\item 	Pour prouver qu'une proposition quantifiée par $\forall$ est fausse, il suffit de donner un \textit{contre exemple}.
+		\item 	Pour prouver qu'une proposition quantifiée par $\exists\, x...$ est vraie, on peut déterminer la valeur de $x$ qui convient.
+		\item 	Pour prouver qu'une proposition quantifiée par $\forall$ est vraie on a souvent recours à un raisonnement ou au calcul littéral.
+		\item 	De même pour prouver qu'une proposition quantifiée par $\exists\, x...$ est fausse.
+	\end{itemize}
+\end{methode}
+
+\begin{exemple}[s]
+	\begin{itemize}
+		\item 	Montrons que $\forall x \in \R,\ \exists\, y\in \R,\ 3y+1=x$ :\\
+		      Soit $x\in\R$ alors $3y+1=x\Leftrightarrow y=\frac{1}{3}(x-1)$. Donc  $\frac{1}{3}(x-1)$ convient.
+		\item 	Montrons que $\forall x\in\R,\ \exists\, y\in\R,\ x=y^2$ est fausse :\\
+		      Prenons $x=-1$. Il n'existe aucun $y\in\R$ tel que $x=y^2$. En effet d'après la règle des signes, $y^2$ est obligatoirement positif.
+	\end{itemize}
+\end{exemple}
+
+\begin{exercice}[]
+	Vrai ou faux ? Justifier.
+	\begin{itemize}
+		\item 	$\forall n \in \N,\ \forall p \in \N,\ p-n \equiv 0\ [2]$
+		\item 	$\forall n \in \N,\ \exists\, p \in \N,\ p-n \equiv 0\ [2]$
+		\item 	$\exists\, n \in \N,\ \exists\, p \in \N,\ p-n \equiv 0\ [2]$
+		\item 	$\exists\, n \in \N,\ \forall p \in \N,\ p-n \equiv 0\ [2]$
+	\end{itemize}
+\end{exercice}
+
+\begin{exercice}[]
+	Donner les négations des propositions suivantes et dire laquelle est vraie : la proposition ou sa négation.
+	\begin{itemize}
+		\item 	$\exists\, x\in\R,\ 3x=2$
+		\item 	$\forall x\in\R,\ x=x+1$
+		\item 	$\forall x\in\R,\ \forall y\in\R, x\leqslant y$
+		\item 	$\exists\, x\in\R,\ \forall y\in\R,\ x^2=y$
+		\item 	$\forall x\in\R,\ \exists\, y\in\R,\ x^2=y$
+	\end{itemize}
+\end{exercice}
+
+
+\section{Exercices}
+
+
+\begin{exercice}
+
+	En utilisant les tables de vérités, montrer que, quelles que soient les valeurs de vérité de P et Q, on a $$\barmaj{P} \wedge \barmaj{Q} \Leftrightarrow \barmaj{P\vee Q}$$
+	
+	Compléter
+	
+	\begin{center}
+		\tabstyled
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			
+			\ccell $P$ & \ccell $Q$ & \ccell$\barmaj{P}$ & \ccell$\barmaj{Q}$ & \ccell$\barmaj{P} \wedge \barmaj{Q}$ & \ccell$P\vee Q$ & \ccell$\barmaj{P\vee Q}$ \\
+			         &          &                    &                    &                                      &                 &                          \\
+			         &          &                    &                    &                                      &                 &                          \\
+			         &          &                    &                    &                                      &                 &                          \\
+			         &          &                    &                    &                                      &                 &                          \\
+		\end{tabular}
+	\end{center}
+	Indiquer les colonnes identiques qui permettent de conclure.
+\end{exercice}
+
+\begin{exercice}
+	En utilisant les tables de vérités, montrer que, quelles que soient les valeurs de vérité de P et Q, on a $$(P\vee Q)\wedge (P\vee \barmaj{Q})\Leftrightarrow P$$
+	
+	Compléter
+	
+	\begin{center}
+		\tabstyled
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			
+			\ccell $P$ & \ccell $Q$ & \ccell$\barmaj{P}$ & \ccell$\barmaj{Q}$ & \ccell$P \vee Q$ & \ccell$P\vee \barmaj{Q}$ & \ccell$(P\vee Q)\wedge (P\vee \barmaj{Q})$ \\
+			
+			         &          &                    &                    &                  &                          &                                            \\
+			
+			         &          &                    &                    &                  &                          &                                            \\
+			
+			         &          &                    &                    &                  &                          &                                            \\
+			
+			         &          &                    &                    &                  &                          &                                            \\
+		\end{tabular}
+	\end{center}
+	Indiquer les colonnes identiques qui permettent de conclure.
+\end{exercice}
+
+\begin{exercice}[ : lois de De Morgan]
+	En utilisant des tables de vérité, montrer que, quelles que soient les valeurs de vérité de P et Q, on a $$\barmaj{P\vee Q}=\barmaj{P}\wedge\barmaj{Q}$$
+	De même  montrer que $$\barmaj{P\wedge Q}=\barmaj{P}\vee\barmaj{Q}$$
+\end{exercice}
+\begin{exercice}[ : on peut retrouver tous les opérateurs à partir du nor]
+	
+	Pour toutes propositions $A$ et $B$ on définit l'opération  «  nor » , notée $\downarrow$ par : $$A\downarrow B \Longleftrightarrow\barmaj{A\vee B}$$
+	
+	Cette opération est dite \textit{universelle} car elle permet de retrouver toutes les autres opérations.
+	
+	\begin{enumerate}
+		\item 	Montrer que $A\downarrow A \Longleftrightarrow \barmaj{A}$ (on peut donc retrouver l'opération « non »).
+		\item 	En déduire que l'on peut retrouver l'opération « et » ainsi : $$(A\downarrow B)\downarrow(A\downarrow B) = A\vee B$$
+		\item 	Comment à partir de $A$, $B$ et $\downarrow$ obtenir $A\wedge B$ (penser aux lois de De Morgan) ?
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+
+	Sans chercher à démontrer quoi que ce soit, donner les négations des propositions suivantes
+	
+	\begin{enumerate}
+		\item 	$\forall x\in \R,\, \forall y\in\R,\, \exists\, z\in \R,\, x<z<y$
+		\item 	$\exists\, x\in \R,\, \exists\, y\in\R,\, x+y>3$
+		\item 	$\forall n\in \N^*,\, \exists\, p\in\N^*$ n divise p ou p divise n.
+	\end{enumerate}
+	
+\end{exercice}
+
+\begin{exercice}
+	\begin{enumerate}
+		\item 	A : $\forall n \in \N$ 3 divise n ou 2 divise n\\
+		      Montrer que A est fausse
+		\item 	B : $\exists\, n \in \N$, 3 divise n et 4 divise n\\
+		      Montrer que B est vraie
+		\item 	C :  «  Quand on prend trois nombres entiers qui se suivent, leur somme est toujours un multiple de 3  » .\\
+		      Montrer que C est vraie.
+		      
+		\item 	D :  «  Quand on prend quatre nombres entiers qui se suivent, leur somme est toujours un multiple de 4  » .\\
+		      Montrer que D est fausse.
+		\item 	E :  «  Il existe deux entiers k et n plus grands que 1 tels que k divise à la fois n et n+1.\\
+		      Montrer que E est fausse.
+	\end{enumerate}
+\end{exercice}

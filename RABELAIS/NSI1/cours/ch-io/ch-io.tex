@@ -1,0 +1,128 @@
+\chapter{Entrées-sorties et transtypage}
+
+\section{Entrées-sorties}
+
+Lorsqu'on écrit un programme en \textsc{Python}, on a très souvent besoin
+\begin{itemize}
+    \item qu'il affiche des informations à l'écran ;
+    \item qu'il demande des informations à l'utilisateur\cdot trice.
+\end{itemize}
+
+\subsection{la fonction print}
+
+C'est elle qui sert à afficher à l'écran :
+
+\begin{pyc}
+    \begin{minted}{python}
+        print("Bonjour") # affiche bonjour
+        print(4) # affiche 4
+        print(2 + 4) # évalue 2 + 4 et affiche 6
+        a = 3
+        print(a) évalue a et affiche 3
+    \end{minted}
+\end{pyc}
+
+On peut s'en servir de diverses manières :
+\begin{pyc}
+    \begin{minted}{python}
+        age = 16
+        print("Vous avez", age, "ans.")
+    \end{minted}
+\end{pyc}
+Dans ce premier cas, on a donné 3 paramètres à \mintinline{python}{print}:
+\begin{itemize}
+    \item le \mintinline{python}{str "Vous avez"} ;
+    \item la variable \mintinline{python}{age} ;
+    \item  le \mintinline{python}{str "ans."}.
+\end{itemize}
+On peut aussi utiliser ce qu'on appelle une « f-string » de la manière suivante :
+\begin{pyc}
+    \begin{minted}{python}
+        age = 16
+        print(f"Vous avez {age} ans.") # noter le f au début
+    \end{minted}
+\end{pyc}
+Dans ce cas, \textsc{Python} construit le \mintinline{python}{str} à afficher en y reportant la valeur de \mintinline{python}{age}.\\
+C'est cette méthode que nous utiliserons par la suite.\\
+
+Enfin, \mintinline{python}{print} revient à la ligne par défaut, mais on peut changer cela :
+\begin{pyc}
+    \begin{minted}{python}
+        print("Bonjour",end="") # aucun retour à la ligne
+        print("à tous",end="!") # aucun retour et ! à la fin
+    \end{minted}
+\end{pyc}
+Ce programme affiche \texttt{Bonjour à tous!} sans revenir à la ligne.
+
+\subsection{La fonction input}
+C'est elle qui est chargée de récupérer des informations que l'utilisateur\cdot trice entre au clavier.
+\begin{pyc}
+    \begin{minted}{python}
+        nom = input("Entrez votre nom : ")
+    \end{minted}
+\end{pyc}
+Le programme précédent
+\begin{itemize}
+    \item affiche \mintinline{python}{Entrez votre nom : } ;
+    \item attend que l'utilisateur\cdot trice tape quelque chose, puis valide avec la touche d'entrée ;
+    \item stocke le message tapé dans la variable \mintinline{python}{nom}.
+\end{itemize}
+\begin{encadrecolore}{Important}{UGLiRed}
+    La valeur renvoyée par la fonction \mintinline{python}{input} est \textit{toujours} de type \mintinline{python}{str}. Cela va donc nous amener à faire du \textit{transtypage}.
+\end{encadrecolore}
+
+\section{Transtypage}
+
+\begin{definition}[ : transtypage]
+    C'est l'action de changer le type d'une valeur ou d'une variable en un autre type \textit{compatible}.
+\end{definition}
+
+Voici un exemple :
+\begin{pyc}
+    \begin{minted}{python}
+        a = 2 # a est un int
+        b = float(a) # la valeur 2 est convertie en float et stockée dans b
+        print(b) # affiche 2.0
+    \end{minted}
+\end{pyc}
+
+En voici un autre dont nous nous servirons beaucoup
+\begin{pyc}
+    \begin{minted}{python}
+        a = '12' # a est un str
+        b = int(a) # '12' est converti en l'entier 12
+        print(b + 1) # évalue b + 1 à 13 et affiche 13
+    \end{minted}
+\end{pyc}
+
+\begin{encadrecolore}{Attention}{UGLiRed}
+    Le transtypage n'est pas une action anodine et peut produire des erreurs lorsque la valeur à transtyper est incompatible avec le nouveau type qu'on veut lui donner.
+\end{encadrecolore}
+
+\begin{pyc}
+    \begin{minted}{python}
+        a = "Salut"
+        b = int(a) # impossible à réaliser
+    \end{minted}
+    {\color{UGLiRed}\texttt{ValueError: invalid literal for int() with base 10: 'Salut'}}
+\end{pyc}
+Par ce message d'erreur, \textsc{Python} nous indique que la valeur \mintinline{python}{'Salut'} ne peut pas être envisagée comme l'écriture en base 10 d'un entier.
+
+\section{Bilan}
+Dès l'écriture de programmes simples, le recours aux fonctions \mintinline{python}{print}, \mintinline{python}{input} et au transtypage sont inévitables, comme le montre le programme suivant :
+
+\begin{pyc}
+    \begin{minted}{python}
+        age = input("Entrez votre âge : ") # on obtient un str
+        age = int(age) # on convertit age en int
+        nouveau = age + 10 # qui nous permet de calculer
+        print(f"Dans 10 ans, vous aurez {nouveau} ans.")
+    \end{minted}
+\end{pyc}
+
+Il existe d'autres actions de transtypage que \mintinline{python}{str} $\rightarrow$ \mintinline{python}{int} :
+\begin{itemize}
+    \item \mintinline{python}{int} $\rightarrow$ \mintinline{python}{str} ;
+    \item \mintinline{python}{float} $\rightarrow$ \mintinline{python}{int}, qui induit souvent une perte d'information car la partie décimale de la valeur disparaît ;
+    \item \mintinline{python}{str} $\rightarrow$ \mintinline{python}{list} qui transforme par exemple \mintinline{python}{"abc"} en \mintinline{python}{["a", "b", "c"]}.  
+\end{itemize}

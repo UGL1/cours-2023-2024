@@ -1,0 +1,179 @@
+\documentclass[a4paper,10pt,cours]{nsi}
+\newcommand{\file}[1]{\inputminted{python}{#1}}
+
+\begin{document}
+\chapter{Programmation défensive}
+\introduction{Attrapez-les toutes !}
+
+\begin{aretenir}
+    La \textit{programmation défensive} est un ensemble de règles pour concevoir des programmes assurés de fonctionner dans le pire des cas.\\
+    Les principales sont
+    \begin{itemize}
+        \item   ne pas faire confiance aux données entrées par les utilisateurs;
+        \item   gérer les exceptions avec \mintinline{python}{try} / \mintinline{python}{except};
+        \item   écrire des tests avec \mintinline{python}{assert};
+        \item   ne pas chercher à réinventer la roue : utiliser des modules qui ont fait leurs preuves.
+    \end{itemize}
+\end{aretenir}
+
+
+\section{Gestion des exceptions}
+\subsection{L'utilisateur et ses facéties}
+On a malheureusement déjà vu ceci :
+\begin{pyc}
+    \begin{minted}{python}
+def inverse(x : float) -> float :
+    return 1 / x
+\end{minted}
+\end{pyc}
+L'utilisateur évalue \mintinline{python}{inverse(0)} et obtient :\\
+
+{\color{red}\texttt{Traceback (most recent call last):\\
+    \hspace{2em}File "fonction1.py", line 4, in <module>\\
+    \hspace{4em}inverse(0)\\
+    \hspace{2em}File "fonction1.py", line 2, in inverse\\
+    \hspace{4em}return 1 / x\\
+    ZeroDivisionError: division by zero}}\\
+
+
+Le message d'erreur peut se lire ainsi : Il y a une erreur quand on appelle \mintinline{python}{inverse(0)} car lorsqu'on doit renvoyer \mintinline{python}{1/x} cela provoque une erreur de type \mintinline{python}{ZeroDivisionError}.\\
+
+De la même manière lorsque l'utilisateur évalue \mintinline{python}{inverse('chaussette')} il obtient :\\
+
+{\color{red}\texttt{Traceback (most recent call last):\\
+    \hspace{2em}File "fonction1.py", line 4, in <module>\\
+    \hspace{4em}inverse(0)\\
+    \hspace{2em}File "fonction1.py", line 2, in inverse\\
+    \hspace{4em}return 1 / x\\
+    TypeError: unsupported operand type(s) for /: 'int' and 'str'}}\\
+
+Effectivement l'opérateur \mintinline{python}{/} ne peut pas diviser un \mintinline{python}{int} par un \mintinline{python}{str}.\\
+
+\mintinline{python}{ZeroDivisionError} et \mintinline{python}{TypeError} sont deux représentants de ce qu'on appelle des \textit{exceptions}. On dit qu'\textit{une exception est levée} (\textit{an exception is raised} en Anglais) lorsque l'interpréteur \textsc{Python} rencontre un problème qu'il ne peut résoudre ou bien que le programme lui même indique que ce doit être le cas. Les exceptions les plus courantes sont ces deux premières ainsi que 
+\begin{itemize}
+    \item   \mintinline{python}{NameError} pour une variable non définie;
+    \item   \mintinline{python}{IndexError} pour un indice de liste trop grand;
+    \item   \mintinline{python}{KeyError} pour une clé de dictionnaire inexistante;
+\end{itemize}
+
+On pourra trouver la liste de toutes les exceptions ici :\\
+\texttt{https://docs.python.org/fr/3.8/library/exceptions.html}.
+
+\begin{definition}[ : exception]
+    Une exception est un objet de \textsc{Python} servant à représenter une erreur.
+\end{definition}
+
+\subsection{Syntaxe de la gestion des exceptions}
+Ne pas faire confiance à l'utilisateur c'est prévoir ces exceptions. La syntaxe \textsc{Python} est simple :
+\begin{itemize}
+    \item   la partie du code susceptible de lever une exception est mise dans un bloc \mintinline{python}{try};
+    \item   si une exception est levée on la gère avec un bloc \mintinline{python}{except}.
+\end{itemize}
+
+\begin{pyc}
+    \file{scripts/fonction1.py}
+\end{pyc}
+Dans l'exemple ci-dessus les erreurs de type et de division par zéro sont gérées par un message d'affichage et le renvoi de la valeur zéro (zéro n'est l'inverse d'aucun nombre).
+
+\begin{remarque}[]
+    La gestion des erreurs permet d'éviter que le programme s'arrête brusquement mais elle n'élimine pas les erreurs, elle fait en sorte de les signaler à l'utilisateur du programme (ou du module). C'est donc à lui de rectifier ce qui produit l'erreur.
+\end{remarque}
+
+\begin{encadrecolore}{Conseil}{UGLiOrange}
+    Quand on gère les exceptions, on doit toujours le faire en précisant le type de l'exception qui a été levée. Le programme suivant fonctionne mais n'est pas recommandé car lorsqu'une exception a lieu, on ne sait pas laquelle.
+    \inputminted{python}{scripts/fonction2.py}
+\end{encadrecolore}
+
+
+\section{Tests unitaires}
+
+\begin{definition}[ : test unitaire]
+    Un (ou des) test(s) unitaire(s) sert à vérifier qu'une partie d'un programme (une \textit{unité}) fonctionne comme on l'a prévu.
+\end{definition}
+
+\begin{encadrecolore}{Conseil}{UGLiOrange}
+    Lorsqu'on écrit une partie d'un programme destinée à effectuer une tâche particulière, il est préférable d'écrire quelques tests \textit{avant même d'écrire le programme}.\\
+    Les tests doivent être pensés pour aborder le cas général ainsi que les cas particuliers. Cette démarche aide à clarifier les idées pour programmer correctement.
+\end{encadrecolore}
+
+\subsection{Utilisation de \mintinline{python}{assert}}
+
+Le mot-clé \mintinline{python}{assert} sert à vérifier qu'une \textit{assertion} (un test de condition) est vraie. Si c'est le cas le programme continue, sinon une exception du type \mintinline{python}{AssertionError} est levée. Ainsi on peut la gérer avec une structure \mintinline{python}{try} / \mintinline{python}{except} comme vu précédemment.
+
+\begin{pyc}
+    \file{scripts/assert1.py}
+\end{pyc}
+\subsection{Un exemple}
+
+On veut coder une fonction \mintinline{python}{sort} (qui signifie \textit{trier} en Anglais) qui 
+\begin{itemize}
+    \item   en entrée prend une liste d'\mintinline{python}{int};
+    \item   en sortie renvoie une liste qui contient les mêmes valeurs que la liste d'entrée, mais triées dans l'ordre croissant.
+\end{itemize}
+
+La stratégie conseillée est d'écrire les tests d'abord :
+\begin{pyc}
+\file{scripts/assert2.py}
+\end{pyc}
+Le premier test vérifie qu'il n'y a pas d'erreur avec une liste vide (cas particulier qui peut arriver). Le deuxième vérifie qu'il y a effectivement tri, le troisième vérifie que \mintinline{python}{sort} fonctionne sur une liste avec doublons.
+
+\begin{encadrecolore}{Attention}{UGLiRed}
+    En mathématiques, on sait que « quelques exemples ne peuvent servir à prouver une généralité». De la même manière quelques tests ne constituent pas une \textit{preuve absolue} qu'un programme fonctionne correctement.
+\end{encadrecolore}
+
+
+
+\section{Utiliser des modules déjà écrits}
+
+C'est ce que l'on veut dire par « ne pas chercher à réinventer la roue» : quand on doit écrire un programme, il est plus que probable que les fonctionnalités qu'on veut implémenter l'aient déjà été par quelqu'un d'autre, que la communauté l'utilise et en est satisfaite. Si c'est le cas, autant l'utiliser, à moins que
+\begin{itemize}
+    \item   vous-même ne soyez pas satisfaits des performances du module (trop lent, trop gourmand en mémoire);
+    \item   une situation technique particulière fait que vous ne pouvez pas l'utiliser dans votre projet;
+    \item   vous êtes élève/étudiant et votre professeur\cdot e vous a donné cet exercice/projet pour vous former.
+\end{itemize}
+\section{Exercices}
+\begin{exercice}
+    On veut coder une fonction \mintinline{python}{age} qui demande à l'utilisateur majeur d'entrer son âge, on attend donc qu'il entre un entier entre 18 et 120.
+    \begin{itemize}
+        \item   la fonction ne prend rien en entrée;
+        \item   elle renvoie un \mintinline{python}{int} compris entre 18 et 120, et tant que l'utilisateur n'entre pas un âge valide elle lui demande d'entrer son âge.
+    \end{itemize}
+    Programmer cette fonction de manière défensive (gérer les exceptions).
+\end{exercice}
+
+\begin{exercice}[]
+    On veut coder une fonction \mintinline{python}{is_sorted} qui 
+    \begin{itemize}
+        \item   en entrée prend une liste d'\mintinline{python}{int} éventuellement vide;
+        \item   renvoie \mintinline{python}{True} si elle est triée par ordre croissant (ou vide ou bien avec un seul élément) et \mintinline{python}{False} dans le cas contraire.
+    \end{itemize}
+    \'Ecrire un ensemble de tests pertinents pour cette fonction.
+\end{exercice}
+
+\begin{exercice}[]
+    On veut créer une fonction \mintinline{python}{merge} (qui veut dire \textit{fusionner} en Anglais) qui
+    \begin{itemize}
+        \item   prend en entrée 2 listes d'entiers triées par ordre croissant éventuellement vides;
+        \item   renvoie une liste composée des valeurs des 2 listes, triées par ordre croissant.
+              Par exemple \mintinline{python}{merge([1, 3, 8], [4, 5, 10])} doit renvoyer \mintinline{python}{[1, 3, 4, 5, 8, 10]}    .
+    \end{itemize}
+    \begin{enumerate}
+        \item   \'Ecrire des tests pertinents pour cette fonction.
+        \item   \textbf{Compliqué :} programmer cette fonction. Le plus simple est de la programmer de manière récursive. On peut la programmer de manière impérative mais c'est plus long et sans doute plus compliqué.
+    \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[ optionnel mais intéressant]
+    Reprendre le module \mintinline{python}{fractions} écrit en POO du chapitre précédent et gérer toutes les exceptions :
+    \begin{itemize}
+        \item   l'utilisateur crée n'importe quoi;
+        \item   l'utilisateur divise par zéro.
+    \end{itemize}
+    On pourra utiliser la fonction \mintinline{python}{isinstance()} qui
+    \begin{itemize}
+        \item   prend en entrée une variable et un type de variable;
+        \item   renvoie \mintinline{python}{True} si la variable est bien ce ce type et \mintinline{python}{False} sinon.\\
+              Par exemple \mintinline{python}{isinstance(2,str)} renvoie \mintinline{python}{False}.
+    \end{itemize}
+\end{exercice}
+\end{document}

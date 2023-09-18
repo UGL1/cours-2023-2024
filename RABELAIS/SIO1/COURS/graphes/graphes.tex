@@ -1,0 +1,616 @@
+\chapter{Graphes}
+\section{Introduction}
+\subsection{Plusieurs représentations}
+
+Abel, Brieuc, Corentin, David et Ewen postent des messages sur un réseau social. Un message peut-être  «  aimé »  par n'importe quel utilisateur, y compris son créateur.\\
+On regarde, sur une période de deux semaines, qui a aimé les messages de qui. Voici les résultats :
+\begin{itemize}
+    \item 	Abel a aimé des messages de Corentin  et David;
+    \item 	Brieuc a aimé ses messages et ceux de Corentin;
+    \item 	Corentin a aimé les messages de David;
+    \item 	David a aimé ses propres messages;
+    \item 	Ewen a aimé les messages d'Abel.
+\end{itemize}
+\begin{center}
+    \includegraphics[width=7cm]{graphes/img/graphe1.png}
+\end{center}
+Ces résultats permettent de produire un \textit{graphe orienté} :
+\begin{itemize}
+    \item 	les \textit{sommets du graphe} représentent les personnes;
+    \item 	les \textit{arêtes} sont des flèches qui représentent le fait que la personne de départ aime les messages de celle d'arrivée.
+\end{itemize}
+On peut aussi représenter les résultats dans un tableau :
+\begin{center}
+    \tabstyle[UGLiBlue]
+    \begin{tabular}{c|c|c|c|c|c}
+        \hline\cellcolor{white}
+                                                          & \cellcolor{UGLiOrange}\ccell A & \cellcolor{UGLiOrange}\ccell B & \cellcolor{UGLiOrange}\ccell C & \cellcolor{UGLiOrange}\ccell D & \cellcolor{UGLiOrange}\ccell E \\
+        \hline
+        \cellcolor{UGLiOrange}\ccell aime les messages de & C,D                            & B,C                            & D                              & D                              & A                              \\
+        \hline
+    \end{tabular}
+\end{center}
+
+On peut aussi recopier le tableau en donnant pour chaque personne la liste de ses  «  followers »  (personnes qui ont aimé ses messages) :
+
+\begin{center}
+    \tabstyle[UGLiBlue]
+    \begin{tabular}{c|c|c|c|c|c}
+        \hline\cellcolor{white}
+                                               & \cellcolor{UGLiOrange}\ccell A & \cellcolor{UGLiOrange}\ccell B & \cellcolor{UGLiOrange}\ccell C & \cellcolor{UGLiOrange}\ccell D & \cellcolor{UGLiOrange}\ccell E \\
+        \hline
+        \cellcolor{UGLiOrange}\ccell followers & B,E                            & B                              & A,B                            & A,C,D                          & ---                            \\
+        \hline
+    \end{tabular}
+\end{center}
+On peut aussi présenter les données ainsi :
+\begin{center}
+    \includegraphics[width=7cm]{graphes/img/prematrice.png}
+\end{center}
+Il y a donc plusieurs manières de représenter un graphe orienté.
+
+\subsection{Organiser un graphe orienté}
+
+On considère des individus qui ont infectés par une maladie et on place une flèche pour signifier que tel individu a contaminé tel autre individu.\\
+On obtient ce résultat :
+\begin{center}
+    \includegraphics[width=7cm]{graphes/img/graphe2_random.png}
+\end{center}
+C'est le fouillis, n'est-ce pas ? \\
+En déplaçant les sommets du graphe on peut le présenter ainsi :
+\begin{center}
+    \includegraphics[width=7cm]{graphes/img/graphe2_radial.png}
+\end{center}
+C'est le même graphe mais on y voit plus clair... et on y voit encore plus clair comme ça :
+\begin{center}
+    \includegraphics[width=7cm]{graphes/img/graphe2_tree.png}
+\end{center}
+On voit clairement le  «  patient zéro » . On peut aussi rajouter des flèches quand la contamination n'est pas directe mais s'est faite  «  par une ou plusieurs personnes interposées » . On obtient ceci
+\begin{center}
+    \includegraphics[width=7cm]{graphes/img/graphe2_transitif.png}
+\end{center}
+Le but de ce chapitre est de formaliser tout cela (et plus).
+
+\section{Représentations d'un graphe orienté}
+\subsection{Premières notions}
+\begin{definition}[ : graphe, sommet, arc]
+    Un graphe orienté, c'est la donnée de
+    \begin{itemize}
+        \item 	un ensemble $S=\lbrace s_1;\,...;\,s_n\rbrace$ de \textit{sommets};
+        \item 	un ensemble $A$ composé d'\textit{arcs} du type $(s_i;\,s_j)$, qui indiquent qu'il y a  «  une flèche »  partant du sommet $s_i$ et allant au sommet $s_j$.:\\ $s_i$ est appelé l'\textit{origine} de l'arc et $s_j$ son \textit{extrémité}.
+    \end{itemize}
+\end{definition}
+
+\begin{exemple}[]
+    Ici l'ensemble des sommets est $\lbrace A;\,B;\,C;\,D\rbrace$.\\
+    L'ensemble des arcs est :\\
+    $\lbrace (A;B);\,(B;A);\,(B;C);\,(B;D);\,(C;D)\rbrace$.
+    \begin{center}
+        \includegraphics[width=5cm]{graphes/img/ex_graphe_oriente.png}
+    \end{center}
+\end{exemple}
+
+\begin{exercice}[]
+    Donner l'ensemble des sommets et l'ensemble des arêtes du graphe suivant.
+    \begin{center}
+        \includegraphics[width=7cm]{graphes/img/exo_graphe.png}
+    \end{center}
+\end{exercice}
+
+\begin{definition}[ : boucle]
+    Un arc dont l'origine et l'extrémité sont confondues d'appelle une \textit{boucle}.
+\end{definition}
+
+\subsection{Successeurs, prédécesseurs}
+
+\begin{definition}[ : successeur, prédécesseur]
+    Soit un graphe de sommets $S$ et d'arcs $A$. Soit $s$ un sommet.\\
+    On note $\Gamma^+(s)$ l'ensemble des \textit{successeurs de $s$}.\\
+    C'est l'ensemble des extrémités des arcs \textit{partant de} $s$.\\
+    De même, on note $\Gamma^-(s)$ l'ensemble des \textit{prédécesseurs de $s$}.\\
+    C'est l'ensemble des origines des arcs \textit{arrivant sur} $s$.\\
+\end{definition}
+
+\begin{exemple}[s]
+    Dans ce graphe, il y a 4 arcs d'origine D. Leurs extrémités sont les points C,D,E et F.\\ Ainsi $\Gamma^+(D)=\lbrace C;\,D;\,E;\,F\rbrace$.
+    \begin{center}
+        \includegraphics[width=7cm]{graphes/img/successeurs.png}
+    \end{center}
+    On peut retrouver le graphe à partir du tableau des successeurs.
+    \begin{center}
+        \tabstyle[UGLiBlue]
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            \cellcolor{UGLiBlue}\ccell sommet      & \cellcolor{UGLiBlue}\ccell A & \cellcolor{UGLiBlue}\ccell B & \cellcolor{UGLiBlue}\ccell C & \cellcolor{UGLiBlue}\ccell D & \cellcolor{UGLiBlue}\ccell E & \cellcolor{UGLiBlue}\ccell F \\
+            \hline
+            \cellcolor{UGLiBlue}\ccell successeurs & B                            & A, C, E                      & ---                          & C, D, E, F                   & B                            & C                            \\
+            \hline
+        \end{tabular}
+        \includegraphics[width=7cm]{graphes/img/predecesseurs.png}
+    \end{center}
+    Dans ce graphe, il y a 3 arcs d'extrémité C.\\
+    Leurs origines sont les points B,D et F.\\ Ainsi $\Gamma^-(C)=\lbrace B;\,D;\,F\rbrace$.
+    On peut retrouver le graphe à partir du tableau des prédécesseurs.
+    \begin{center}
+        \tabstyle[UGLiBlue]
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{UGLiBlue}\ccell sommet         & \ccell A & \ccell B & \ccell C & \ccell D & \ccell E & \ccell F \\
+            \hline
+            \cellcolor{UGLiBlue}\ccell prédécesseurs & B        & A, E     & B, D, F  & B, D     & B, D     & D        \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{exemple}
+
+\begin{exercice}[]
+    Pour chacun des graphes, donne le tableau des successeurs et celui des prédécesseurs (attention : pour le graphe de gauche, on a dessiné des arcs bidirectionnels, chacun compte pour 2 arcs).
+    \begin{center}
+        \includegraphics[width=7cm]{graphes/img/exo1_graphe1.png}\hspace*{2em}\includegraphics[width=6cm]{graphes/img/exo1_graphe2.png}
+    \end{center}
+\end{exercice}
+
+\begin{exercice}[]
+    Dessine le graphe correspondant au tableau de successeurs.
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \ccell sommet                            & \ccell A & \ccell B & \ccell C & \ccell D \\
+            \hline
+            \cellcolor{UGLiOrange}\ccell successeurs & A,B,C    & B,C,D    & C,D,A    & D,A,B    \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{exercice}
+
+\begin{exercice}[]
+    Dessine le graphe correspondant au tableau de prédécesseurs.
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            \ccell sommet                              & \ccell A & \ccell B & \ccell C & \ccell D \\
+            \hline
+            \cellcolor{UGLiOrange}\ccell prédécesseurs & A,D      & ---      & A,B,D    & A        \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{exercice}
+
+\subsection{Matrice d'adjacence}
+
+\begin{definition}[ : matrice d'adjacence]
+    Soit un graphe G de sommets  $S=\lbrace s_1;\,...;\,s_n\rbrace$ et d'arcs A. On appelle \textit{matrice d'adjacence de} G la matrice carrée d'ordre n $M=(m_{ij})$ telle que
+    \begin{itemize}
+        \item 	$m_{ij}=1$ s'il y a un arc partant de $s_i$ et arrivant sur $s_j$;
+        \item 	$m_{ij}=0$ sinon.
+    \end{itemize}
+\end{definition}
+
+\begin{exemple}[]
+    En écrivant les sommets dans l'ordre alphabétique, la matrice d'adjacence du graphe ci-dessous est
+    $$M=\begin{matrice}
+            1 &1 &0 & 0&0  \\
+            0 & 0&1 &0 &0  \\
+            0 & \boxed{1} & 0 & 0 & 1\\
+            1 & 0 & 1 & 0 & 1\\
+            0 & 1 & 0 &{\color{red}1} & 0
+        \end{matrice}$$
+    \begin{center}
+        \includegraphics[width=6cm]{graphes/img/matr_adj1.png}
+    \end{center}
+    L'élément encadré de M est à la 3\eme ligne et à la 2\eme colonne : c'est $m32$. Il vaut 1 et signifie qu'il y a un arc partant du sommet 3, donc C, et allant au sommet 2, donc B.\\
+    De même, du 5\eme sommet E, il existe un arc allant vers le 4\eme (D), donc $m_{54}=1$ (en rouge).
+\end{exemple}
+
+\begin{remarque}[]
+    Dans une matrice d'adjacence
+    \begin{itemize}
+        \item 	Les lignes correspondent au points de départ, les colonnes au point d'arrivée;
+        \item 	Sur une ligne donnée(la i\eme par exemple), on peut lire \textit{tous les successeurs} de $s_i$;
+        \item 	Sur une colonne donnée, (la j\eme par exemple), on lite \textit{tous les prédécesseurs} de $s_j$;
+    \end{itemize}
+\end{remarque}
+
+\begin{exercice}[]
+    On considère un graphe dont l'ensemble des sommets est $\lbrace A;\,B;\,C;\,D;\,E;\,F\rbrace$, et dont la matrice d'adjacence est
+    $$ M=\begin{matrice}
+            1 &1 &0 & 1&0&1  \\
+            0 & 0&0 &1 &0&1  \\
+            1 & 0 & 0 & 0 & 1&1\\
+            1 & 0 & 1 & 1 & 1&0\\
+            0 & 1 & 0 &1 & 1 &1\\
+            1 & 0 &1 & 0 &1& 0
+        \end{matrice}$$
+    
+    \begin{enumerate}
+        \item 	Donner le tableau des successeurs de chaque sommet.
+        \item 	Donner le tableau des prédécesseurs de chaque sommet.
+        \item 	Représenter ce graphe.
+    \end{enumerate}
+\end{exercice}
+
+\section{Chemins et circuits}
+
+\begin{definition}[s : chemin, longueur]
+    
+    On considère un graphe orienté.\\
+    Un \textit{chemin} est une succession de sommets dans un ordre donné, chacun étant relié au suivant par un arc.\\
+    La \textit{longueur} du chemin, c'est le nombre d'arcs qui composent le chemin. C'est aussi le nombre de sommets qui composent le chemin mois un.
+\end{definition}
+
+\begin{exemple}[]
+    $(F,\,C,\,D,\,E)$ est un chemin de longueur 3.\\
+    $(F,\,C,\,B,\,E)$ n'en est pas un car l'arc $(C,\,B)$ n'existe pas.
+    \begin{center}
+        \includegraphics[width=7cm]{graphes/img/chemin.png}
+    \end{center}
+\end{exemple}
+
+\begin{definition}[s : chemin hamiltonien,circuit]
+    
+    Un \textit{chemin hamiltonien} est un chemin qui passe une et une seule fois par \textit{chaque} sommet.\\
+    Un \textit{circuit} est un chemin dont le premier et le dernier sommet sont identiques (un chemin  «  fermé »  en quelque sorte).
+\end{definition}
+
+
+\begin{exemple}[s]
+    
+    \begin{center}
+        \includegraphics[width=7cm]{graphes/img/circuit.png}
+    \end{center}
+    $(C,\,D,\,E,\,B,\,C)$ est un circuit de longueur 4.
+    
+    \begin{center}
+        \includegraphics[width=7cm]{graphes/img/chemin_hamiltonien.png}
+    \end{center}
+    $(F,\,C,\,D,\,E,\,B,\,A)$ est un chemin hamiltonien.
+    
+\end{exemple}
+
+\begin{remarque}[]
+    Un graphe orienté \textit{ne possède pas toujours} de circuit hamiltonien (à gauche) ou bien peut en posséder plusieurs (à droite).
+    \begin{center}
+        \includegraphics[width=4cm]{graphes/img/pas_de_ch.png}\hspace{2em}\includegraphics[width=4cm]{graphes/img/plusieurs_ch.png}
+    \end{center}
+\end{remarque}
+
+\begin{exercice}[]
+    Trouve un chemin hamiltonien, un circuit de longueur 3 et un autre de longueur 4.
+    \begin{center}
+        \includegraphics[width=7cm]{graphes/img/ex_circuit_ch.png}
+    \end{center}
+\end{exercice}
+
+\section{Utilité des matrices d'adjacence}
+On peut se poser beaucoup de questions ayant trait aux chemins d'un graphe. En voici trois que nous allons étudier :
+\begin{itemize}
+    \item 	On se donne un graphe à 10 sommets, on en choisit un en particulier. Combien de chemins différents de longueur 5 commencent en ce sommet ?
+    \item 	Toujours dans ce graphe, combien y a-t-il de chemin de longueur 5 ?
+    \item 	Si on veut (comme dans l'exemple introductif) ajouter tous les  «  raccourcis »  aux arcs du graphe, comment s'y prendre pour n'en oublier aucun ?
+\end{itemize}
+
+
+
+\begin{propriete}[]
+    Soit $G$ un graphe possédant $n$ sommets $s_1$, $s_2$, \ldots $s_n$ et $M$ sa matrice d'adjacence.\\
+    Soit $p$ un entier naturel positif. Alors $M^p$ contient les informations sur les chemins de longueur $p$ du graphe :
+    
+    Le nombre de chemins de longueur $p$ reliant $s_i$ à $s_j$ est le coefficient de la i\eme ligne et de la j\eme colonne de $M^p$.
+\end{propriete}
+
+\begin{exemple}[]
+    La matrice d'adjacence du graphe ci-contre est
+    $$M=\begin{matrice}
+            0 & 1 & 0 & 0 & 1\\
+            0 & 0 & 1 & 0 & 1\\
+            0 & 0 & 0 & 1 & 0\\
+            0 & 0 & 0 & 0 & 0\\
+            0 & 0 & 0 & 1 & 0
+        \end{matrice}$$
+    Pour déterminer les chemins de longueur 3, calculons $M^3$ \textit{à l'aide de la calculatrice} :
+    \begin{center}
+        \includegraphics[width=5cm]{graphes/img/exemple_Mp.png}
+        
+        
+        $M^3 = \begin{matrice}
+                0 & 0 & 0 & 2 & 0\\
+                0 & 0 & 0 & 0 & 0\\
+                0 & 0 & 0 & 0 & 0\\
+                0 & 0 & 0 & 0 & 0\\
+                0 & 0 & 0 & 0 & 0\\
+            \end{matrice}$
+    \end{center}
+    et le seul coefficient non nul est à la 1\ere ligne (départ A) et à la 3\eme colonne (arrivée D): il n'y a que 2 chemins de longueur 3 dans ce graphe, et ils relient $A$ à $D$.\\
+    Maintenant qu'on connaît leur nombre et leurs extrémités, on peut les écrire : $(A,\,B,\,E,\,D)$ et $(A,\,B,\,C,\,D)$.
+\end{exemple}
+
+\begin{remarque}[]
+    Ce procédé ne donne pas la liste des chemins de longueur donnée, seulement leur nombre et leurs extrémités.
+\end{remarque}
+
+\begin{exercice}[]
+    On donne le tableau de prédécesseurs suivants :
+    \begin{center}
+        \tabstyled
+        \begin{tabular}{c|c|c|c|c|c|c}
+            \hline
+            \ccell sommet                               & \ccell A & \ccell B & \ccell C & \ccell D & \ccell E & \ccell F \\
+            \hline
+            \cellcolor{UGLiOrange} \ccell prédécesseurs & ---      & ---      & A,B,E    & F        & B,D      & A,B      \\
+            \hline
+        \end{tabular}
+    \end{center}
+    En utilisant les puissances de la matrice d'adjacence :
+    \begin{itemize}
+        \item 	Donner tous les chemins de longueur 3.
+        \item 	Montrer qu'il n'existe pas de chemin de longueur 4.
+        \item 	Montrer que ce graphe ne possède pas de circuit.
+    \end{itemize}
+\end{exercice}
+
+\section{Matrices booléennes et fermeture transitive}
+
+
+Parfois on n'a pas besoin de connaître le nombre précis de chemins d'une longueur donnée reliant deux sommets. On veut juste savoir s'il en existe au moins un ou pas. Les matrices booléennes vont nous permettre de répondre simplement à cette question.\\
+
+La matrice d'adjacence d'un graphe ne comporte que des zéros et des uns donc on peut la voir comme une \textit{matrice booléenne}, c'est à dire une matrice à coefficients dans l'algèbre de Boole $\mathcal{B}=\left\lbrace  0;\,1\right\rbrace$. Pour rappel, cette algèbre de Boole est munie des opérations binaires $+$ et $\times$ vérifiant :
+\begin{itemize}
+    \item 	$0+0 = 0$, $1+0 = 1$ et $1+1 = 1$ (penser au  «  ou »  logique)
+    \item 	$0\times 0=0$, $1\times 0=0$ et $1\times 1 = 1$ (penser au  «  et »  logique)
+\end{itemize}
+
+\begin{definition}[s : addition et multiplication de matrices booléennes]
+    Soient $A$ et $B$ 2 matrices booléennes.
+    \begin{itemize}
+        \item 	On définit $A\oplus B$, somme \textit{booléenne} de $A$ et de $B$ comme ceci : chaque coefficient de $A\oplus B$ est la somme booléenne des coefficients correspondants de $A$ et de $B$.\\
+              En pratique on calcule $A+B$ comme d'habitude et on remplace chaque coefficient non nul par un 1.
+        \item 	On définit $A\otimes B$, produit \textit{booléenne} de $A$ et de $B$ comme suit : on calcule $A\times B$ comme d'habitude et on remplace chaque coefficient non nul par un 1.
+    \end{itemize}
+\end{definition}
+\begin{exemple}[s]
+    
+    Prenons $A=\begin{matrice}
+            1 & 1 & 1 \\
+            0 & 0 & 1 \\
+            1 & 0 & 1 \\
+        \end{matrice}$ et $B=\begin{matrice}
+            0 & 1 & 0 \\
+            1 & 0 & 1 \\
+            1 & 0 & 1 \\
+        \end{matrice}$.
+    \begin{itemize}
+        \item 	$A+B=\begin{matrice}
+                      1 & 2 & 1 \\
+                      1 & 0 & 2 \\
+                      2 & 0 & 2 \\
+                  \end{matrice}$ donc $A\oplus B=\begin{matrice}
+                      1 & 1 & 1 \\
+                      1 & 0 & 1 \\
+                      1 & 0 & 1 \\
+                  \end{matrice}$
+        \item 	$A\times B =\begin{matrice}
+                      2 & 1 & 2 \\
+                      1 & 0 & 1 \\
+                      1 & 1 & 1 \\
+                  \end{matrice}$ donc $A\otimes B=\begin{matrice}
+                      1 & 1 & 1 \\
+                      1 & 0 & 1 \\
+                      1 & 1 & 1 \\
+                  \end{matrice}$
+    \end{itemize}
+\end{exemple}
+
+\begin{definition}[ : puissance d'une matrice booléenne]
+    
+    Soit $A$ une matrice booléenne carrée de taille $n$.\\
+    On pose $A^{[0]}=I_n$, $A^{[1]}=A$ et pour tout entier $p$ supérieur à 1:
+    $$A^{[p]}=\underbrace{A\otimes\ldots \otimes A}_{p\text{\ facteurs}}$$
+    En pratique il suffit de calculer $A^p$ et de remplacer les coefficients non nuls par des 1.
+\end{definition}
+
+\begin{exemple}[]
+    Prenons $A =\begin{matrice}
+            0 & 1 & 0\\1&0&1\\1&1&0
+        \end{matrice}$ et $p=3$.\\
+    Avec la calculatrice on obtient $A^3 =\begin{matrice}
+            1 & 2 & 0\\2&1&2\\2&2&1
+        \end{matrice}$ donc $A^{[3]} =\begin{matrice}
+            1 & 1 & 0\\1&1&1\\1&1&1
+        \end{matrice}$.\\
+    
+    Si $A$ est la matrice d'adjacence d'un graphe alors $A^{[3]}$ nous indique si 2 sommets du graphe peuvent être reliés ou non par un chemin de longueur 3 : on voit que c'est toujours possible sauf pour relier le 1\er au 3\eme.
+\end{exemple}
+
+On considère un graphe et on veut (comme dans l'exemple introductif) ajouter tous les  «  raccourcis »  aux arcs du graphe, comment s'y prendre pour n'en oublier aucun ?
+
+Si notre graphe possède $n$ sommets, considérons 2 sommets $s_i$ et $s_j$, on veut rajouter l'arc $(s_i,\, s_j)$ (qu'on va appeler \textit{raccourci}) aux arcs du graphe dès qu'il existe un chemin allant de $s_i$ à $s_j$.\\
+Nous allons admettre que c'est le cas si (et seulement si) il existe un chemin de longueur 1, ou 2, ..., ou $n-1$ qui relie ces 2 sommets. On arrive alors à la propriété et définition suivante :
+
+\begin{propriete}[ et définition]
+    Soit $M$ la matrice d'adjacence d'un graphe $G$ à $n$ sommets. On définit
+    $$\widehat{M}=M\oplus M^{[2]}\oplus\ldots\oplus M^{[n-1]}$$
+    
+    $\widehat{M}$ est la matrice d'adjacence du graphe appelé \textit{fermeture transitive} de $G$, composé des mêmes sommets et arcs que ceux de $G$, auxquels on ajoute tous les arcs des  «  raccourcis » .
+\end{propriete}
+
+\begin{methode}[ : déterminer une fermeture transitive]
+    On se donne le graphe ci-dessous, dont la matrice d'adjacence est
+    
+    $$M=\begin{matrice}0&0&1&1\\0&0&0&1\\0&1&0&0\\0&0&0&0\end{matrice}$$
+    et on aimerait déterminer sa fermeture transitive.
+    \begin{center}
+        \includegraphics[width=4cm]{graphes/img/fermeture_transitive_0.png}
+    \end{center}
+    
+    
+    D'après la propriété précédente, étant donné que ce graphe possède 4 sommets on a $$\widehat{M}=M\oplus M^{[2]}\oplus M^{[3]}$$
+    En pratique, on calcule $M^2$, $M^3$ puis $M+M^2+M^3$ et on remplace chaque coefficient non nul par un 1.\\
+    Avec la calculatrice on obtient:
+    $M^2=\begin{matrice}0&1&0&0\\0&0&0&0\\0&0&0&1\\0&0&0&0\end{matrice}$ et
+    $M^3=\begin{matrice}0&0&0&1\\0&0&0&0\\0&0&0&0\\0&0&0&0\end{matrice}$ de sorte que
+    $$M+M^2+M^3=\begin{matrice}0&1&1&2\\0&0&0&1\\0&1&0&1\\0&0&0&0\end{matrice}$$
+    Donc en définitive $\widehat{M}=\begin{matrice}0&1&1&1\\0&0&0&1\\0&1&0&1\\0&0&0&0\end{matrice}$
+    et on aboutit au graphe suivant :
+    \begin{center}
+        \includegraphics*[width=4cm]{graphes/img/fermeture_transitive_1.png}
+    \end{center}
+    où l'on a fait figurer en rouge les  «  raccourcis »  ajoutés. On peut remarquer que $M^3$ n'apporte pas grand-chose ici, car son seul coefficient non nul dit qu'il y a un chemin de longueur 3 : $(A,\,C,\,B,\,D)$ reliant $A$ et $D$, mais comme l'arc $(A,\,D)$ existe déjà,  «  le raccourci est déjà là » .
+\end{methode}
+
+\begin{exercice}[]
+    Voici un graphe.
+    \begin{center}
+        \includegraphics[width=6cm]{graphes/img/exo_dm.png}
+    \end{center}
+    \begin{enumerate}
+        \item 	Donner M, matrice d'adjacence du graphe.
+        \item 	Calculer $\widehat{M}$, matrice de la fermeture transitive de ce graphe.
+        \item 	Quels arcs doit-on ajouter au graphe ci-dessus pour réaliser sa fermeture transitive ?
+    \end{enumerate}
+\end{exercice}
+
+\section{Exercices}
+\begin{exercice}
+    Cinq joueurs, notés A, B, C, D et E, jouent régulièrement à un jeu en ligne. Chaque partie de ce jeu oppose deux adversaires. Le tableau suivant donne, pour chacun des cinq joueurs, la liste des adversaires qu'il a déjà battus.
+    \begin{center}
+        \tabstyled
+        \begin{tabular}{c|c}\hline
+            \ccell Le joueur & \ccell a déjà battu \\ \hline
+            A                & B, D                \\ \hline
+            B                & C                   \\ \hline
+            C                & B, D                \\ \hline
+            D                & E                   \\ \hline
+            E                & D                   \\ \hline
+        \end{tabular}
+    \end{center}
+    Ainsi, par exemple, le joueur C a déjà battu les joueurs B et D.
+    \begin{enumerate}
+        \item Graphe orienté associé à la situation
+              \begin{enumalph}
+                  \item En considérant le tableau précédent comme un tableau de successeurs, représenter la
+                  situation par un graphe orienté $G$, dans lequel un arc relie un sommet $x$ à un sommet $y$ si le
+                  joueur $x$ a déjà battu le joueur $y$.
+                  \item Écrire la matrice d'adjacence $M$ du graphe $G$.
+                  \item Recopier et compléter le tableau des \textbf{prédécesseurs} dans le graphe $G$.
+                  \begin{center}
+                    \tabstyled
+                      \begin{tabular}{c|c}\hline
+                          \ccell Le joueur & \ccell a déjà \ldots \\ \hline
+                          A                &                        \\ \hline
+                          B                &                        \\ \hline
+                          C                &                        \\ \hline
+                          D                &                        \\ \hline
+                          E                &                        \\ \hline
+                      \end{tabular}
+                  \end{center}
+                  \item Le graphe $G$ contient-il un circuit ? Contient-il un chemin hamiltonien ? Justifier les
+                  réponses.
+              \end{enumalph}
+    \end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+    Un fournisseur doit livrer 5 entreprises. Le réseau de transport est représenté par le graphe orienté
+    donné ci-dessous où l'entrepôt du fournisseur est noté $F$, et les entreprises sont notées $A$, $B$, $C$, $D$, $E$.
+    
+    \begin{center}
+        \includegraphics[width=5cm]{graphes/img/g2.png}
+    \end{center}
+    
+    \begin{enumerate}
+        \item Écrire la matrice d'adjacence $M$ de ce graphe en considérant les sommets notés $A$, $B$, $C$, $D$, $E$, et $F$ dans cet ordre.
+        \item  Le fournisseur souhaite livrer chacune des entreprises. Il part de son entrepôt.
+              \begin{enumalph}
+                  \item Existe-t-il un chemin hamiltonien d'origine $F$ dans ce graphe ? Si oui, citer un tel chemin.
+                  \item Interpréter le résultat relativement aux possibilités de livraison.
+              \end{enumalph}
+        \item  On donne la matrice $M^3 = \begin{matrice}
+                      1& 1& 0	& 1	& 0	&0\\
+                      2& 0& 4 & 0	&1	&3\\
+                      1& 3& 0 & 3	&1	&0\\
+                      1&0	&2	& 0	&0	&1\\
+                      1&0	& 2	& 0	&1	&1\\
+                      1&3	& 0	& 3	&1	&1 \end{matrice}$.
+              \begin{enumalph}
+                  \item Dans le contexte de l'exercice, interpréter le coefficient 2 situé sur la quatrième ligne et la troisième colonne de la matrice $M^3$.
+                  \item Combien existe-t-il de chemins de longueur 3 issus du sommet $D$ dans ce graphe ? Justifier puis citer ces chemins.
+                  \item Le fournisseur doit maintenant effectuer une livraison, depuis l'entrepôt, dans quatre
+                  entreprises en commençant par l'entreprise $D$.
+                  
+                  Montrer que, pour effectuer cette livraison sans repasser par une entreprise déjà livrée, le
+                  fournisseur n'a qu'un seul chemin possible.
+                  
+                  Expliquer la démarche et préciser ce chemin.
+              \end{enumalph}
+    \end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+    \textbf{Partie A}\\
+    \medskip
+    Quatre sites internet traitent les changements climatiques et leurs conséquences sur la planète. On
+    considère une page web sur chacun de ces sites, et on note ces quatre pages A, B, C et D. Les liens
+    hypertextes respectifs entre ces quatre pages sont tous récapitulés dans l'énumération suivante:
+    \begin{itemize}
+        \item A reçoit un unique lien de B et un unique lien de C ;
+        \item B reçoit un unique lien de D ;
+        \item C reçoit un unique lien de B, un unique lien de D et un unique lien de A ;
+        \item D reçoit un unique lien de A.
+    \end{itemize}
+    \begin{enumerate}
+        \item Représenter l'ensemble de ces liens par un graphe orienté $G$ de sommets A, B, C, D, dans lequel,
+              si une page $Y$ reçoit un lien d'une page $X$, on représente un arc du sommet $X$ vers le sommet $Y$.
+        \item
+              \begin{enumalph}
+                  \item Donner la matrice d'adjacence $M$ du graphe $G$.
+                  \item Interpréter les valeurs des termes situés sur la diagonale de la matrice $M$.
+                  \item Calculer la matrice $M^4$.
+                  \item Le graphe contient-il des circuits ? Justifier la réponse.
+                  \item Interpréter le terme de la 1\ere et  3\eme colonne  de la matrice $M^4$ en termes de chemins, puis donner la liste de ces chemins.
+              \end{enumalph}
+        \item Calculer $\hat{M}$, la matrice de la fermeture transitive du graphe $G$.\\
+              Interpréter le résultat obtenu dans le contexte de l'exercice.
+    \end{enumerate}
+    \bigskip
+    \textbf{Partie B}\\
+    \medskip
+    Un étudiant du BTS SIO a mis en place un moteur de recherche avec lequel les pages affichées sont
+    ordonnées par pertinence, selon le nombre de liens hypertextes pointant vers chaque page.\\
+    Cette partie étudie un exemple simplifié, en limitant ce moteur de recherche aux quatre pages web
+    A, B, C et D définies dans la partie A, et en considérant le graphe associé $G$.\\
+    La méthode mise en place par l'étudiant consiste à associer un score à chaque sommet du graphe.\\
+    Les scores $a$, $b$, $c$, $d$ de chacun des sommets A, B, C, D, sont calculés à partir des instructions
+    suivantes :
+    \begin{itemize}
+        \item on liste les prédécesseurs du sommet considéré dans le graphe $G$ ;
+        \item on divise le score de chaque prédécesseur par le nombre de ses successeurs;
+        \item le score d'un sommet est obtenu en ajoutant les quotients obtenus.
+    \end{itemize}
+    \emph{Exemple }: le sommet A possède deux prédécesseurs B et C ; B a 2 successeurs et C a 1 successeur.\\
+    D'où $a = \dfrac{b}{2} + \dfrac{c}{1}$.
+    
+    \medskip
+    
+    \begin{enumerate}
+        \item Justifier l'égalité : $c = \dfrac{a}{2} + \dfrac{b}{2} + \dfrac{d}{2}$.
+              
+        \item  En établissant les quatre égalités vérifiées par les scores $a$, $b$, $c$, $d$, on obtient un système de quatre équations linéaires aux inconnues $a$, $b$, $c$, $d$. Ce système ayant une infinité de solutions,
+              toutes proportionnelles entre elles, on pose $a = 1$ et on admet que la résolution se ramène à celle
+              du système :
+              
+              \[(S) \quad \left\lbrace \begin{array}{l c r}
+                      0,5b + c                              & = & 1     \\
+                      \phantom{0,5} b \phantom{+ c } - 0,5d & = & 0     \\
+                      0,5b - c + 0,5d                       & = & - 0,5
+                  \end{array}\right.\]
+              
+              On définit les matrices $X = \begin{matrice}b\\c\\d\end{matrice}$,\quad  $A = \begin{matrice}0,5&1&0\\1&0&-0,5\\0,5&- 1&0,5
+                  \end{matrice}$  \\et $B = \begin{matrice}0,5 &0,5& 0,5\\0,75& - 0,25&- 0,25\\1&- 1&1\end{matrice}$.
+              \begin{enumalph}
+                  \item Exprimer le système $(S)$ sous la forme $A \times X = Y$, où $Y$ est une matrice à préciser.
+                  \item Calculer le produit $B \times A$.
+                  \item En déduire que $X = B \times Y$, puis donner la solution du système $(S)$.
+              \end{enumalph}
+        \item  Donner, en justifiant, le classement des pages web A, B, C et D selon la méthode mise en place.
+    \end{enumerate}
+\end{exercice}

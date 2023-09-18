@@ -1,0 +1,349 @@
+\documentclass[12pt]{nsibeamer}
+
+\title{Modularité}
+\subtitle{Chapitre 07}
+\author{NSI2}
+\begin{document}
+\maketitle
+
+%
+
+\begin{frame}[standout]
+	\begin{center}
+		\Huge
+		Un problème,\\
+		de multiples réponses
+	\end{center}
+\end{frame}
+
+%
+
+\begin{frame}{Problème des anniversaires}
+\pause
+\begin{itemize}
+	\item un groupe de personnes, chacune avec sa date anniversaire ;\pause
+	\item plus ce groupe est grand, plus il y a de chances que deux personnes soient nées le même jour de l'année.\pause
+	\item  \alert{paradoxe des anniversaires} : \pause à partir de 23 personnes, il y a plus de 50\% de chances que deux personnes soient nées le même jour de l'année.\pause
+	\item pas un « vrai » paradoxe.
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}{Variante}
+\pause
+\begin{itemize}
+	\item une liste d'entiers compris entre $0$ et $2^{16}-1$ ;
+	\item à partir de 302 éléments, plus d'une chance sur 2 qu'il y ait au moins un doublon ;
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[standout]
+	\begin{center}
+		\Huge
+		Vous ne me \\
+		croyez pas ?
+	\end{center}
+\end{frame}
+
+%
+
+\begin{frame}{Et bien regardez}
+\tiny\texttt{
+[13654, 26764, 60127, 56265, 45203, 54601, 23471, 64648, 49436, 32684, 4685, 61418, 8441, 10200, 29042, 55598, 35106, 59628, 16003, 52546, 61235, 61380, 58092, 15876, 41296, 5825, 11755, 46620, 33256, 21388, 34496, 50818, 24255, 21645, 59590, 46160, 29287, 28482, 7056, 62317, 7646, 48862, 580, 55506, 37346, 20788, 18739, 46029, 17621, 23795, 64827, 62778, 44784, 1732, 56030, 36325, 5513, 18255, 5423, 30071, 27916, 26456, 42655, 56515, 54266, 30311, 9712, 56000, 57606, 29080, 11732, 6675, 18147, 18031, 31923, 7587, 10177, 11595, 45194, 60765, 57430, 22114, 7692, 22005, 37297, 7817, 35883, 21041, 25233, 8245, 17171, 604, 15615, 49219, 5292, 61211, 32599, 27813, 59838, 15470, 35127, 19969, 15707, 60577, 28106, 54636, 18636, 10802, 45, 3962, 12676, 56137, 4457, 18793, 64445, 48181, 61137, 18182, 3579, 42258, 50192, 64379, 31680, 32806, 8665, 8581, 60429, 27189, 7004, 14490, 27959, 40120, 61965, 57446, 40767, 9506, 30011, 63676, 16650, 6053, 6459, 19781, 26735, 50643, 19042, 51938, 16298, 19033, 7838, 43301, 51725, 57656, 63232, 51368, 65031, 46605, 55392, 9509, 32286, 50079, 10218, 37000, 40932, 40890, 4415, 60392, 47891, 48141, 33494, 64130, 25837, 41840, 27717, 57910, 19235, 40414, 32108, 33204, 51667, 59269, 8221, 24221, 26572, 53731, 59583, 12556, 15280, 8670, 571, 20383, 25326, 13967, 13776, 30529, 2175, 7819, 8110, 64263, 16570, 35558, 55085, 12863, 21481, 53120, 54957, 30280, 2210, 16659, 52235, 27616, 42152, 33507, 29239, 51945, 32471, 47977, 8414, 10609, 27084, 2738, 40268, 8843, 59468, 27787, 56664, 61642, 25038, 39276, 9981, 21508, 17725, 64495, 7775, 63696, 2659, 17292, 27874, 55810, 35170, 19244, 13361, 40907, 13019, 21447, 16367, 34450, 54737, 54046, 65365, 28076, 49056, 61876, 4276, 8795, 26780, 24477, 43398, 35627, 18815, 24692, 8364, 39195, 29516, 33998, 9633, 32619, 21929, 3803, 58244, 49410, 45617, 9974, 49174, 8108, 19506, 4053, 12516, 502, 23668, 8665, 55033, 44229, 43647, 10663, 14877, 42960, 41370, 27958, 45473, 39233, 56912, 4757, 39967, 5703, 21297, 58081, 4677, 7777, 52981, 30204, 18837, 12346]}
+\end{frame}
+
+%
+
+\begin{frame}[standout]
+	\begin{center}
+		\Huge
+		Bon, d'accord, ce\\
+		n'est pas une 
+		preuve\ldots
+		\normalsize
+	\end{center}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Algorithme de recherche de doublons}
+\begin{minted}{pseudocode}
+fonction doublon( contenu : liste ) -> booléen
+    déjà_vu ← vide
+    pour x dans contenu
+        si x est dans déjà_vu
+            renvoyer vrai
+        sinon
+            ajouter x à déjà_vu
+    renvoyer faux
+\end{minted}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Pas si clair que ça\ldots}
+\pause
+\begin{itemize}
+	\item Quelle structure de données pour implémenter \texttt{déjà\_vu} ?\pause
+	\item Quelles contraintes ?\pause Vitesse ?\pause Mémoire ? 	
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Pour la suite\ldots}
+\pause
+\begin{itemize}
+	\item On appellera \mintinline{python}{s} la structure de donnée qui représente \texttt{déjà\_vu}.\pause
+	\item On notera $n$ la taille de la liste à examiner et \mintinline{python}{content} son nom.\pause
+	\item On définit une \textsc{opel} comme un accès à \mintinline{python}{content} ou à \mintinline{python}{s}.\pause
+	\item On appellera complexité l'ordre de grandeur du nombre d'\textsc{opel} en fonction de $n$.
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[standout]
+	\begin{center}
+		\Huge
+		Au plus simple :\\\pause
+		avec une liste
+		\normalsize
+	\end{center}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Code Python}
+\begin{minted}{python}
+def has_duplicates_1(content: list) -> bool:
+    s = []
+    for x in content:
+        if x in s:
+            return True
+        else:
+            s.append(x)
+    return False
+\end{minted}
+\end{frame}
+
+%
+
+\begin{frame}{Analyse}
+\pause
+\begin{itemize}
+	\item Simple !\pause
+	\item Complexité dans le pire des cas : \pause $n^2$.
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[standout]
+	\begin{center}
+		\Huge
+		Avec une liste\\
+		de booléens
+	\end{center}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Principe}
+\begin{itemize}
+	\item $2^16$ valeurs possibles pour chaque élément ;\pause
+	\item créer une liste \mintinline{python}{s} de $2^16$ booléens ;\pause
+	\item pour chaque \mintinline{python}{x} de \mintinline{python}{content}, mettre \mintinline{python}{s[x]} à \mintinline{python}{True} et, s'il y est déjà, s'arrêter car on a un doublon.
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Code Python}
+\begin{minted}{python}
+def has_duplicate2(content: list) -> bool:
+    s = [False] * 65536
+    for x in content:
+        if s[x] == True:
+            return True
+        else:
+            s[x] = True
+    return False
+\end{minted}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Analyse}
+\begin{itemize}
+	\item Toujours simple ;\pause
+	\item Complexité : $n$ ;\pause
+	\item Malheureusement, en \textsc{Python} chaque booléen est stocké sur 64 bits.\pause\\
+	Cela fait un sacré gaspillage de mémoire (plus de 500 ko)!
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[standout]
+	\begin{center}
+		\Huge
+		En jouant sur les bits\\
+		d'un grand nombre
+		\normalsize
+	\end{center}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Principe}
+\pause
+\begin{itemize}
+	\item utiliser une variable \mintinline{python}{s} de type \mintinline{python}{int} pour « stocker » une valeur sur \np{65536} bits ;\pause
+	\item méthode identique à la précédente : lors du parcours de \mintinline{python}{content}, si on trouve l'élément \mintinline{python}{x}, on regarde le x\eme bit de \mintinline{python}{s}\ldots
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Code Python}
+\begin{minted}{python}
+def has_duplicate3(content: list) -> bool:
+    s = 0
+    for x in content:
+        v = 1 << x
+        if s & v:
+            return True
+        else:
+            s = s | v
+    return False
+\end{minted}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Analyse}
+\pause
+\begin{itemize}
+	\item plus technique ;\pause
+	\item complexité : $n$ ;\pause
+	\item en théorie, ça marche bien\ldots\pause et en pratique ?
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[standout]
+	\begin{center}
+		\Huge
+		Solution hybride : \\
+		la liste de paquets
+	\end{center}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Principe}
+\pause
+On rappelle que \mintinline{python}{content} contient 302 nombres.\pause
+\begin{itemize}
+	\item \mintinline{python}{s} est une liste de taille 302\ldots\pause
+	\item mais pas une liste d' \mintinline{python}{int}, plutôt une liste de listes ;\pause
+	\item lors du parcours de \mintinline{python}{content}, \mintinline{python}{x} est placé dans \mintinline{python}{s[x % 302]}.
+\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Code Python}
+\begin{minted}{python}
+def has_duplicate4(content: list) -> bool:
+    s = [[] for _ in range(302)]
+    for x in content:
+        if x in s[x % 302]:
+            return True
+        else:
+            s[x % 302].append(x)
+    return False
+\end{minted}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Analyse}
+\pause
+	\begin{itemize}
+		\item \mintinline{python}{s} a une taille raisonnable ;\pause
+		\item peu de calculs ;
+		\item le test \mintinline{python}{if x in s[x % 302]} porte sur un paquet qui sera probablement de taille très réduite.
+	\end{itemize}
+\end{frame}
+
+%
+
+\begin{frame}[standout]
+	\begin{center}
+		\Huge
+		Pourquoi tout cela ?
+	\end{center}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Définition}
+\pause
+\begin{block}{Implémentation}
+\textit{choix concret} de programmation pour répondre à un problème qui, lui, peut s'avérer \textit{abstrait} :\pause
+\begin{itemize}
+	\item 	choix des structures de données pour représenter les variables ;\pause
+	\item 	parfois, choix d'un algorithme particulier, ou d'un paradigme de programmation.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%
+
+\begin{frame}{Concrètement}
+\pause
+On vient de rencontrer 4 implémentations différentes destinées à résoudre le problème de départ.
+\end{frame}
+
+\begin{frame}[standout]
+	\begin{center}
+		\Huge
+		Modularité !
+	\end{center}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Points communs des implémentations}
+
+\begin{minted}{python}
+def has_duplicate(content: list) -> bool:
+    s = create() # <-- MODULAIRE
+    for x in content:
+        if contains(s,x): # <-- MODULAIRE
+            return True
+        else:
+            add(s,x) # <-- MODULAIRE
+    return False
+\end{minted}
+\end{frame}
+
+%
+
+\begin{frame}[fragile]{Principe de modularité}
+\pause
+\begin{itemize}
+	\item découper un programme en \alert{composants} (fonctions ou objets) ; \pause
+	\item chaque composant a ses propres \textit{spécifications} et fonctionne le plus indépendamment possible.
+\end{itemize}
+\end{frame}
+
+\end{document}
+
+

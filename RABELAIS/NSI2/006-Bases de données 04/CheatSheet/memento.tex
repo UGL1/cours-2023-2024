@@ -1,0 +1,215 @@
+\documentclass[a4paper,10pt,article]{nsi}
+\setminted{fontsize=\small}
+
+
+\begin{document}
+\titre{MÉMENTO SQL}
+\classe{NSI2}
+\maketitle
+
+
+\section*{Création de BDD}
+
+Si la base n'existe pas
+\begin{sql}
+    \begin{minted}{sql}
+CREATE DATABASE ma_base;
+\end{minted}
+\end{sql}
+
+Sinon si on veut la recréer
+\begin{sql}
+    \begin{minted}{sql}
+DROP DATABASE ma_base;
+CREATE DATABASE ma_base;
+\end{minted}
+\end{sql}
+
+\section*{Création de tables}
+
+Cas de base.
+\begin{sql}
+    \begin{minted}{sql}
+DROP TABLE IF EXISTS MaTable;
+CREATE TABLE MaTable(
+    attribut_1 INT PRIMARY KEY
+    attribut_2 TEXT,
+    attribut_3 VARCHAR(50) -- TEXT limité à 50 caractères
+);
+\end{minted}
+\end{sql}
+
+Création avec id clé primaire automatique (voir comment insérer des tuples plus loin)$^*$
+\begin{sql}
+    \begin{minted}{sql}
+DROP TABLE IF EXISTS MaTable;
+CREATE TABLE MaTable(
+    attribut_1 INT PRIMARY KEY AUTOINCREMENT,
+    attribut_2 TEXT,
+    attribut_3 VARCHAR(50) 
+);
+\end{minted}
+\end{sql}
+
+Création avec clé étrangère (référence à une clé primaire d'une autre table).
+\begin{sql}
+    \begin{minted}{sql}
+DROP TABLE IF EXISTS MaTable;
+CREATE TABLE MaTable(
+    attribut_1 INT PRIMARY KEY,
+    attribut_2 TEXT FOREIGN KEY REFERENCES autre_table (attribut_de_reference),
+    attribut_3 VARCHAR(50)
+); 
+\end{minted}
+\end{sql}
+
+\section*{Insérer des tuples}
+
+Dans une table, avec toutes les colonnes renseignées dans le bon ordre
+\begin{sql}
+    \begin{minted}{sql}
+INSERT INTO MaTable VALUES
+(val_1_attribut_1, val_1_attribut_2, val_1_attribut_3),
+(val_2_attribut_1, val_2_attribut_2, val_2_attribut_3);
+\end{minted}
+\end{sql}
+
+Dans une table, avec par exemple la clé primaire créé automatiquement$^*$
+\begin{sql}
+    \begin{minted}{sql}
+INSERT INTO MaTable(attribut_2, attribut_3) VALUES
+(val_1_attribut_2, val_1_attribut_3),
+(val_2_attribut_2, val_2_attribut_3);
+\end{minted}
+\end{sql}
+
+\section*{Requêtes simples}
+
+Afficher toute une table
+\begin{sql}
+    \begin{minted}{sql}
+SELECT * 
+FROM MaTable;
+\end{minted}
+\end{sql}
+
+Afficher certaines colonnes d'une table
+\begin{sql}
+    \begin{minted}{sql}
+SELECT attribut_2, attribut_3 
+FROM MaTable;
+\end{minted}
+\end{sql}
+
+Afficher certaines colonnes d'une table en renommant les colonnes
+\begin{sql}
+    \begin{minted}{sql}
+SELECT attribut_2 AS nouveau_nom, attribut_3 
+FROM MaTable;
+\end{minted}
+\end{sql}
+
+Afficher une table avec condition
+Afficher certaines colonnes d'une table
+\begin{sql}
+    \begin{minted}{sql}
+SELECT * 
+FROM MaTable
+    WHERE <condition(s)>;
+\end{minted}
+\end{sql}
+
+Conditions : 
+\begin{itemize}
+    \item \mintinline{sql}{var_num BETWEEN val1 AND val2}
+    \item \mintinline{sql}{var_txt LIKE "%motif%"} avec \texttt{\%} avant et/ou après le motif
+    \item utilisation de \mintinline{sql}{<, >, <=, >=, =, AND, OR, NOT, IS NULL, IS NOT NULL}
+\end{itemize}
+
+Trier la table produite selon une colonne
+
+\begin{sql}
+    \begin{minted}{sql}
+SELECT * 
+FROM MaTable
+    ORDER BY attribut_1 ASC; -- ou DESC
+\end{minted}
+\end{sql}
+
+Limiter l'affichage de la table produite à 10 lignes
+\begin{sql}
+    \begin{minted}{sql}
+SELECT * 
+FROM MaTable
+    LIMIT 10;
+\end{minted}
+\end{sql}
+
+\begin{sql}
+    \begin{minted}{sql}
+SELECT * 
+FROM MaTable
+    ORDER BY attribut_1 ASC; -- ou DESC
+\end{minted}
+\end{sql}
+
+
+\section*{Fonctions d'agrégation}
+
+Compter les lignes d'une table suivant une condition
+
+\begin{sql}
+    \begin{minted}{sql}
+SELECT COUNT(*) 
+FROM MaTable
+    WHERE <condition(s)>;
+\end{minted}
+\end{sql}
+
+Faire la somme sur une colonne
+\begin{sql}
+    \begin{minted}{sql}
+SELECT SUM(attribut_1) 
+FROM MaTable
+    WHERE <condition(s)>;
+\end{minted}
+\end{sql}
+
+Existent aussi les fonctions \mintinline{sql}{MIN, MAX, AVG} (min, max et moyenne).
+
+\section*{Mise à jour et suppressions}
+
+Supprimer des valeurs d'une table suivant une condition
+
+\begin{sql}
+    \begin{minted}{sql}
+DELETE FROM MaTable
+WHERE <conditions>;
+\end{minted}
+\end{sql}
+
+Mettre à jour les valeurs d'une table suivant une condition
+\begin{sql}
+    \begin{minted}{sql}
+UPDATE MaTable
+SET attribut_1 = valeur_1
+WHERE condition;
+\end{minted}
+\end{sql}
+
+\section*{Jointures}
+
+Sélectionner dans plusieurs tables liées par une référence
+\begin{sql}
+    \begin{minted}{sql}
+SELECT Table_1.attribut_1, Table_2.attribut_3
+FROM Table_1
+JOIN Table_2 ON Table_1.attribut_1 = Table_2.attribut_de_reference
+
+-- attribut_de_reference est une clé étrangère de Table_2 qui fait référence à la clé primaire de Table_1
+\end{minted}
+\end{sql}
+
+\mintinline{SQL}{ON DELETE CASCADE} et \mintinline{SQL}{ON UPDATE CASCADE} ne sont pas indispensables, au contraire : elles « affaiblissent » les contraintes logiques de référence.
+
+\end{document}
