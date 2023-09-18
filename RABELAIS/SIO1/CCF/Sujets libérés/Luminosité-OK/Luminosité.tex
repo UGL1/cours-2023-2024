@@ -1,0 +1,181 @@
+%\input{../../preambule/preambule.tex}
+\documentclass[a4paper,12pt,exos,firamath]{nsi}
+		
+\setminted{fontsize=\small}
+\begin{document}
+\titre{Luminosité d'une image}
+\classe{CCF Algo SIO}
+{\large\bfseries \scshape Nom Prénom : \makebox[6cm]{\dotfill}\hfill Heure de passage : \makebox[3cm]{\dotfill}\hfill\\
+\vspace{2em}
+\hrule
+\vspace{2mm}
+\begin{center}\titlefont\Huge\color{UGLiBlue} BTS SIO\\
+	Sous-épreuve E22 \\ 
+    Algorithmique appliquée\\
+	Contrôle en Cours de Formation\end{center}
+\vspace{2mm}
+\hrule}
+\vspace{2em}
+
+\begin{encadrecolore}{Déroulement de l'épreuve }{UGLiGreen}
+	Cette épreuve de Contrôle en cours de Formation (CCF) se déroule en trois étapes :
+\begin{itemize}
+	\item \textbf{\'Etape 1 : \'Ecrit (30 minutes)}\par
+	Vous devez traiter la partie A du sujet. Pour cette partie, l'ordinateur est interdit mais la calculatrice est autorisée.\\
+    
+    \textbf{Vous inscrirez vos réponses dans le document réponse à la fin du sujet.}\\
+    
+    Les algorithmes à écrire peuvent être rédigés en \textbf{langage naturel} ou en \textsc{Python}	mais ni en \textsc{C\#} ni en \textsc{VB.Net}.\\
+    
+    \textbf{À la fin de l'étape 1, votre document réponse doit être remis à la personne surveillant l'épreuve.} Vous garderez le sujet.
+    \item \textbf{\'Etape 2 : sur machine (30 minutes)}\par
+	Vous devez traiter la partie B du sujet à l'aide d'un ordinateur. Le langage utilisé est celui travaillé dans l'année, à savoir \textsc{Python}.
+	Vous sauvegarderez votre travail sur la clé USB fournie.\par 
+	La durée totale pour effectuer les deux premières étapes est exactement d'une heure. \par
+	\item \textbf{\'Etape 3 : oral (20 minutes au maximum)}\\
+	Cette partie se déroule en deux temps. Tout d'abord, vous disposez de 10 minutes pour présenter votre travail de l'étape 2 puis, au cours des 10 minutes suivantes, un entretien permet de préciser votre démarche.
+\end{itemize}	
+
+\textbf{À la fin de l'épreuve le sujet devra être rendu à l'examinateur.}
+\end{encadrecolore}
+\newpage
+\maketitle
+
+Une image en niveaux de gris est composée de pixels et peut être représentée \textit{mathématiquement} par une matrice  \texttt{saturation} dont chaque coefficient est un entier entre 0 et 255.
+
+Plus le coefficient est petit, plus le gris est sombre, ainsi 0 correspond à un pixel noir et 255 à un pixel blanc.
+
+\begin{multicols}{2}
+La matrice
+$$\begin{matrice}
+255&255&0&128\\
+255&255&0&0\\
+204&165&128&64\\
+\end{matrice}$$
+
+correspond à l'image ci-contre.
+\columnbreak
+\begin{center}
+\begin{tikzpicture}
+\draw[fill=black!0] (0,2) rectangle (1,3);
+\draw[fill=black!0] (1,2) rectangle (2,3);
+\draw[fill=black!100] (2,2) rectangle (3,3);
+\draw[fill=black!50] (3,2) rectangle (4,3);
+\draw[fill=black!0] (0,1) rectangle (1,2);
+\draw[fill=black!0] (1,1) rectangle (2,2);
+\draw[fill=black!100] (2,1) rectangle (3,2);
+\draw[fill=black!100] (3,1) rectangle (4,2);
+\draw[fill=black!20] (0,0) rectangle (1,1);
+\draw[fill=black!35] (1,0) rectangle (2,1);
+\draw[fill=black!50] (2,0) rectangle (3,1);
+\draw[fill=black!75] (3,0) rectangle (4,1);
+\end{tikzpicture}
+\end{center}
+\end{multicols}
+\section*{\'Etape 1}
+
+Voici l'algorithme d'une fonction qui crée une matrice $3\times 4$ (3 lignes de 4 colonnes).\\
+La matrice est représentée par une liste de listes, chacun de ses coefficients est saisi par l'utilisateur. La fonction
+\begin{itemize}
+	\item ne prend rien en entrée;
+    \item renvoie une liste de listes d'entiers.
+\end{itemize}
+\begin{encadrecolore}{Algorithme}{UGLiPurple}
+    \small
+    \begin{verbatim}    
+    fonction saturation_matrice()    
+        variables
+            i,j, nombre : entiers # i compte les lignes, j les colonnes
+            saturation  : liste  # en fait liste de listes d'entiers
+    
+        saturation ← [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        pour i allant de 0 à ...... faire
+            ......
+                tant que nombre > 255 ou nombre < 0 faire
+                    lire nombre
+                fin tant que
+                saturation[i][j] ← nombre
+            fin pour
+        fin pour
+        renvoyer saturation
+    \end{verbatim}
+    \normalsize    
+\end{encadrecolore}
+
+\begin{encadrecolore}{Question 1}{UGLiOrange}
+Compléter les pointillés pour que la fonction remplisse son rôle.
+\end{encadrecolore} 
+
+
+La fonction suivante, nommée \texttt{luminosite} :
+\begin{itemize}
+	\item prend en entrée une liste de listes d'entiers \texttt{matrice}, qui représente une matrice $3\times 4$;
+    \item renvoie un entier \texttt{lumi}.
+\end{itemize}
+\begin{encadrecolore}{Algorithme}{UGLiPurple}
+\small
+\begin{verbatim}    
+fonction luminosite(matrice)
+    
+    variables
+        i,j, somme, luminosite : entiers 
+
+    somme ← 0
+    pour i allant de 0 à 2 faire
+        pour j allant de 0 à 3 faire
+            somme ← somme + matrice[i][j]
+        fin pour
+    fin pour
+    lumi ← partie_entiere(somme/12) # exemple : partie_entiere(3.4)=3
+    renvoyer lumi
+\end{verbatim}
+\normalsize
+\end{encadrecolore}
+\begin{encadrecolore}{Question 2}{UGLiOrange}
+Lorsque \mintinline{python}{M = [[0, 0, 100, 50], [0, 70, 100, 100], [20, 35, 50, 75]]}, quelle est la valeur de \mintinline{python}{luminosite(M)} ?
+\end{encadrecolore} 
+
+
+Pour accentuer le contraste de l'image représentée par une matrice M, on modifie chacune des valeurs de cette matrice comme ceci :
+\begin{itemize}
+	\item d'abord on utilise la valeur \mintinline{python}{luminosite(M)} calculée précédemment que l'on note \mintinline{python}{lumi}.
+    \item Pour chacune des 12 valeurs de la matrice M
+    \begin{itemize}
+    	\item si elle est inférieure ou égale à \mintinline{python}{lumi} on la divise par 2 et on garde la partie entière du résultat;
+        \item sinon on la multiplie par 2 sans dépasser 255 (si la nouvelle valeur dépasse 255, on la ramène à 255).   
+    \end{itemize}    
+\end{itemize}
+
+\begin{encadrecolore}{Question 3}{UGLiOrange}
+\'Ecrire l'algorithme (ou le code \textsc{Python}) de la fonction \texttt{contraste} qui 
+\begin{itemize}
+	\item prend en entrée une liste de listes d'entiers \texttt{matrice}, qui représente une matrice $3\times 4$;
+    \item renvoie une \textit{autre} matrice : la matrice d'entrée avec un contraste accentué.
+\end{itemize}
+
+\end{encadrecolore} 
+
+\section*{\'Etape 2}
+
+Le fichier \texttt{luminosite.py} contient une variable \texttt{M} représentant la matrice de la question 2 de l'étape 1.
+
+
+\begin{encadrecolore}{Question 4}{UGLiOrange}
+Implémenter la fonction \texttt{luminosite}.\\
+Pour prendre la partie entière d'une valeur \pythoninline{v}, on pourra utiliser \pythoninline{int(v)}.
+\end{encadrecolore} 
+
+\begin{encadrecolore}{Question 5}{UGLiOrange}
+Implémenter la fonction \texttt{contraste}.
+\end{encadrecolore} 
+
+\begin{encadrecolore}{Question \textsc{bonus}}{UGLiOrange}
+Implémenter la fonction \pythoninline{matrice_aleatoire} qui
+\begin{itemize}
+	\item en entrée prend 2 entiers \pythoninline{n} et \pythoninline{p};
+    \item renvoie une matrice $n\times p$ dont tous les coefficients sont des nombres aléatoires entre 0 et 255.
+\end{itemize}
+On utilisera \pythoninline{from random import randint}.\\
+\pythoninline{randint(a,b)} renvoie un nombre entier au hasard, compris entre \pythoninline{a} et \pythoninline{b}.
+\end{encadrecolore} 
+\end{document}
