@@ -1,14 +1,8 @@
-\documentclass[a4paper,12pt,french]{book}
-\usepackage[margin=2cm]{geometry}
-\usepackage[thinfonts]{uglix2}
-\usepackage{ulem}
-\setminted{fontsize=\small}\nouveaustyle
+\documentclass[a4paper,10pt,eval]{nsi}
 \begin{document}
-\titre{Exercice supplémentaire}{NSI2}{09/2021}
-
-Voici une base décrivant de façon très simplifiée les données d’un hôpital :
-
-\begin{encadrecolore}{Schéma}{UGLiGreen}
+\pagestyle{empty}
+\begin{encadrecolore}{Schéma relationnel de la BDD Hôpital}{UGLiGreen}
+	\large
 {\textbf{Employe} (\underline{num\_emp}, nom, prenom, adresse, tel)}\\
 
 {\textbf{Docteur} (\dashuline{\underline{num\_emp}}, specialite)}\\
@@ -30,52 +24,37 @@ Voici une base décrivant de façon très simplifiée les données d’un hôpit
 {\textbf{Soigne} (\dashuline{\underline{num\_docteur, num\_malade}})}\\
 
 \end{encadrecolore}
-
-Pour s'y retrouver :
-\begin{enumerate}[--]
+\small
+\begin{itemize}
 	\item Un service se trouve logé dans un seul bâtiment, mais plusieurs services peuvent partager
 	un bâtiment.
-	\item  Le directeur d’un service est un docteur identifié par son NUMERO.
+	\item  Le directeur d'un service est un docteur identifié par son NUMERO.
 	\item  Le numéro de CHAMBRE est local à un bâtiment (i.e. chaque bâtiment possède une
 	CHAMBRE numéro 1).
-	\item  Une chambre n’identifie pas directement le bâtiment qui la contient, mais indirectement
+	\item  Une chambre n'identifie pas directement le bâtiment qui la contient, mais indirectement
 	par le code de son service.
 	\item  Un(e) surveillant(e) est un(e) infirmier(ère) identifié(e) par son NUMERO.
 	\item  Les informations communes à tous les employés sont dans la relation EMPLOYE qui
-	contient donc docteurs, infirmiers(ères) ainsi que d’autres employés.
+	contient donc docteurs, infirmiers(ères) ainsi que d'autres employés.
 	\item  Docteurs et infirmiers(ères) sont donc des employés identifiés par un unique numéro.
 	\item  La relation DOCTEUR comporte les attributs spécifiques des docteurs.
-	\item  La spécialité des docteurs est définie sur une liste de valeurs permises, ‘Anesthesiste’,
-	‘Cardiologue’, ‘Generaliste’, ‘Orthopediste’, …
+	\item  La spécialité des docteurs est définie sur une liste de valeurs permises, ‘Anesthesiste',
+	‘Cardiologue', ‘Generaliste', ‘Orthopediste', …
 	\item  La relation INFIRMIER comporte les attributs spécifiques des infirmiers(ères).
-	\item  La rotation (pour simplifier) prend les valeurs ‘JOUR’ et ‘NUIT’
+	\item  La rotation (pour simplifier) prend les valeurs ‘JOUR' et ‘NUIT'
 	\item  Un(e) infirmier(ère) est affecté(e) à un service.
 	\item  Les docteurs ne sont pas affectés à un service particulier mais sont souvent amenés à
 	exercer de façon transversale.
 	\item  Le concepteur de la base de données a choisi de maintenir les malades dans une relation
 	séparée qui comporte tous les attributs nécessaires.
-	\item  La relation HOSPITALISATION ne concerne que les malades hospitalisés à l’état courant
+	\item  La relation HOSPITALISATION ne concerne que les malades hospitalisés à l'état courant
 	de la BD.\\
 	Un malade est hospitalisé dans un seul lit à la fois.
-	\item  Un lit ne comporte qu’un malade au plus à un instant donné.
+	\item  Un lit ne comporte qu'un malade au plus à un instant donné.
 	\item  Un malade non hospitalisé peut toujours être suivi par son (ses) médecin(s) comme patient
 	externe.
-	\item  La relation SOIGNE indique seulement qu’un patient est suivi par un médecin donné.
+	\item  La relation SOIGNE indique seulement qu'un patient est suivi par un médecin donné.
 	\item  Les actes médicaux et la facturation sont gérés dans une autre base.\\
-\end{enumerate}
-\begin{exercice}
-	Programmer les requêtes suivantes:
-	\begin{enumerate}
-		\item 	Prénom et nom des malades affiliés à la mutuelle « MAAF »
-		\item 	Prénom et nom des infirmier(ères) travaillant pendant la rotation de nuit.
-		\item 	Donner pour chaque service, son nom, son bâtiment, ainsi que les prénom, nom et
-		spécialité de son directeur.
-		\item 	Quelle est la moyenne des salaires des infirmiers(ères) par service (utiliser \mintinline{sql}{GROUP BY})?
-      	\item 	Donner pour chaque lit occupé du bâtiment « B » de l’hôpital occupé par un malade
-        		affilié à une mutuelle dont le nom commence par « MN... », le numéro du lit, le
-        		numéro de la chambre, le nom du service ainsi que le prénom, le nom et la mutuelle
-        		du malade l’occupant.
-	\end{enumerate}
-\end{exercice}
+\end{itemize}
 
 \end{document}
