@@ -1,0 +1,79 @@
+\documentclass[a4paper,10pt,article,firamath]{nsi}
+\usepackage{ulem}
+\begin{document}
+\titre{Contrôle 01}
+\classe{NSI2}
+\pagestyle{empty}
+\maketitle
+\section{Fonction d'Ackermann-Péter}
+On peut recopier tel quel, mais on peut aussi utiliser \mintinline{python}{if elif else} comme ceci :
+\inputminted{python}{scripts/ackermann.py}
+\section{Fonction mystère}
+\mintinline{python}{mystery([1])} renvoie \mintinline{python}{[1]}.\\
+\mintinline{python}{mystery([1, 2, 3])} renvoie \mintinline{python}{[3, 2, 1]}.\\
+La fonction mystery inverse l'ordre des éléments d'une liste
+\section{Fonction mystère (le retour)}
+\mintinline{python}{f(a, b) == a % b} 
+\section{BDD artistique}
+Voici un modèle possible :\\
+\textbf{Artiste}(\uline{id\_artiste INTEGER}, nom TEXT, naissance DATE, mort DATE)\\
+\textbf{Categorie}(\uline{id\_categorie INTEGER}, classement TEXT)\\
+\textbf{Œuvre}(\uline{id INTEGER}, titre TEXT, creation DATE, \dashuline{id\_categorie}, \dashuline{id\_artiste})
+\section{CinéHit, c'est plus de hits !\hfill}
+\begin{enumerate}
+      \item Cette requête produit la table de toutes les catégories qui figurent dans la table \textbf{Genre}.       
+      \item Cette requête produit la table des tuples de \texttt{\textbf{Realisateur}} dont le nom commence par Jean.
+      \item Cette requête affiche le titre et la catégorie correspondante de tous les films.
+      \item \begin{minted}{sql}
+                  SELECT * FROM Film WHERE sortie = 1984;
+            \end{minted}
+      \item \begin{minted}{sql}
+                  SELECT * FROM Internaute
+                  WHERE inscription BETWEEN '2018-01-01' AND '2019-12-31';
+            \end{minted}
+      \item \begin{minted}{sql}
+                  SELECT titre,moyenne FROM Film WHERE duree >= 180;
+            \end{minted}
+      \item \begin{minted}{sql}
+                  SELECT titre FROM Film WHERE sortie > 2000 AND moyenne >= 8;
+            \end{minted}
+      \item \begin{minted}{sql}
+                  SELECT * FROM Film
+                  JOIN Realisateur ON Film.realisateur = Realisateur.id_realisateur
+                  WHERE nom = 'Hitchcock' AND prenom = 'Alfred';
+            \end{minted}
+      \item \begin{minted}{sql}
+                  SELECT id_film,titre,sortie FROM Film
+                  JOIN Genre ON genre = id_genre
+                  WHERE categorie = 'thriller';
+            \end{minted}
+      \item \begin{minted}{sql}
+                  SELECT nom,titre FROM Realisateur
+                  JOIN Film ON id_realisateur = realisateur
+                  WHERE moyenne >= 8.5;
+            \end{minted}
+      \item \begin{minted}{sql}
+                  SELECT DISTINCT prenom, nom FROM Internaute
+                  JOIN Note ON id_internaute = internaute
+                  WHERE points = 1;
+            \end{minted}
+      \item \begin{minted}{sql}
+                  SELECT email,points FROM Internaute
+                  JOIN Note ON id_internaute = internaute
+                  JOIN Film ON film = id_film
+                  WHERE titre = 'Les Profs';
+            \end{minted}
+      \item Le nombre de points attribués n'est pas compris entre 0 et 10.
+      \item Un enregistrement de la table \textbf{Note} possède une clé étrangère internaute qui se réfère à la clé primaire id\_internaute de valeur 50.
+      \item On convient que l'identifiant de Robert Zemeckis est 2023.
+            \begin{minted}{sql}
+                  INSERT INTO Internaute VALUES(104, "Léo", "Part", "2020-06-21", "leo.part@alapla.ge");
+                  INSERT INTO Film VALUES(694, "Contact", 1997, 153, 13, 2023, 9.0);
+                  INSERT INTO Note VALUES(694, 104, 9);
+            \end{minted}
+      \item  \begin{minted}{sql}
+                  DELETE FROM Note WHERE film = 446;
+                  DELETE FROM Film WHERE id_film = 446;
+            \end{minted}
+\end{enumerate}
+\end{document}
