@@ -1,5 +1,5 @@
 \documentclass[a4paper,10pt,cours,firamath]{nsi}
-\setcounter{chapter}{8}
+\setcounter{chapter}{9}
 \begin{document}
 
 \chapter{POO - partie 2}
@@ -148,23 +148,77 @@ Voici un récapitulatif des dunders les plus utiles
 	\tabstyle[UGLiBlue]
 	\begin{tabular}{|c|c|}
 		
-		\ccell Dunder                                  & \ccell opérateur        \\
+	\ccell Dunder                   & \ccell opérateur \\
 		\hline
-		\mintinline{python}{__lt__(self, other)}       & \mintinline{python}{<}  \\\hline
-		\mintinline{python}{__le__(self, other)}       & \mintinline{python}{<=} \\\hline
-		\mintinline{python}{__ne__(self, other)}       & \mintinline{python}{!=} \\\hline
-		\mintinline{python}{__gt__(self, other)}       & \mintinline{python}{>}  \\\hline
-		\mintinline{python}{__ge__(self, other)}       & \mintinline{python}{>=} \\\hline
-		\mintinline{python}{__add__(self, other)}      & \mintinline{python}{+}  \\\hline
-		\mintinline{python}{__sub__(self, other)}      & \mintinline{python}{-}  \\\hline
-		\mintinline{python}{__mul__(self, other)}      & \mintinline{python}{*}  \\\hline
-		\mintinline{python}{__truediv__(self, other)}  & \mintinline{python}{/}  \\\hline
-		\mintinline{python}{__floordiv__(self, other)} & \mintinline{python}{//} \\\hline
-		\mintinline{python}{__contains__(self, item)}  & \mintinline{python}{in} \\\hline
+		\mintinline{python}{__lt__(self, other)}       & <                               \\\hline
+		\mintinline{python}{__le__(self, other)}       & <=                              \\\hline
+		\mintinline{python}{__ne__(self, other)}       & !=                              \\\hline
+		\mintinline{python}{__gt__(self, other)}       & >                               \\\hline
+		\mintinline{python}{__ge__(self, other)}       & >=                              \\\hline
+		\mintinline{python}{__add__(self, other)}      & +                               \\\hline
+		\mintinline{python}{__sub__(self, other)}      & –                               \\\hline
+		\mintinline{python}{__mul__(self, other)}      & *                               \\\hline
+		\mintinline{python}{__truediv__(self, other)}  & /                               \\\hline
+		\mintinline{python}{__floordiv__(self, other)} & //                              \\\hline
+		\mintinline{python}{__contains__(self, item)}  & \mintinline{python}{in}         \\\hline
 	\end{tabular}
 \end{center}
 Par exemple, lorsqu'on implémente \mintinline{python}{__add__} pour une classe, alors on peut écrire \mintinline{python}{c = a + b}, pour \mintinline{python}{a} et \mintinline{python}{b} instances de cette classe.
 \begin{definition}[ : surcharge]
 	Lorsqu'on attribue un sens supplémentaire à un opérateur pour une nouvelle classe, on dit qu'on \textit{surcharge} cet opérateur. Les dunders précédents servent donc à surcharger.
 \end{definition}
+
+\section{Exercices}
+
+\begin{exercice}[ : fractions]
+	Reprendre le module \mintinline{python}{fractions_custom} des chapitres précédents et le reprogrammer « objet » :
+	\begin{itemize}
+		\item 	la classe \mintinline{python}{Fraction} implémente les fractions.
+		\item 	on implémentera les dunders suivants :
+		      \begin{itemize}
+			      \item 	\mintinline{python}{__eq__} (deux fractions sont égales ssi les produits en croix sont égaux);
+			      \item 	\mintinline{python}{__lt__} et \mintinline{python}{__le__};
+			      \item 	\mintinline{python}{__add__}, \mintinline{python}{__sub__}, \mintinline{python}{__mul__} et  \mintinline{python}{__truediv__}.
+		      \end{itemize}
+		      On se concentrera sur la programmation objet en priorité, on peut laisser la programmation défensive de côté.
+	\end{itemize}
+	\textbf{On devra pouvoir écrire :}
+	\begin{minted}{python}
+>>> f1 = Fraction(2, 7)
+>>> f2 = Fraction(3, 5)
+>>> f1 == f2
+False
+>>> f1 < f2
+True
+>>> (f1+f2)/(f1*(f1-f2))
+-217/22
+\end{minted}
+	
+\end{exercice}
+
+\begin{exercice}[]
+	
+	\begin{enumerate}
+		\item 	Créer une classe \mintinline{python}{Rectangle} dont chaque instance possède (au moins) des attributs \mintinline{python}{top}, \mintinline{python}{left}, \mintinline{python}{width} et \mintinline{python}{height}.
+		\item	Implémenter \mintinline{python}{__str__} pour afficher « proprement» un objet de la classe.
+		\item   Implémenter \mintinline{python}{__contains__} pour pouvoir tester si un point (\mintinline{python}{tuple} composé de deux \mintinline{python}{float}) se situe dans un rectangle ou non.
+		\item 	Implémenter \mintinline{python}{__add__} pour que la somme de 2 rectangles soit le plus petit rectangle contenant les 2 rectangles.
+		\item 	Implémenter \mintinline{python}{__mul__} pour que la somme de 2 rectangles soit le plus grand rectangle contenu dans les 2 rectangles (on fera attention au cas ou les rectangles sont disjoints).
+	\end{enumerate}
+	\textbf{On devra pouvoir écrire :}
+	\begin{minted}{python}
+>>> r1 = Rectangle(10,20,100,200)
+>>> (3,4) in r1
+False
+>>> (12,100) in r1
+True
+>>> r2 = Rectangle(30,40,50,300)
+>>> r1 + r2
+Rectangle : (10,20,100,320)
+>>> r1 * r2
+Rectangle (30,40,50,180)
+\end{minted}
+\end{exercice}
+
+
 \end{document}

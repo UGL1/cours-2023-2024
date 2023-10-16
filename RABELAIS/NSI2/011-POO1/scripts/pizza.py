@@ -94,7 +94,7 @@ class Pizza:
             print("Pâte déjà choisie.")
             return False
         elif dough not in Pizza.DOUGH_LIST:
-            print("Pâte invalide. 1")
+            print("Pâte inconnue.")
             return False
         elif self.size == Pizza.SIZE_M and dough in Pizza.DOUGH_LIST:
             self.dough = dough
@@ -122,12 +122,13 @@ class Pizza:
         else:
             self.base = base
             print(f"Base choisie : {base}.")
+            return True
 
     def add_ingredient(self, ingredient) -> bool:
         if not all((self.size, self.base, self.dough)):
             print("Veuillez choisir la taille, la pâte et la sauce d'abord.")
             return False
-        elif len(self.ingredients) > 6:
+        elif len(self.ingredients) >= 6:
             print("Vous avez déjà 6 ingrédients.")
             print(f"liste des ingrédients : {self.ingredients}.")
             return False
@@ -138,6 +139,7 @@ class Pizza:
             self.ingredients.append(ingredient)
             print(f"Ingrédient {ingredient} ajouté.")
             print(f"liste des ingrédients : {self.ingredients}.")
+            return True
 
     def remove_ingredient(self, ingredient) -> bool:
         if not all((self.size, self.base, self.dough)):
