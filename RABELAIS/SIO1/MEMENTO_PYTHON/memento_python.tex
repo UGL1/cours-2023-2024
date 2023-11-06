@@ -1,0 +1,142 @@
+\documentclass[10pt, a4paper,article,landscape]{nsi}
+\pagestyle{empty}
+\geometry{margin=2cm}
+\usepackage{tabularx}
+\newcommand{\trait}{{\color{UGLiBlue}\hrule}}
+\newcommand{\tit}[1]{{\large\color{UGLiBlue}\titlefont #1}\\}
+\setminted{bgcolor=UGLiBlue!7}
+\classe{SIO1, novembre 2023}
+\titre{MÉMENTO PYTHON}
+\begin{document}
+\maketitle
+\begin{multicols}{3}
+    \tit{Principaux types}
+    \mintinline{python}{int} : entier \\
+    \mintinline{python}{float} : flottant \\
+    \mintinline{python}{bool} : booléen \\
+    \mintinline{python}{str} : chaîne de caractères \\
+    \mintinline{python}{list} : liste\\
+    \mintinline{python}{range} : plage d'entiers\\
+
+    \tit{Affectation}
+    \mintinline{python}{a = 2} : affectation simple \\
+    \mintinline{python}{a, b = 2, 3} : affectations multiples \\
+    \mintinline{python}{a += 1} : équivaut à \mintinline{python}{a = a + 1} \\
+    \mintinline{python}{a *= 2} : équivaut à \mintinline{python}{a = a * 2}\\
+
+    \tit{Transtypage}
+    \mintinline{python}{int("12")} vaut \mintinline{python}{12}\\
+    \mintinline{python}{str(12)} vaut \mintinline{python}{"12"}\\
+    \mintinline{python}{float("12.5")} vaut \mintinline{python}{12.5}\\
+
+    \tit{Opérations}
+    quotient : \mintinline{python}{a = 11 // 4 # a vaut 2}\\
+    reste : \mintinline{python}{a = 11 % 4 # a vaut 1}\\
+    division : \mintinline{python}{a = 11 / 4 # a vaut 2.75}\\
+    puissance : \mintinline{python}{a = 2 ** 10 # a vaut 1024}\\
+
+    \tit{Entrées / sorties}
+    \mintinline{python}{print(f"les valeurs sont {a} et {b}")}\\
+    affiche la valeur de \mintinline{python}{a} et de \mintinline{python}{b}\\
+    \mintinline{python}{a = input("Entrez une valeur")}\\stocke une entrée utilisateur de type \mintinline{python}{str} dans \mintinline{python}{a}\\
+
+    \tit{Commun à str et list}
+    \mintinline{python}{len(a)} : longueur de l'objet\\
+    \mintinline{python}{a[i]} : élément d'indice \mintinline{python}{i} de l'objet\\
+    \mintinline{python}{a[-1]} : dernier élément de l'objet\\
+
+    \tit{Tests}
+
+    \tabstyle[UGLiBlue]
+    \begin{tabularx}{\columnwidth}{X|X}
+        \ccell Opérateur            & \ccell Signification  \\
+        \mintinline{python}{or}     & ou logique            \\
+        \mintinline{python}{and}    & et logique            \\
+        \mintinline{python}{not}    & négation logique      \\
+        \mintinline{python}{<}      & strictement inférieur \\
+        \mintinline{python}{<=}     & inférieur ou égal     \\
+        \mintinline{python}{>}      & strictement supérieur \\
+        \mintinline{python}{>=}     & supérieur ou égal     \\
+        \mintinline{python}{==}     & égal                  \\
+        \mintinline{python}{!=}     & différent             \\
+        \mintinline{python}{in}     & appartient à          \\
+        \mintinline{python}{not in} & n'appartient pas à    \\
+    \end{tabularx}
+    
+    \columnbreak
+    
+    \tit{Test \mintinline{python}{if ... else ...} classique}
+    \begin{minted}{python}
+            if <condition>:
+                # bloc conditionnel 1
+            else: # facultatif
+                # bloc conditionnel 2
+    \end{minted}
+    
+
+    
+    \tit{Test \mintinline{python}{if ... elif ... else ...}}
+    \begin{minted}{python}
+            if <condition 1>:
+                # bloc conditionnel 1
+            elif <condition 2>: 
+                # bloc conditionnel 2
+            # autant de elif que nécessaire
+            else: # facultatif
+                # bloc conditionnel final
+    \end{minted}
+
+
+    \tit{Boucle \mintinline{python}{while}}\\[-3.5em]
+    \begin{minted}{python}
+        while <condition>:
+            # bloc conditionnel
+        # en sortie de boucle la condition
+        # n'est plus vérifiée
+    \end{minted}
+
+    \columnbreak
+
+    \tit{Boucle \mintinline{python}{for ... in objet} avec \mintinline{python}{objet} de type \mintinline{python}{str} ou \mintinline{python}{list}}\\[-3em]
+    \begin{minted}{python}
+        for x in objet:
+            # x prend successivement toutes 
+            # les valeurs des éléments de 
+            # l'objet
+    \end{minted}
+    \tit{Boucle \mintinline{python}{for ... in range()}}
+    \begin{minted}{python}
+        for i in range(...):
+            # i prend successivement toutes 
+            # le valeurs du range
+    \end{minted}
+
+    \tit{Utilisation de \mintinline{python}{range}}
+
+    \mintinline{python}{range(<debut>,fin,<increment>)}\\
+    par défaut \mintinline{python}{debut=0} et \mintinline{python}{increment=1}\\
+
+    dans \mintinline{python}{range(<debut>,fin,<increment>)}:\\
+    on part de la valeur de début, appelons la \mintinline{python}{val}\\
+    tant que \mintinline{python}{val < fin}:\\
+    $\qquad$ - ajouter \mintinline{python}{val} à la plage\\
+    $\qquad$ - ajouter \mintinline{python}{increment} à \mintinline{python}{val}\\
+
+    \columnbreak
+
+    \tit{Utilisation de \mintinline{python}{list}}
+
+    \mintinline{python}{a = [] # liste vide}\\
+    \mintinline{python}{a.append(objet) # ajoute objet à a}\\
+    \mintinline{python}{a.remove(objet) # retire objet à a}\\
+    \mintinline{python}{a.insert(i,objet) # insère objet à}\\
+    \mintinline{python}{# l'indice i}\\
+    \mintinline{python}{del a[i] # retire l'élément d'indice i}\\
+
+
+
+    
+\end{multicols}
+
+
+\end{document}

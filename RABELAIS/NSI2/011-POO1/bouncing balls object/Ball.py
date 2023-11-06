@@ -1,37 +1,36 @@
-# Classe indépendante de pygame
-from math import sqrt
+from random import randint
 
 
-class Ball:
-    WIDTH = 800  # indépendant de pygame
-    HEIGHT = 600  # idem
 
-    def __init__(self, x, y, dx, dy, r, col):
-        self.x = x
-        self.y = y
-        self.dx = dx
-        self.dy = dy
-        self.r = r
-        self.col = col
 
-    def update_pos(self):
-        self.x += self.dx
-        if not self.r <= self.x <= Ball.WIDTH - self.r:
+class Ball:  # une classe qui crée des balles et update leurs positions et leurs vitesses mais
+    # INDEPENDANTE DE P5 : ce n'est pas Ball qui affiche les boules, ce sera une autre fonction
+    # donc ZERO% P5 dans cette classe
+
+    lst_ball = []
+
+    def __init__(self):
+        self.size = randint(10, 50)
+        self.x = randint(self.size, LARGEUR_FENETRE - self.size)
+        self.y = randint(self.size, HAUTEUR_FENETRE - self.size)
+        self.color = (randint(0, 255), randint(0, 255), randint(0, 255))
+        self.dx = randint(1, 5)
+        self.dy = randint(1, 5)
+        Ball.lst_ball.append(self)
+
+    @staticmethod
+    def update():
+        for b in Ball.lst_ball:
+            b.update_ball()
+
+    def update_ball(self):
+        self.x -= self.dx
+        self.y -= self.dy
+        if not self.size <= self.x <= LARGEUR_FENETRE - self.size:
             self.dx *= -1
-        self.y += self.dy
-        if not self.r <= self.y <= Ball.HEIGHT - self.r:
+        if not self.size <= self.y <= HAUTEUR_FENETRE - self.size:
             self.dy *= -1
 
-    def meets(self, other):
-        return (self.r + other.r) ** 2 > (self.x - other.x) ** 2 + (self.y - other.y) ** 2
 
-    def __add__(self, other):
-        new_r = sqrt(self.r ** 2 + other.r ** 2)
-        vector_x, vector_y = other.x - self.x, other.y - self.y
-        factor = other.r ** 2 / (self.r ** 2 + other.r ** 2)
-        new_x, new_y = self.x + vector_x * factor, self.y + vector_y * factor
-        new_dx = (self.dx * self.r ** 2 + other.dx * other.r ** 2) / (self.r ** 2 + other.r ** 2)
-        new_dy = (self.dy * self.r ** 2 + other.dy * other.r ** 2) / (self.r ** 2 + other.r ** 2)
-        new_col = tuple(
-            (self.col[i] * self.r ** 2 + other.col[i] * other.r ** 2) / (self.r ** 2 + other.r ** 2) for i in range(3))
-        return Ball(new_x, new_y, new_dx, new_dy, new_r, new_col)
+LARGEUR_FENETRE = 400
+HAUTEUR_FENETRE = 400
