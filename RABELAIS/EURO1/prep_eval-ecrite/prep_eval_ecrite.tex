@@ -1,0 +1,37 @@
+\documentclass[12pt,a4paper,article,firamath]{nsi}
+\pagestyle{empty}
+\begin{document}
+\titre{Writing a solution}
+\classe{Euro 1\ere}
+\maketitle
+
+\begin{center}
+    \textit{This is an example of what you will have to do next week.}
+\end{center}
+
+My uncle owns a farm. In his yard, he keeps cows and hens. When I visited him last week, I counted 50 heads and 162 "feet".\\
+How many hens and cows does my uncle own ?
+
+\begin{encadrecolore}{Solution}{UGLiRed}
+    Firstly, let's name the unknown quantities : $x$ will denote the number of cows and $y$ the number of chickens.\\
+    Assuming
+    \begin{itemize}
+        \item all animals have one head (which is fairly reasonable)
+        \item a hen has two feet 
+        \item a cow has 4
+    \end{itemize}
+    we get two equations : 
+    $$x+y=50\qquad(1)$$
+    because adding $x$ cow heads and $y$ duck heads give us 50 heads, and
+    $$4x+2y = 162\qquad (2)$$
+    when we account for the feet.\\
+    Let's multiply both sides of $(1)$ by 2, we get $$2x+2y = 100\qquad (3)$$
+    We can now subtract $(3)$ to $(2)$, which gives us
+    $$2x = 62$$
+    Now we have the value of $x$ : it's 31.\\
+    Replacing $x$ by $31$ in $(1)$, we finally find that $y=19$.\\
+    
+    Thus, the uncle owns 31 cows and 19 hens.    
+\end{encadrecolore}
+
+\end{document}
