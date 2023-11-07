@@ -1,6 +1,5 @@
 \documentclass[a4paper,10pt,cours]{nsi}
 \newcommand{\file}[1]{\inputminted{python}{#1}}
-
 \begin{document}
 \chapter{Programmation défensive}
 \introduction{Attrapez-les toutes !}
@@ -98,12 +97,7 @@ Dans l'exemple ci-dessus les erreurs de type et de division par zéro sont gér�
 
 \subsection{Utilisation de \mintinline{python}{assert}}
 
-Le mot-clé \mintinline{python}{assert} sert à vérifier qu'une \textit{assertion} (un test de condition) est vraie. Si c'est le cas le programme continue, sinon une exception du type \mintinline{python}{AssertionError} est levée. Ainsi on peut la gérer avec une structure \mintinline{python}{try} / \mintinline{python}{except} comme vu précédemment.
-
-\begin{pyc}
-    \file{scripts/assert1.py}
-\end{pyc}
-\subsection{Un exemple}
+Le mot-clé \mintinline{python}{assert} sert à vérifier qu'une \textit{assertion} (un test de condition) est vraie. Si c'est le cas le programme continue, sinon une exception du type \mintinline{python}{AssertionError} est levée.
 
 On veut coder une fonction \mintinline{python}{sort} (qui signifie \textit{trier} en Anglais) qui 
 \begin{itemize}
@@ -122,7 +116,10 @@ Le premier test vérifie qu'il n'y a pas d'erreur avec une liste vide (cas parti
 \end{encadrecolore}
 
 
-
+\begin{encadrecolore}{Différence entre \mintinline{python}{try ... except} et \mintinline{python}{assert}}{UGLiOrange}
+    Les structures \mintinline{python}{try ... except} servent à détecter et contrôler les erreurs qui peuvent survenir à l'exécution d'un programme tandis que les \mintinline{python}{assert} sont là pour vérifier que certaines (pré)conditions sont vérifiées, certains résultats obtenus, certains tests passés.\\
+    Les premières ont vocation à rester dans le programme, les secondes non.
+\end{encadrecolore}
 \section{Utiliser des modules déjà écrits}
 
 C'est ce que l'on veut dire par « ne pas chercher à réinventer la roue» : quand on doit écrire un programme, il est plus que probable que les fonctionnalités qu'on veut implémenter l'aient déjà été par quelqu'un d'autre, que la communauté l'utilise et en est satisfaite. Si c'est le cas, autant l'utiliser, à moins que

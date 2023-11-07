@@ -1,0 +1,188 @@
+\documentclass[10pt]{nsibeamer}
+
+\title{Programmation défensive}
+\subtitle{Chapitre 11}
+\author{NSI2}
+
+\begin{document}
+\maketitle
+
+\begin{frame}{Ce n'est pas ça\ldots}
+    \begin{center}
+    \includegraphics[height=8cm]{img/kf.jpg}
+    \end{center}
+\end{frame}
+\section{Gestion des exceptions}
+
+
+\begin{frame}[fragile]{L'utilisateur et ses facéties}
+    \begin{minted}{python}
+        def inverse(x : float) -> float :
+            return 1 / x
+        \end{minted}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{L'utilisateur et ses facéties}
+    L'utilisateur évalue \mintinline{python}{inverse(0)} et obtient :\\\pause
+    
+    {\color{red}\texttt{Traceback (most recent call last):\\
+            \hspace{2em}File "fonction1.py", line 4, in <module>\\
+            \hspace{4em}inverse(0)\\
+            \hspace{2em}File "fonction1.py", line 2, in inverse\\
+            \hspace{4em}return 1 / x\\
+            ZeroDivisionError: division by zero}}
+\end{frame}
+
+\begin{frame}[fragile]{Encore plus fou}
+    De la même manière lorsque l'utilisateur évalue \mintinline{python}{inverse('chaussette')} il obtient :\\\pause
+    
+    {\color{red}\texttt{Traceback (most recent call last):\\
+            \hspace{2em}File "fonction1.py", line 4, in <module>\\
+            \hspace{4em}inverse(0)\\
+            \hspace{2em}File "fonction1.py", line 2, in inverse\\
+            \hspace{4em}return 1 / x\\
+            TypeError: unsupported operand type(s) for /: 'int' and 'str'}}
+\end{frame}
+
+\begin{frame}[fragile]{Notion d'exception}
+    \mintinline{python}{ZeroDivisionError} et \mintinline{python}{TypeError} sont deux représentants de ce qu'on appelle des \textit{exceptions}.\\\pause
+    \textit{Une exception est levée} (\textit{an exception is raised} en Anglais) lorsque l'interpréteur \textsc{Python} rencontre un problème qu'il ne peut résoudre ou bien que le programme lui-même indique que ce doit être le cas.    
+\end{frame}
+
+\begin{frame}[fragile]{Exceptions}
+    Les exceptions les plus courantes sont ces deux premières ainsi que 
+    \begin{itemize}
+        \item   \mintinline{python}{NameError} pour une variable non définie;
+        \item   \mintinline{python}{IndexError} pour un indice de liste trop grand;
+        \item   \mintinline{python}{KeyError} pour une clé de dictionnaire inexistante;
+    \end{itemize}
+    
+    On pourra trouver la liste de toutes les exceptions ici :\\
+    \texttt{https://docs.python.org/fr/3.8/library/exceptions.html}.       
+\end{frame}
+
+\begin{frame}[fragile]{Syntaxe de la gestion des exceptions}
+    \pause
+    \begin{itemize}
+        \item   la partie du code susceptible de lever une exception est mise dans un bloc \mintinline{python}{try} ;\pause
+        \item   si une exception est levée on la gère avec un bloc \mintinline{python}{except}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}
+    \begin{minted}[fontsize=\small]{python}
+            def inverse(x: float) -> float:
+                try:
+                    return 1 / x
+                except ZeroDivisionError:
+                    print('Erreur - 1 /', x, ': division par zéro.')
+                except TypeError:
+                    print('Erreur - 1 /', x, ': type incorrect.')
+                return 0
+
+        \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Remarque}
+    Les \mintinline{python}{try .. except} n'éliminent pas les erreurs mais permettent de les « intercepter ». 
+\end{frame}
+
+\begin{frame}[fragile]{Conseil}
+    \pause
+    Toujours préciser le type de l'exception qui a été levée sinon ce n'est pas clair.\pause
+    
+    \begin{minted}{python}
+        def inverse(x: float) -> float:
+            try:
+                return 1 / x
+            except:
+                print('Erreur avec 1 /', x)
+                return 0    
+    \end{minted}
+    \pause
+    Dans le bloc \mintinline{python}{except} on ne sait pas quelle erreur est survenue. 
+\end{frame}
+
+
+\section{Tests unitaires}
+\begin{frame}[fragile]{Définition}
+    Un (ou des) test(s) unitaire(s) sert à vérifier qu'une partie d'un programme (une \textit{unité}) fonctionne comme on l'a prévu.
+\end{frame}
+
+\begin{frame}[fragile]{Conseils}\pause
+    Écrire quelques tests \textit{avant même d'écrire le programme}.\\\CurrentFilePathUsed
+    
+    Les tests doivent être pensés pour aborder le cas général ainsi que les cas particuliers.
+\end{frame}
+
+\begin{frame}[fragile]{Utilisation de \mintinline{python}{assert}}\pause
+    \mintinline{python}{assert} sert à vérifier qu'une \textit{assertion} (un test de condition) est vraie.\\pause
+    
+    Si c'est le cas le programme continue, sinon une exception du type \mintinline{python}{AssertionError} est levée.
+    
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}\pause
+    Coder une fonction \mintinline{python}{sort} (qui signifie \textit{trier} en Anglais) qui     
+    \begin{itemize}
+        \item   en entrée prend une liste d'\mintinline{python}{int};
+        \item   en sortie renvoie une liste qui contient les mêmes valeurs que la liste d'entrée, mais triées dans l'ordre croissant.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{On écrit d'abord les tests}\pause
+    
+    \begin{minted}{python}
+    def sort(l: list) -> list:
+        ...
+
+
+    assert sort([]) == []
+    assert sort([0, 2, 3, 1]) == [0, 1, 2, 3]
+    assert sort([1, 0, 1, 2]) == [0, 1, 1, 2]
+    \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Attention}
+    Une batterie de tests ne constitue pas une preuve.
+\end{frame}
+
+\begin{frame}[fragile]
+    Différence \mintinline{python}{try ... except}\\
+    et\\
+    \mintinline{python}{assert}  
+\end{frame}
+\begin{frame}[fragile]{Différence}\pause
+    \mintinline{python}{try ... except} pour détecter et contrôler les erreurs.\\\pause
+    
+    \mintinline{python}{assert} pour vérifier conditions, résultats.\\\pause
+
+    Les premières ont vocation à rester dans le programme, les secondes non.
+\end{frame}
+
+\section{Utiliser des modules déjà écrits}
+
+\begin{frame}[standout]
+    Parce que c'est crétin\\
+    de chercher à \\
+    réinventer la roue.
+\end{frame}
+
+\begin{frame}[standout]
+    sauf...    
+\end{frame}
+
+\begin{frame}[fragile]{Raisons}\pause
+    \begin{itemize}
+        \item   pas satisfait des performances du module (trop lent, trop gourmand en mémoire) ;\pause
+        \item   une situation technique particulière fait que vous ne pouvez pas l'utiliser dans votre projet ;\pause
+        \item   le prof le demande, pour se former !
+    \end{itemize}
+        
+\end{frame}
+
+
+
+\end{document}

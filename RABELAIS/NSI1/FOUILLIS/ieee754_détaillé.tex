@@ -1,0 +1,39 @@
+\documentclass[12pt,a4paper,firamath]{nsi}
+\pagestyle{empty}
+\titre{Format IEEE-754 32 bits}
+\classe{NSI1}
+\begin{document}
+\maketitle
+On considère le nombre $x=-129,25$.\\
+
+On veut donner sa représentation en virgule flottante suivant la norme IEEE-754 32 bits.\\
+
+Commence par écrire 129,25 en base 2.\\
+
+$129,25 =\dotfill$\\
+
+Tu vas maintenant donner l'écriture scientifique en base 2 de $x$:\LARGE
+
+	$$(-1)^{\underbrace{......}_s}\times \left(\underbrace{1,...............}_{1,m}\right)_2\times 2^{\underbrace{......}_{e}}$$\normalsize
+
+
+Ensuite, $1,m$ doit être écrit avec 23 bits après la virgule en rajoutant des zéros inutiles :\\
+
+
+$1,m=\dotfill$\\
+
+
+Quand à $e$, on va le représenter par l'écriture binaire de $e+127$, sur 8 bits, que l'on va noter $b$ et que tu vas donner ici :\\
+
+$b = \dotfill$\\
+
+Finalement, en mémoire, $x$ est représenté ainsi :
+
+\LARGE
+$$\underbrace{......}_{s\text{ (1 bit)}}\underbrace{........................}_{b \text{ (8 bits)}}\ \underbrace{...................................................}_{m \text{ (23 bits)}}$$
+
+\normalsize
+Et en regroupant par paquets de 4 bits, tu peux facilement l'écrire sur 4 octets, en hexadécimal :\\
+
+$x$ est représenté par $\left(........................\right)_{16}$
+\end{document}
