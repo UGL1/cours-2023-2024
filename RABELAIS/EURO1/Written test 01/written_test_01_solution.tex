@@ -1,0 +1,68 @@
+\documentclass[12pt,a4paper,article,english,firamath]{nsi}
+\pagestyle{empty}
+\begin{document}
+\titre{Written test 01}
+\classe{Euro 1\ere}
+\maketitle
+
+\begin{exercice}[]
+    Three cousins, Zoé, Luc, and Serge, have a combined age of 60.\\
+    
+    What is the age of each, knowing that Luc is three times the age of Zoé, and Serge is ten years younger than Luc?
+\end{exercice}
+
+\begin{encadrecolore}{Solution}{UGLiGreen}
+    Let $x$ be the age of Zoé. We know than Luc is $3x$ and Serge is $3x-10$.\\
+    Adding their ages, whe get 60, which leads to the following equation
+    $$x + 3x + 3x-10 = 60$$
+    which simplifies to
+    $$7x - 10 = 60$$
+    So, adding ten on both sides, we get $$7x = 70$$
+    and we conclude that $x = 10$ by dividing both sides by 10.\\
+
+    Thus, Zoé's 10, Luc is 30 and Serge is 20.
+\end{encadrecolore}
+
+\begin{exercice}[]
+    The wheels of my bike have the same diameter. When they make a complete turn, I move forward by approximately 230 cm.\\
+
+    What's their diameter (you can provide an approximate value) ?
+\end{exercice}
+
+\begin{encadrecolore}{Solution}{UGLiGreen}
+    Let $d$ be the wheels' diameter. We know their perimeter is 230 cm, so we have
+    $$\pi \times d = 230$$
+    which leads to $d = \dfrac{230}{\pi}\simeq 73.2$ rounded to the nearest millimeter, and that's the diameter of my wheels. 
+\end{encadrecolore}
+
+\begin{remarque}[]
+    This is the diameter of a 29'' (29 inches) wheel on a mountain bike. 
+\end{remarque}
+
+
+\begin{exercice}[]
+    Pierre is half the age his father had 12 years ago.\\
+    He was born when his father was celebrating his 25$^{\text{th}}$ birthday.\\
+    
+    What is Pierre's age?
+\end{exercice}
+\begin{encadrecolore}{Solution}{UGLiGreen}
+    Let $x$ be Pierre's age and $y$ his father's.\\
+    From the first sentence we derive a first equation :
+    $$x = \dfrac{y-12}{2}$$
+    And the second sentences implies that Pierre's father's 25 years older than him, hence
+    $$y = x + 25$$
+    So we have to solve the following system
+    $$\begin{cases}
+         x & = \dfrac{y-12}{2} \\
+         y &= x + 25
+    \end{cases}$$
+    which is really easy since we can substitute the value of $y$ into the first equation, getting
+    $$x = \dfrac{x+25-12}{2}$$
+    which is equivalent, by multiplying both sides by 2, to
+    $$2x = x + 13$$
+    which gives us $x=13$ by subtracting $x$ to both sides.\\
+
+    Thus Pierre's 13 and his father's $25+13=37$.
+\end{encadrecolore}
+\end{document}
