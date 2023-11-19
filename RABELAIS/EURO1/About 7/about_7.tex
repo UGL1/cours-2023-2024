@@ -1,0 +1,82 @@
+\documentclass[12pt,a4paper,eval,english,firamath]{nsi}
+\pagestyle{empty}
+\begin{document}
+\titre{About 7}
+\classe{Euro 1\ere}
+\maketitle
+
+\ \\[-5em]
+\section*{Method}
+Watch the video "Method Without Subtitles" once.\\
+You can watch it a second time and if you feel lost, ask the teacher for the subtitled version.\\
+
+Did you need the subtitled version ?$\qquad\Box$ YES$\quad \Box$ NO\\
+
+What's the video about ?\\
+
+\carreauxseyes{16.8}{2.4}\\
+
+Give another example which shows how the method described in the video works.\\
+
+\carreauxseyes{16.8}{6.4}\\
+\section*{Proof}
+Watch the video "Proof Without Subtitles" once.\\
+You can also watch this one a second time and/or ask the teacher for the subtitled version.\\
+
+Did you need the subtitled version ?$\qquad\Box$ YES$\quad \Box$ NO\\
+
+Explain why this method is correct.\\
+
+\carreauxseyes{16.8}{24}
+
+\section*{One step farther}
+There is another method we can use to work out wether an integer is divisible by 7, here it is showed on an example : is 12345 divisible by 7 ?\\
+
+Let's take 12345, split it into 1234 and 5 and calculate $1234 - 2\times 5$.\\
+This gives us 1224, let's repeat the process : \\
+$122 - 2\times 4 = 114$\\
+$11 - 2\times 8 = -5$ so, as -5 is not divisible by 7, 12345 isn't either.\\
+
+Prove that this method is valid.\\
+
+\carreauxseyes{16.8}{17.6}
+
+\newpage
+{\LARGE\color{UGLiRed!50}\titlefont APPENDIX : theorems used in the video}\\
+
+
+
+\begin{encadrecolore}{Theorem 1}{UGLiRed}
+    Let $a$, $b$ and $c$ be three integers, with $b$ and $c$ not equal to zero.\\
+
+    If $a$ is divisible by $b$ then $ca$ is divisible by $b$.
+\end{encadrecolore}
+
+% \begin{demonstration}
+%     \begin{tabbing}
+%         $b|a$ 	\= $\Longrightarrow\exists k\in\N^*$, $a=kb$ \\
+%         \> $\Longrightarrow\exists k\in\N^*$, $ca=ckb$\\
+%         \> $\Longrightarrow\exists k'\in\N^*$, $ca=k'b$,  $k'$ being $ck$\\
+%         \> $\Longrightarrow b|ca$
+%     \end{tabbing}
+% \end{demonstration}
+
+\begin{exemple}[]
+    4 is divisible by 2 so $4\times 123$ is also divisible by 2.
+\end{exemple}
+
+\begin{encadrecolore}{Theorem 2}{UGLiRed}
+    Let $a$, $b$ and $c$ be three integers such that $a = b + c$\\
+    Suppose that $c$ is divisible by $k$, then either $a$ and $b$ are also divisible by $k$, or none of them are.
+\end{encadrecolore}
+
+\begin{exemple}[]
+    $x$ is an integer.
+    \begin{enumerate}
+        \item Suppose $30 = x + 5$, then $x$ is also divisible by 5.
+        \item Suppose $30 = x + 11$, then $x$ is not divisible by 11.
+    \end{enumerate}
+\end{exemple}
+
+\end{document}
+
