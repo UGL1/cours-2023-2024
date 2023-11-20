@@ -27,9 +27,15 @@ Did you need the subtitled version ?$\qquad\Box$ YES$\quad \Box$ NO\\
 
 Explain why this method is correct.\\
 
-\carreauxseyes{16.8}{24}
+\begin{encadrecolore}{Beware}{UGLiRed}
+    In the video, the man forgot an important detail : he actually proved that 5 times the original number is divisible by 7 if and only if $x+5y$ is divisible by 7\ldots but that's it !
+    
+    We will admit that if  $5n$ is a multiple of 7,  then $n$ is also a multiple of 7.
+\end{encadrecolore}
 
-\section*{One step farther}
+\carreauxseyes{16.8}{20}
+
+\section*{One step further}
 There is another method we can use to work out wether an integer is divisible by 7, here it is showed on an example : is 12345 divisible by 7 ?\\
 
 Let's take 12345, split it into 1234 and 5 and calculate $1234 - 2\times 5$.\\
@@ -42,7 +48,7 @@ Prove that this method is valid.\\
 \carreauxseyes{16.8}{17.6}
 
 \newpage
-{\LARGE\color{UGLiRed!50}\titlefont APPENDIX : theorems used in the video}\\
+{\LARGE\color{UGLiBlue}\titlefont APPENDIX : theorems used in the video (or not)}\\
 
 
 
@@ -76,6 +82,17 @@ Prove that this method is valid.\\
         \item Suppose $30 = x + 5$, then $x$ is also divisible by 5.
         \item Suppose $30 = x + 11$, then $x$ is not divisible by 11.
     \end{enumerate}
+\end{exemple}
+
+
+\begin{encadrecolore}{Theorem 3 (Gauss, to be used with $a=7$ and $b=5$)}{UGLiRed}
+    Let $a$, $b$ and $c$ be three integers such that $a$ divides $bc$ and $a$ and $b$ have no common factor (except 1).\\
+
+    Then $a$ divides $c$.
+\end{encadrecolore}
+
+\begin{exemple}[]
+    If 7 divides $5n$, since 7 and 5 have no common factors other than 1, we can conclude that 7 divides $n$.
 \end{exemple}
 
 \end{document}
