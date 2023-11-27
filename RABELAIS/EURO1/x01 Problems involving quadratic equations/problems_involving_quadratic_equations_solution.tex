@@ -1,0 +1,108 @@
+\documentclass[12pt,a4paper,article,english,firamath]{nsi}
+\begin{document}
+\titre{\LARGE Problems involving quadratic equations \small (solutions)}
+\classe{Euro 1\ere}
+\maketitle
+
+
+\section*{The mystery number}
+There is a two-digit number whose digits are the same, and has got the following property: When squared, it produces a four-digit number, whose first two digits are the same and equal to the original's minus one, and whose last two digits are the same and equal to the half of the original's.\\
+Find that number.
+
+\begin{remarque}[]
+    Of course, you can easily find this number by testing all the possibilities, but it is more interesting to find it out of calculations.
+\end{remarque}
+
+\begin{encadrecolore}{Solution}{UGLiRed}
+    Let's introduce a notation : when talking about a 4 digits number (in base 10), we will write it $(a_1a_2a_3a_4)_{10}$ where all $a_i$ are integers smaller than 10 (the actual digits of the number).\\
+
+
+    As our number has two digits which are the same, let's name $d$ this digit. Then the base 10 representation of this number is $(dd)_{10}$, which we can write $10d+d$, or more simply, $11d$.\\
+    Now, when we square our number, we get $121d^2$.\\
+    On the other side, the statement indicates that the base 10 representation of this number is $((d-1)(d-1)\frac{d}{2}\frac{d}{2})_{10}$.\\
+    This can be written $(d-1)\times1000+(d-1)\times100+\frac{d}{2}\times10 + \frac{d}{2}$, so we get this equation :
+
+    $$121d^2 =(d-1)\times 1000+(d-1)\times 100+\frac{d}{2}\times 10 + \frac{d}{2}$$
+    Let's multiply both sides by 2 and expand, we get the equivalent equation
+    $$242d^2 = 2211d - 2200$$
+    When we divide both sides by 11 we get
+    $$22d^2= 201d-200$$
+    So we'll solve this equation :
+    $$22d^2-201+200=0$$
+    Its discriminant $\Delta$ is equal to 22801, which is $(151)^2$. Hence the equation has two solutions... One is not an integer so we will not keep it, the other is 8.\\
+
+    Finally, our number is 88 and its square is 7744.
+
+\end{encadrecolore}
+
+\section*{A very complicated way of writing an integer}
+
+Assume $$\sqrt{6+\sqrt{6+\sqrt{6+\ldots}}}$$ exists and is an integer.\\
+Find its value.
+
+\begin{encadrecolore}{Solution}{UGLiRed}
+    Let's denote by $x$ this mysterious number, then
+    \begin{tabbing}
+        $ x^2 $ 	\= $= \left(\sqrt{6+\sqrt{6+\sqrt{6+\ldots}}}\right)^2$ \\
+        \> $= 6+\sqrt{6+\sqrt{6+\ldots}}\qquad$ and since the root expression goes on indefinitely :\\
+        \> $= 6 +x$
+    \end{tabbing}
+    So we'll solve the following equation $$x^2-x-6 = 0$$
+    It is really easy to factor the left side : $$(x-3)(x+2)=0$$
+    So we get two candidates : 3 and -2. Obviously -2 isn't suitable because, as $x$ is a square root, it must be positive.\\
+
+    Thus, $\sqrt{6+\sqrt{6+\sqrt{6+\ldots}}}=3$.
+\end{encadrecolore}
+
+
+\section*{How many benches ?}
+In a concert hall, 800 people are seated on benches of equal length (the same number or persons are seated on each bench). If there had been 20 fewer benches, it would have been necessary to add two more people per bench.\\
+How many benches are there ?
+
+\begin{encadrecolore}{Solution}{UGLiRed}
+    Let's name $n$ the number of benches and $p$ the number of people per bench. $n$ and $p$ cannot be zero, and from the first sentence we derive this equation
+    \begin{equation}
+        np = 800
+    \end{equation}
+    and the second sentence tells us that
+    \begin{equation}
+        (n-20)(p+2) = 800
+    \end{equation}
+    so we get a system of two equations with 2 unknowns. But as (1) gives us $p = \frac{800}{n}$, we can substitute $p$ by its value as a function of $n$ in (2) and get
+    \begin{tabbing}
+        $ (n-20)\left(\frac{800}{n}+2\right)= 800 $ 	\= $\Leftrightarrow (n-20)\left(800+2n\right)= 800n $ by multiplying both sides by $n$ \\
+        \>  $\Leftrightarrow (n-20)\left(400+n\right)= 400n $ by simplifying by 2 \\
+        \>  $\Leftrightarrow n^2-20n-8000 = 0$ \\  
+    \end{tabbing}
+    We now solve this equation : $\Delta = 180^2$ so it has 2 solutions, one which is not suitable because it is negative, and the other is 100.\\
+
+    Thus, there are 100 benches with 8 persons on each of them (but there could have been 80 benches with 10 persons per bench as mentioned in the statement).
+\end{encadrecolore}
+
+\section*{A family affair}
+A father and his son work for the same employer. After a certain number of hours of work, the father receives 500 €. The son, who worked 5 hours less and has an hourly wage that is 8 € lower than that of his father, only receives 240 €. \\
+
+What's the hourly wage of each and how many hours have they worked (the hours are integers) ?
+\begin{encadrecolore}{Solution}{UGLiRed}
+    Really, it's quite the same problem as the one before. Just name $h$ the number of hours worked by the father and $r$ his hourly rate, you get $$hr = 500$$ and considering the son, you derive $$(h-5)(r-8)=240$$
+    Now you can substitute $r$ by $\frac{500}{h}$ in the second equation and do the same job as in the previous exercise, you'll get a quadratic equation with two solutions but only one is an integer and it's 25.\\
+    So the father has worked 25 hours, the son 20.\\
+    The father's hourly wage's 20€ per hour, the son's 12.
+\end{encadrecolore}
+\section*{Tangency of an hyperplan and an hypersphere \small(just as a challenge)}
+
+Let $n\in\N^*$ and $x_1$, \ldots, $x_n$ be $n$ numbers such that $x_1+\ldots +x_n = n$ and $x_1^2+\ldots +x_n^2 = n$.\\
+
+Prove that $x_1=\ldots=x_n=1$.
+
+\begin{encadrecolore}{Solution}{UGLiRed}
+    Now that's a tricky one. The best way to prove it is to establish that the distance between $(1,\ldots,1)$ and $(x_1,...,x_n)$ is zero, which implies that $x_1=\ldots=x_n=1$.\\
+
+    \begin{tabbing}
+        $ (x_1-1)^2 + \ldots (x_n-1)^2$ 	\= $= (x_1^2 -2x_1 + 1) + \ldots + (x_n^2-2x_n+1)$ by expanding each square \\
+        \> $= (x_1^2+\ldots+x_n^2)-2(x_1+\ldots+x_n)+(1+\ldots+1)$ \\
+        \> $= n-2n+n$ \\
+        \> $= 0$, hence the result.  
+    \end{tabbing}
+\end{encadrecolore}
+\end{document}
