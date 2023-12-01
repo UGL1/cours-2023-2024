@@ -1,32 +1,27 @@
-\documentclass[10pt]{beamer}
-\usepackage{uglibeamer2,animate}
-\title{Arbres binaires de recherche}
-\subtitle{Chapitre 14}
-\author{NSI2}
-
+\documentclass[10pt,firamath,cours]{nsi}
 \begin{document}
-
-\maketitle
-
-\begin{frame}{Définition}
-Un arbre binaire de recherche est un arbre binaire\pause
-\begin{enumerate}[--]
-    \item dont tous les n\oe uds comportent des valeurs du même type qu'il est possible de comparer (entiers, flottants, chaînes de caractères...);\pause
-    \item dont les valeurs de tous les n\oe uds situés dans le \alert{sous-arbre gauche} d'un n\oe ud sont \alert{inférieures ou égales} à la valeur de ce n\oe ud;\pause
-\end{enumerate}
- 
-\end{frame}
-\begin{frame}{Exemple}
-Voici un ABR :
-\begin{center}
-\includegraphics[width=7cm]{img/abr1}
-\end{center}
-\end{frame}
-\begin{frame}{Exemple}
-Ceci n'est pas un ABR
+\setcounter{chapter}{12}
+\chapter{Arbres binaires de recherche}
+\begin{definition}[]
+    Un arbre binaire de recherche est un arbre binaire
+    \begin{itemize}
+        \item dont tous les n\oe uds comportent des valeurs du même type qu'il est possible de comparer (entiers, flottants, chaînes de caractères...) ;
+        \item dont les valeurs de tous les n\oe uds situés dans le \alert{sous-arbre gauche} d'un n\oe ud sont \alert{inférieures ou égales} à la valeur de ce n\oe ud ;
+    \end{itemize}   
+\end{definition}
+\begin{exemple}[s]
+    Voici un ABR :
+    \begin{center}
+    \includegraphics[width=7cm]{img/abr1}
+    \end{center} 
+    Ceci n'est pas un ABR
     \begin{center}
         \includegraphics[width=7cm]{img/abr2}
     \end{center}
+\end{exemple}
+
+
+\end{document}
 \end{frame}
 \begin{frame}{Recherche dans un ABR}
         \begin{center}
