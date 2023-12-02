@@ -1,203 +1,201 @@
-\documentclass[10pt]{beamer}
-\usepackage{uglibeamer2}
-\title{Gestion des processus et ressources}
-\subtitle{Chapitre 17}
-\author{NSI2}
+\documentclass[10pt,firamath,cours]{nsi}
 \begin{document}
+\setcounter{chapter}{13}
 
-\maketitle
-\metroset{block=fill}
-\begin{frame}{Systèmes d'exploitation multitâches}\pause
-De nos jour les OS permettent d'exécuter plusieurs programmes en même temps :\\\pause
 
-\begin{enumerate}[--]
-	\item jouer à un jeu vidéo ;\pause
-    \item parler avec ses amis sur Discord ;\pause
-    \item utiliser un logiciel de streaming de type OBS ;\pause
-    \item et d'autres choses encore...\pause
-\end{enumerate}
+\chapter{Gestion des processus et ressources}
+
+
+\section{Systèmes d'exploitation multitâches}
+De nos jour les OS permettent d'exécuter plusieurs programmes en même temps :\\
+
+\begin{itemize}
+	\item jouer à un jeu vidéo ;
+    \item parler avec ses amis sur Discord ;
+    \item utiliser un logiciel de streaming de type OBS ;
+    \item et d'autres choses encore...
+\end{itemize}
 Lorsqu'on ouvre le gestionnaire des tâches de \textsc{Windows}, voici ce qu'on obtient
-\end{frame}
-\begin{frame}{Gestionnaire des tâches \textsc{Windows}}
+
+{Gestionnaire des tâches \textsc{Windows}}
 \begin{center}
 \includegraphics[width=\linewidth]{img/gest}\\
-
 \small \textit{Une partie des tâches en cours sur mon ordinateur;}
 \end{center}
-\end{frame}
-\begin{frame}{Exécution concurrente}\pause
-Peu importe le nombre de c\oe urs du CPU, la multitude des programmes en cours d'exécution montre que l'OS dispose d'un système pour gérer ces exécutions simultanées.\\\pause
-Puisque tous les programmes ne peuvent « tourner en même temps» on parle d'\alert{exécution concurrente}.
-\end{frame}
+
+
+Peu importe le nombre de c\oe urs du CPU, la multitude des programmes en cours d'exécution montre que l'OS dispose d'un système pour gérer ces exécutions simultanées.\\
+Puisque tous les programmes ne peuvent « tourner en même temps» on parle d'\textit{exécution concurrente}.
+
 \section{Les processus}
-\begin{frame}{Exécution d'un programme seul (version théorique et simplifiée)}\pause
-Un \alert{exécutable} est un fichier qui contient des instructions en langage machine.\\\pause
-Lors de son ouverture\pause
-\begin{enumerate}[--]
-	\item l'OS charge le programme dans la RAM, à une certaine adresse-mémoire ;\pause
-    \item il écrit cette adresse dans le registre PC (\textit{program counter}) du CPU.\pause
-\end{enumerate}
+\subsection{Exécution d'un programme seul (version théorique et simplifiée)}
+Un \textit{exécutable} est un fichier qui contient des instructions en langage machine.\\
+Lors de son ouverture
+\begin{itemize}
+	\item l'OS charge le programme dans la RAM, à une certaine adresse-mémoire ;
+    \item il écrit cette adresse dans le registre PC (\textit{program counter}) du CPU.
+\end{itemize}
 À chaque cycle d'horloge, le CPU lit l'instruction à l'adresse courante, l'exécute, puis passe à l'instruction suivante jusqu'à la dernière.
-\end{frame}
 
-\begin{frame}{En réalité}
-Dans le modèle précédent, un seul programme peut être lancé et l'OS doit attendre qu'il « rende la main» pour continuer.\\\pause
 
-Il n'est pas possible de lancer 2 programmes ou plus en même temps, on a affaire à un OS \alert{monotâche}... Or nos OS actuels sont clairement multitâches.
-\end{frame}
-\begin{frame}{Multitâche coopératif}
-Il consiste à laisser les programmes décider du moment où ils doivent rendre la main aux autres. Celui-ci pose cependant deux principales difficultés :\pause
-\begin{enumerate}[--]
-	\item il faut que le multitâche soit pris en compte lors de l'écriture des programmes ;\pause
-    \item en cas d'erreur le système tout entier peut se retrouver bloqué.\pause
-\end{enumerate}
+\subsection{En réalité}
+Dans le modèle précédent, un seul programme peut être lancé et l'OS doit attendre qu'il « rende la main» pour continuer.\\
+
+Il n'est pas possible de lancer 2 programmes ou plus en même temps, on a affaire à un OS \textit{monotâche}... Or nos OS actuels sont clairement multitâches.
+
+\subsection{Multitâche coopératif}
+Il consiste à laisser les programmes décider du moment où ils doivent rendre la main aux autres. Celui-ci pose cependant deux principales difficultés :
+\begin{itemize}
+	\item il faut que le multitâche soit pris en compte lors de l'écriture des programmes ;
+    \item en cas d'erreur le système tout entier peut se retrouver bloqué.
+\end{itemize}
 C'est ce type de multitâche que l'on retrouve dans \textsc{Windows 3.1} (1993) ou \textsc{Mac OS 9} (1999).\\
 \begin{center}
 \includegraphics[height=2cm]{img/win31}\hspace{2cm}\includegraphics[height=2cm]{img/macos}
 \end{center}
-\end{frame}
-\begin{frame}{Multitâche préemptif}
-Il consiste à octroyer un certain temps d'exécution au programme avant de reprendre la main de force en sauvegardant l'état du processus, au moyen d'une interruption programmable.\\\pause
-Ce type de multitâche se retrouve dans les systèmes d'exploitation Unix (1969) et aussi dans les systèmes plus grand-public depuis Windows 95 (1995) et Mac OS X (2001).\\\pause
+
+\subsection{Multitâche préemptif}
+Il consiste à octroyer un certain temps d'exécution au programme avant de reprendre la main de force en sauvegardant l'état du processus, au moyen d'une interruption programmable.\\
+Ce type de multitâche se retrouve dans les systèmes d'exploitation Unix (1969) et aussi dans les systèmes plus grand-public depuis Windows 95 (1995) et Mac OS X (2001).\\
 
 C'est sur la 2\eme approche que nous allons nous concentrer.
-\end{frame}
-\begin{frame}{Interruption}\pause
-C'est un signal envoyé au CPU lorsqu'un évènement se produit : un disque dur a terminé d'écrire des octets, un clavier signale qu'une touche est pressée, \textit{et c\ae tera}.\\\pause
+
+\subsection{Interruption}
+C'est un signal envoyé au CPU lorsqu'un évènement se produit : un disque dur a terminé d'écrire des octets, un clavier signale qu'une touche est pressée, \textit{et c\ae tera}.\\
 
 Lors d'une interruption, le CPU arrête l'exécution du programme en cours.\\
-Celle-ci est communiquée à un programme appelé \alert{gestionnaire d'interruptions}, accompagnée d'une copie de l'ensemble des valeurs des registres du CPU.\\\pause
+Celle-ci est communiquée à un programme appelé \textit{gestionnaire d'interruptions}, accompagnée d'une copie de l'ensemble des valeurs des registres du CPU.\\
 En fonction de l'interruption, le gestionnaire passe la main à un autre programme.
-\end{frame}
-\begin{frame}{Les interruptions d'horloge}\pause
-Le CPU génère de lui-même des interruptions à intervalles de temps fixe.\\\pause
-De nos jours un CPU moderne les génère à une fréquence de 10 MHz, donc toutes les 100 nanosecondes (un dix-millième de milliseconde).\\\pause
+
+    
+\subsection{Les interruptions d'horloge}
+Le CPU génère de lui-même des interruptions à intervalles de temps fixe.\\
+De nos jours un CPU moderne les génère à une fréquence de 10 MHz, donc toutes les 100 nanosecondes (un dix-millième de milliseconde).\\
 
 Ce sont elles qui permettent d'exécuter les programmes de manière concurrente.
-\end{frame}
-
-\begin{frame}{Vocabulaire}\pause
-\begin{block}{Exécutable}
-Fichier binaire contenant des instructions en langage-machine directement exécutables par le CPU.
-\end{block}\pause
-
-\begin{block}{Processus}
-Un des programmes en cours d'exécution. En général il est décrit par\pause
-\begin{enumerate}[--]
-	\item un \alert{identifiant} unique;\pause
-    \item son \alert{état} (effectivement en cours d'exécution, en attente ...);\pause
-    \item la \alert{mémoire} allouée par l'OS au programme;\pause
-    \item les \alert{ressources} utilisées par le programme (fichiers, connexions réseaux, matériels \textit{et c\ae tera});\pause
-    \item les \alert{valeurs des registres} du CPU.\pause
-\end{enumerate}
-
-\end{block}
-\end{frame}
-\begin{frame}{Vocabulaire}\pause
-\begin{block}{PCB}
-Pour chaque processus, l'OS stocke sa description dans une structure de données appelée \alert{PCB}, pour \textit{Process Control Bloc}.
-\end{block}\pause
 
 
-\begin{block}{Exécution concurrente}\pause
-Deux processus s'exécutent de manière concurrente si les intervalles de temps entre le début et la fin de leur exécution ont une partie commune.
-\end{block}\pause
-On ne parlera pas d'exécution \alert{parallèle} (lorsque deux processus s'effectuent \textit{réellement} en même temps).
-\end{frame}
+\begin{definition}[ : exécutable]
+    Fichier binaire contenant des instructions en langage-machine directement exécutables par le CPU.    
+\end{definition}
+    
+\begin{definition}[ : processus]
+    Un des programmes en cours d'exécution. En général il est décrit par
+    \begin{itemize}
+        \item un \textit{identifiant} unique;
+        \item son \textit{état} (effectivement en cours d'exécution, en attente ...);
+        \item la \textit{mémoire} allouée par l'OS au programme;
+        \item les \textit{ressources} utilisées par le programme (fichiers, connexions réseaux, matériels \textit{et c\ae tera});
+        \item les \textit{valeurs des registres} du CPU.
+    \end{itemize}        
+\end{definition}
 
-\begin{frame}{Arborescence des processus}\pause
-En général (c'est le cas avec les OS de type \textsc{UNIX}), l'OS crée au démarrage un processus de base qui à son tour va créer d'autres processus, appelés \alert{processus fils}, et ainsi de suite.\\\pause
+\begin{definition}[ : PCB]
+    Pour chaque processus, l'OS stocke sa description dans une structure de données appelée \textit{PCB}, pour \textit{Process Control Bloc}.    
+\end{definition}
 
-Cela donne lieu à une \alert{arborescence de processus}.
-\end{frame}
+\begin{definition}[ : exécution concurrente]
+    Deux processus s'exécutent de manière concurrente si les intervalles de temps entre le début et la fin de leur exécution ont une partie commune.    
+\end{definition}
 
-\begin{frame}{Processus légers ou thread}\pause
-Les \alert{threads} sont des processus particuliers crées par des processus qui se veulent eux-mêmes multitâches.\\\pause
-La principale différence entre thread et processus est que contrairement aux processus qui \textit{a priori} sont isolés les uns des autres, les threads \alert{partagent des variables globales}.\\\pause
+On ne parlera pas d'exécution \textit{parallèle} (lorsque deux processus s'effectuent \textit{réellement} en même temps).
+
+
+\subsection{Arborescence des processus}
+En général (c'est le cas avec les OS de type \textsc{UNIX}), l'OS crée au démarrage un processus de base qui à son tour va créer d'autres processus, appelés \textit{processus fils}, et ainsi de suite.\\
+
+Cela donne lieu à une \textit{arborescence de processus}.
+
+
+\subsection{Processus légers ou thread}
+Les \textit{threads} sont des processus particuliers crées par des processus qui se veulent eux-mêmes multitâches.\\
+La principale différence entre thread et processus est que contrairement aux processus qui \textit{a priori} sont isolés les uns des autres, les threads \textit{partagent des variables globales}.\\
 La commutation de contexte entre threads (voir plus loin) est également plus rapide qu'entre processus.\\
 
-\end{frame}
+
 
 \section{L'ordonnanceur}
 
-\begin{frame}{Son rôle}\pause
-C'est le composant de l'OS chargé de \alert{choisir l'ordre d'exécution} des différents processus.\\\pause
+
+C'est le composant de l'OS chargé de \textit{choisir l'ordre d'exécution} des différents processus.\\
 De son point de vue les threads sont des processus à part entière.
-\end{frame}
-\begin{frame}{Exemple de fonctionnement}\pause
-\begin{enumerate}
-	\item un processus p1 est en cours d'utilisation ;\pause
-    \item une interruption d'horloge survient ;\pause
-    \item le \alert{gestionnaire d'interruption} (GI) est appelé et sauvegarde l'état des registres du CPU à un endroit particulier de la mémoire ;\pause
-    \item il fait appel à l'\alert{ordonnanceur} qui \alert{décide} à quel autre processus p2  il veut passer la main ;\pause
-    \item le GI restaure les valeurs des registres du CPU qui on été sauvegardées la dernière fois que p2 a été interrompu ;\pause
-    \item le GI rend la main : p2 reprend.
-\end{enumerate}
-Les phases \textbf{2.} à \textbf{5.} s'appellent une \alert{commutation de contexte}.\pause
-\end{frame}
-\begin{frame}{\'Etats d'un processus}\pause
-Un processus peut parfois être de lui-même en pause (\mintinline{python}{sleep} en Python).\\\pause
-De même il peut être en attente d'une ressource : par exemple lors de l'appel de \mintinline{python}{input}, le programme sollicite le clavier et attend une réponse.\\\pause
-Parfois aussi, des erreurs peuvent se produire (programme mal codé, problème matériel...).\\\pause
 
-Toutes ces conditions amènent l'OS à définir l'\alert{état} de chaque processus.
-\end{frame}
+\begin{exemple}[ de fonctionnement]
+    \begin{enumerate}
+        \item un processus p1 est en cours d'utilisation ;
+        \item une interruption d'horloge survient ;
+        \item le \textit{gestionnaire d'interruption} (GI) est appelé et sauvegarde l'état des registres du CPU à un endroit particulier de la mémoire ;
+        \item il fait appel à l'\textit{ordonnanceur} qui \textit{décide} à quel autre processus p2  il veut passer la main ;
+        \item le GI restaure les valeurs des registres du CPU qui on été sauvegardées la dernière fois que p2 a été interrompu ;
+        \item le GI rend la main : p2 reprend.
+    \end{enumerate}
+    Les phases \textbf{2.} à \textbf{5.} s'appellent une \textit{commutation de contexte}.        
+\end{exemple}
 
-\begin{frame}{Les différents états}\pause
-\begin{enumerate}[--]
-	\item \textbf{Nouveau : } état éphémère : l'OS vient de copier l'exécutable en mémoire et créé son PCB ;\pause 
-    \item \textbf{Prêt : } le processus est dans l'ensemble des processus qui peuvent être choisis par l'ordonnanceur pour être exécutés : il attend son tour ;\pause
-    \item \textbf{En exécution :} le processus est effectivement en train de s'exécuter ;\pause
-    \item \textbf{En attente :} le processus est interrompu et est en attente d'un évènement externe : qu'une allocation mémoire soit effectuée, qu'une E/S soit activée, qu'un des périphériques dont il a besoin soit libre...\pause
-    \item \textbf{Terminé :} état éphémère : l'OS va libérer la mémoire allouée au processus ainsi que les ressources qu'il utilise et effacer son PCB.\pause
-\end{enumerate}
-À tout moment une erreur peut conduire à la terminaison du processus.
-\end{frame}
+\subsection{\'Etats d'un processus}
+Un processus peut parfois être de lui-même en pause (\mintinline{python}{sleep} en Python).\\
+De même il peut être en attente d'une ressource : par exemple lors de l'appel de \mintinline{python}{input}, le programme sollicite le clavier et attend une réponse.\\
+Parfois aussi, des erreurs peuvent se produire (programme mal codé, problème matériel...).\\
 
-\begin{frame}{Cycle de vie d'un processus}
+Toutes ces conditions amènent l'OS à définir l'\textit{état} de chaque processus.
+
+
+\begin{encadrecolore}{Les différents états}{UGLiPurple}
+    \begin{itemize}
+        \item \textbf{Nouveau : } état éphémère : l'OS vient de copier l'exécutable en mémoire et créé son PCB ; 
+        \item \textbf{Prêt : } le processus est dans l'ensemble des processus qui peuvent être choisis par l'ordonnanceur pour être exécutés : il attend son tour ;
+        \item \textbf{En exécution :} le processus est effectivement en train de s'exécuter ;
+        \item \textbf{En attente :} le processus est interrompu et est en attente d'un évènement externe : qu'une allocation mémoire soit effectuée, qu'une E/S soit activée, qu'un des périphériques dont il a besoin soit libre...
+        \item \textbf{Terminé :} état éphémère : l'OS va libérer la mémoire allouée au processus ainsi que les ressources qu'il utilise et effacer son PCB.
+    \end{itemize}
+    À tout moment une erreur peut conduire à la terminaison du processus.        
+\end{encadrecolore}
+
+\subsection{Cycle de vie d'un processus}
 \begin{center}
-\includegraphics[width=7cm]{img/cycle_proc}
+\includegraphics[width=10cm]{img/cycle_proc}
 \end{center}
-\end{frame}
+
 
 \section{Les stratégies d'ordonnancement}
 
-\begin{frame}{Quel algorithme utiliser ?}
+\subsection{Quel algorithme utiliser ?}
 \begin{center}
 \includegraphics[width=9cm]{img/3proc}
-\end{center}\pause
-On observe ici le déroulement \alert{pseudo-parallèle} de 3 processus.\pause
-\begin{enumerate}[--]
-	\item P1 débute à $t=0$, utilise 4 quanta, sur une durée de 8 quanta ;\pause
-    \item P2 débute à $t=1$, utilise 3 quanta, sur une durée de 6 quanta ;\pause
+\end{center}
+On observe ici le déroulement \textit{pseudo-parallèle} de 3 processus.
+\begin{itemize}
+	\item P1 débute à $t=0$, utilise 4 quanta, sur une durée de 8 quanta ;
+    \item P2 débute à $t=1$, utilise 3 quanta, sur une durée de 6 quanta ;
     \item P3 débute à $t=3$, utilise 1 quantum, sur une durée de 1 quantum.
-\end{enumerate}
-\end{frame}
-\begin{frame}{Différents algorithmes}
+\end{itemize}
 
-\begin{enumerate}[--]\pause
-	\item \textbf{FIFO} : les processus sont placés dans une file et exécutés dans cet ordre, puis remis dans la file\pause
-    \item \textbf{SJF} : (\textit{Shortest Job First}) le processus le plus court est exécuté en premier\pause
-    \item \textbf{Round Robin} : Chaque processus aura la main pendant un certain temps, le même pour tous
-\end{enumerate}
-\end{frame}
-\begin{frame}{Priorité}\pause
-Il est possible d'attacher une priorité à chaque processus de sorte que\pause
-\begin{enumerate}[--]
-	\item les processus importants soient exécutés en premier ou plus souvent que les autres ;\pause
-    \item les processus peu importants ne soient exécutés que quand le CPU n'est pas beaucoup sollicité.\pause
-\end{enumerate}
+\begin{encadrecolore}{Différents algorithmes}{UGLiGreen}
+    \begin{itemize}
+        \item \textbf{FIFO} : les processus sont placés dans une file et exécutés dans cet ordre, puis remis dans la file
+        \item \textbf{SJF} : (\textit{Shortest Job First}) le processus le plus court est exécuté en premier
+        \item \textbf{Round Robin} : Chaque processus aura la main pendant un certain temps, le même pour tous
+    \end{itemize}        
+\end{encadrecolore}
 
-La plupart des OS multitâches actuels utilisent (pour partie) une combinaison des algorithmes précédents combinés avec des priorités.\\\pause
-Dans les systèmes \textsc{UNIX}, la priorité d'un processus s'appelle \alert{niceness}.
-\end{frame}
+\begin{encadrecolore}{Priorité}{UGLiYellow}
+Il est possible d'attacher une priorité à chaque processus de sorte que
+\begin{itemize}
+	\item les processus importants soient exécutés en premier ou plus souvent que les autres ;
+    \item les processus peu importants ne soient exécutés que quand le CPU n'est pas beaucoup sollicité.
+\end{itemize}
+\end{encadrecolore}
 
-\begin{frame}{Exemple}
-On considère les processus suivants\pause
+La plupart des OS multitâches actuels utilisent (pour partie) une combinaison des algorithmes précédents combinés avec des priorités.\\
+Dans les systèmes \textsc{UNIX}, la priorité d'un processus s'appelle \textit{niceness}.
+
+
+\subsection{Exemples détaillés}
+On considère les processus suivants
 \begin{center}
+    \tabstyle[UGLiOrange]
 \begin{tabular}{|c|c|c|c|}
-\hline\rowcolor{beamerRed}
-\textbf{\color{white} Processus} & \textbf{\color{white}Départ} & \textbf{\color{white}Durée} & \textbf{\color{white}Priorité} \\
+\ccell Processus & \ccell Départ & \ccell Durée & \ccell Priorité \\
 \hline
 P1 & 0 & 4 & basse \\
 \hline
@@ -209,155 +207,66 @@ P4 & 9 & 2 & haute \\
 \hline
 \end{tabular}
 \end{center}
-\end{frame}
-\begin{frame}{FIFO sans priorités}
-\scriptsize
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline\rowcolor{beamerRed}
-\textbf{\color{white} Processus} & \textbf{\color{white}Départ} & \textbf{\color{white}Durée} & \textbf{\color{white}Priorité} \\
-\hline
-P1 & 0 & 4 & basse \\
-\hline
-P2 & 3 & 7 & basse \\
-\hline
-P3 & 7 & 3 & haute \\
-\hline
-P4 & 9 & 2 & haute \\
-\hline
-\end{tabular}
-\end{center}
+
+\subsubsection{FIFO sans priorités}
 \includegraphics[width=\linewidth]{img/FIFO}
-\end{frame}
-\begin{frame}{FIFO avec priorités}
-\scriptsize
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline\rowcolor{beamerRed}
-\textbf{\color{white} Processus} & \textbf{\color{white}Départ} & \textbf{\color{white}Durée} & \textbf{\color{white}Priorité} \\
-\hline
-P1 & 0 & 4 & basse \\
-\hline
-P2 & 3 & 7 & basse \\
-\hline
-P3 & 7 & 3 & haute \\
-\hline
-P4 & 9 & 2 & haute \\
-\hline
-\end{tabular}
-\end{center}
+
+\subsubsection{FIFO avec priorités}
 \includegraphics[width=\linewidth]{img/FIFOP}
-\end{frame}
-\begin{frame}{RR sans priorités}
-\scriptsize
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline\rowcolor{beamerRed}
-\textbf{\color{white} Processus} & \textbf{\color{white}Départ} & \textbf{\color{white}Durée} & \textbf{\color{white}Priorité} \\
-\hline
-P1 & 0 & 4 & basse \\
-\hline
-P2 & 3 & 7 & basse \\
-\hline
-P3 & 7 & 3 & haute \\
-\hline
-P4 & 9 & 2 & haute \\
-\hline
-\end{tabular}
-\end{center}
+
+\subsubsection{Round Robin sans priorités}
 \includegraphics[width=\linewidth]{img/RR}
-\end{frame}
-\begin{frame}{RR avec priorités}
-\scriptsize
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline\rowcolor{beamerRed}
-\textbf{\color{white} Processus} & \textbf{\color{white}Départ} & \textbf{\color{white}Durée} & \textbf{\color{white}Priorité} \\
-\hline
-P1 & 0 & 4 & basse \\
-\hline
-P2 & 3 & 7 & basse \\
-\hline
-P3 & 7 & 3 & haute \\
-\hline
-P4 & 9 & 2 & haute \\
-\hline
-\end{tabular}
-\end{center}
+
+\subsubsection{Round Robin avec priorités}
 \includegraphics[width=\linewidth]{img/RRP}
-\end{frame}
-\begin{frame}{SJF sans priorités (et aussi avec dans ce cas particulier)}
-\scriptsize
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline\rowcolor{beamerRed}
-\textbf{\color{white} Processus} & \textbf{\color{white}Départ} & \textbf{\color{white}Durée} & \textbf{\color{white}Priorité} \\
-\hline
-P1 & 0 & 4 & basse \\
-\hline
-P2 & 3 & 7 & basse \\
-\hline
-P3 & 7 & 3 & haute \\
-\hline
-P4 & 9 & 2 & haute \\
-\hline
-\end{tabular}
-\end{center}
+
+\subsubsection{SJF sans priorités (et aussi avec dans ce cas particulier)}
 \includegraphics[width=\linewidth]{img/SJF}
-\end{frame}
+
 
 
 
 
 \section{L'interblocage}
-\begin{frame}{Processus et ressources}
-En réalité les algorithmes d'ordonnancement utilisés par les OS actuels font que  l'exécution concurrente des processus est \alert{non déterministe} : l'utilisateur de l'OS ne peut pas prédire quel processus sera exécuté à chaque instant.\\
+\subsection{Processus et ressources}
+En réalité les algorithmes d'ordonnancement utilisés par les OS actuels font que  l'exécution concurrente des processus est \textit{non déterministe} : l'utilisateur de l'OS ne peut pas prédire quel processus sera exécuté à chaque instant.\\
 
-Or les processus utilisent des \alert{ressources}, et bien souvent celles-ci sont utilisables \alert{de manière exclusive}.\\
+Or les processus utilisent des \textit{ressources}, et bien souvent celles-ci sont utilisables \textit{de manière exclusive}.\\
 
 Cela veut dire que lorsqu'un processus acquiert l'accès à une ressource, les autres processus ne peuvent y accéder avant que ledit processus n'ait libéré la ressource.
-\end{frame}
-\begin{frame}{Interblocage}
-On dit qu'il y a \alert{interblocage} lorsque des processus concurrents s'attendent mutuellement.\\
 
-Dans un article de 1971, Edward Coffman a établi les conditions d'un interblocage, qui portent désormais son nom :
-\begin{enumerate}
-	\item 	Au moins une ressource doit être conservée par un processus en mode exclusif.
-	\item 	Un processus doit conserver une ressource et en demander une autre.
-    \item	Une ressource ne peut être libérée que par le processus qui la détient.
-    \item 	\textit{Attente circulaire} : Chaque processus doit attendre la libération d'une ressource détenue par un
-    autre qui fait de même
-\end{enumerate}
+\subsection{Interblocage}
+On dit qu'il y a \textit{interblocage} lorsque des processus concurrents s'attendent mutuellement.\\
+
+Dans un article de 1971, Edward Coffman a établi les conditions d'un interblocage, qui portent désormais son nom?
+\begin{propriete}[ : conditions de Coffman]
+    \begin{itemize}
+        \item 	Au moins une ressource doit être conservée par un processus en mode exclusif.
+        \item 	Un processus doit conserver une ressource et en demander une autre.
+        \item	Une ressource ne peut être libérée que par le processus qui la détient.
+        \item 	\textit{Attente circulaire} : Chaque processus doit attendre la libération d'une ressource détenue par un autre qui fait de même.
+    \end{itemize}        
+\end{propriete}
 Dans le cadre de ce chapitre, la condition \textbf{3.} est toujours vérifiée.
-\end{frame}
-\begin{frame}{Exemple Minimaliste}
 
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\only<1>{\includegraphics[width=0.5\textwidth]{img/inter1}}
-\only<2>{\includegraphics[width=0.5\textwidth]{img/inter2}}
-\only<3>{\includegraphics[width=0.5\textwidth]{img/inter3}}
-\only<4>{\includegraphics[width=0.5\textwidth]{img/inter4}}
-\onslide<5->{\includegraphics[width=0.5\textwidth]{img/inter5}}
+\subsection{Exemple Minimaliste}
+\begin{itemize}
 
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{enumerate}
-\onslide<1->{\item 	P1 demande l'accès à R1}
-	\onslide<2->{\item 	P2 demande l'accès à R2}
-\onslide<3->{\item 	P1 demande l'accès à R2}
-    \onslide<4->{\item 	P1 attend, P2 demande l'accès à R1}
-    \onslide<5->{\item 	P1 attend que P2 libère R2, qui attend que P1 libère R1}
-    \end{enumerate}
-\end{column}
-\end{columns}
-\onslide<6-> Il y a interblocage.
-\end{frame}
-\begin{frame}[fragile]{Solutions à l'interblocage}
-\begin{enumerate}[--]
+\item On considère 2 processus P1 et P2 et 2 ressources R1 et R2 \begin{center}\includegraphics[width=0.2\textwidth]{img/inter1}\end{center}
+
+\item 	P1 demande et obtient l'accès à R1 \begin{center}\includegraphics[width=0.2\textwidth]{img/inter2}\end{center}
+\item 	P2 demande et obtient l'accès à R2\begin{center}\includegraphics[width=0.2\textwidth]{img/inter3}\end{center}
+\item 	P1 demande sans l'obtenir l'accès à R2\begin{center}\includegraphics[width=0.2\textwidth]{img/inter4}\end{center}
+\item 	P1 attend, P2 demande sans l'obtenir l'accès à R1\begin{center}\includegraphics[width=0.2\textwidth]{img/inter5}\end{center}
+\item 	P1 attend que P2 libère R2, qui attend que P1 libère R1 : li y a interblocage.
+\end{itemize}
+
+
+
+\subsection{Solutions à l'interblocage}
+\begin{itemize}
 	\item 	\textbf{Ne rien faire :} laisser l'utilisateur gérer lui-même le problème (à l'aide de \mintinline{bash}{kill} sous \textsc{linux} ou CTRL+ALT+SUPPR pour lancer le gestionnaire des tâches sous \textsc{Windows}).
 	\item 	\textbf{Détecter :}  l’ordonnanceur suit l’allocation des ressources et l’état des processus et redémarre un ou plusieurs d’entre eux si besoin.
     \item \textbf{\'Eviter :} des algorithmes/recettes sont mis en œuvre pour supprimer une des 4 conditions de Coffman nécessaires à la survenue de l’interblocage.
-\end{enumerate}
-\end{frame}
+\end{itemize}
 \end{document}
