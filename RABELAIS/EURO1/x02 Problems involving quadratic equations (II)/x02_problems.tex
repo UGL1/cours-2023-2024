@@ -1,0 +1,63 @@
+\documentclass[12pt,a4paper,article,english,firamath]{nsi}
+\pagestyle{empty}
+\begin{document}
+\titre{\LARGE Problems involving quadratic equations (II)}
+\classe{Euro 1\ere}
+\maketitle
+
+\section*{This can go inside you calculator !}
+\begin{pyc}
+    \begin{minted}[fontsize=\scriptsize]{python}
+    from math import sqrt  # import the square root function
+
+    a = float(input("Enter a : "))  # get the value entered by the user,
+    # convert it to a floating point number and store it into a
+    b = float(input("Enter b : "))  # same
+    c = float(input("Enter c : "))  # same
+
+    delta = b ** 2 - 4 * a * c  # calculate the discriminant
+    
+    print("delta = ", delta) # display it
+
+    if delta < 0:  # if it's stricly negative
+        print("No solution in R :")  # no solutions
+
+    elif delta == 0:  # else, if it's equal to zero
+        print("One solution in R :")  # one solution
+        print(-b / (2 * a))  # which we display
+
+    else:  # else (so delta must be strictly positive)
+        print("Two solutions in R :")
+        print((-b - sqrt(delta)) / (2 * a), "and", (-b + sqrt(delta)) / (2 * a))  # display
+    \end{minted}
+\end{pyc}
+\section*{A painting}
+The width of a rectangular painting exceeds its height by 7 cm and its area is 288 cm².\\
+Find the painting's dimensions.
+
+\section*{A garden}
+The area of a rectangular garden will double when surrounded with a strip of $x$ meters wide.\\
+
+Find $x$.
+\newpage
+\section*{A family of equations}
+\subsection*{Part I : example}
+\begin{enumerate}
+    \item 	Show that $3+2\sqrt{2}=\left(1+\sqrt{2}\right)^2$.
+    \item 	Solve $x^2+\left(3+\sqrt{2}\right)x+2+\sqrt{2}=0$ in $\R$.
+\end{enumerate}
+\subsection*{Part II : generalization}
+\begin{enumerate}
+    \item 	Show that given any real numbers $a$, $b$ et $c$ :
+            $$\left(a+b+c\right)^2=a^2+b^2+c^2+2ab+2ac+2bc$$
+            (one can start by expanding $\left(\left(a+b\right)+c\right)^2$ or directly expand  $\left(a+b+c\right)\left(a+b+c\right)$).
+    \item 	Let $p$ be a real number such that $p>1$, and $(E)$ the following equation :
+            $$x^2+\left(p+1+\sqrt{p}\right)x+p+\sqrt{p}=0$$
+            \begin{enumalph}
+                \item 	Calculate the discriminant $\Delta$ of $(E)$.
+                \item 	Show that $\left(p-1+\sqrt{p}\right)^2=\Delta$.
+                \item 	Consequently, deduce the solutions of $(E)$ in $\R$.
+            \end{enumalph}
+    \item 	Are the results found in question \textbf{2.a.} coherent with those found part I ?
+\end{enumerate}
+\end{document}

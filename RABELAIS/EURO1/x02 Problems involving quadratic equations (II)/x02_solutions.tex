@@ -1,0 +1,78 @@
+\documentclass[12pt,a4paper,article,english,firamath]{nsi}
+\pagestyle{empty}
+\begin{document}
+\titre{\LARGE Problems involving quadratic equations (II) \tiny (solutions)}
+\classe{Euro 1\ere}
+\maketitle
+
+
+\section*{A painting}
+The width of a rectangular painting exceeds its height by 7 cm and its area is 288 cm².\\
+Find the painting's dimensions.
+
+\begin{encadrecolore}{Solution}{UGLiRed}
+    Let $x$ be the painting's height, then $x+7$ is its width,  so we get $$x(x+7) = 288$$
+    which is equivalent to $$x^2+7x-288 = 0$$
+    The discriminant is $49+4\times 288= 1201$ so we get two solutions, one is obviously negative and the other is $$\dfrac{-7+\sqrt{1201}}{2}\simeq 13.8$$
+    So this is the height of the painting and it leads to a width of
+    $$\dfrac{7+\sqrt{1201}}{2}\simeq 20.8$$
+    Lengths have been rounded to the nearest millimeter. 
+
+\end{encadrecolore}
+
+\section*{A garden}
+The area of a rectangular garden measuring 16$\times$24 m² will double when surrounded with a strip of $x$ meters wide.\\
+
+Find $x$.\\
+
+\begin{encadrecolore}{Solution}{UGLiRed}
+    When surrounded, the new dimensions of the garden are $16+2x$ and $24+2x$ so we can derive the following equation :
+    $$(16+2x)(24+2x) = 2\times 16 \times 24$$
+    which immediately simplifies into
+    $$(8+x)(12+x)=8\times24$$
+    and is equivalent to $$x^2+ 20x -96=0$$
+    Now this equation has a discriminant of 784, which is 28² and this give us two solutions, 4 and -24, but we only keep the positive one.\\
+    Thus the strip will be 4 meters wide.
+
+\end{encadrecolore}
+
+
+\section*{A family of equations}
+\subsection*{Part I : example}
+\begin{enumerate}
+    \item 	Show that $3+2\sqrt{2}=\left(1+\sqrt{2}\right)^2$.
+    \item 	Solve $x^2+\left(3+\sqrt{2}\right)x+2+\sqrt{2}=0$ in $\R$.
+\end{enumerate}
+
+\begin{encadrecolore}{Solution}{UGLiRed}
+    \begin{enumerate}
+        \item 	You just have to expand $\left(1+\sqrt{2}\right)^2$ with the special product rule to get $3+2\sqrt{2}$.
+        \item 	\begin{tabbing}
+            $ \Delta $ 	\= $= \left(3+\sqrt{2}\right)^2-4\times(2+\sqrt{2})$ \\[.7em]
+                 \> $= 9+6\sqrt{2}+2-8-4\sqrt{2}$ \\[.7em]
+                 \> $= 3+2\sqrt{2}$ \\[.7em]
+                 \> $= \left(1+\sqrt{2}\right)^2$ \\[.7em]
+        \end{tabbing}
+    \end{enumerate}
+    
+\end{encadrecolore}
+
+\subsection*{Part II : generalization}
+\begin{enumerate}
+    \item 	Show that given any real numbers $a$, $b$ et $c$ :
+            $$\left(a+b+c\right)^2=a^2+b^2+c^2+2ab+2ac+2bc$$
+            (one can start by expanding $\left(\left(a+b\right)+c\right)^2$ or directly expand  $\left(a+b+c\right)\left(a+b+c\right)$).
+    \item 	Let $p$ be a real number such that $p>1$, and $(E)$ the following equation :
+            $$x^2+\left(p+1+\sqrt{p}\right)x+p+\sqrt{p}=0$$
+            \begin{enumalph}
+                \item 	Calculate the discriminant $\Delta$ of $(E)$.
+                \item 	Show that $\left(p-1+\sqrt{p}\right)^2=\Delta$.
+                \item 	Consequently, deduce the solutions of $(E)$ in $\R$.
+            \end{enumalph}
+    \item 	Are the results found in question \textbf{2.a.} coherent with those found part I ?
+\end{enumerate}
+
+\begin{encadrecolore}{Solution}{UGLiRed}
+\end{encadrecolore}
+
+\end{document}
