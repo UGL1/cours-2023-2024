@@ -1,0 +1,114 @@
+\documentclass[a4paper,12pt,article,firamath]{nsi}
+\begin{document}
+\resetquestion
+\textit{Cet exercice porte sur les arbres binaires de recherche, la programmation orientée
+    objet et la récursivité.}\\
+
+Dans cet exercice, la taille d’un arbre est le nombre de nœuds qu’il contient. Sa hauteur
+est le nombre de nœuds du plus long chemin qui joint le nœud racine à l’une des
+feuilles (nœuds sans sous-arbres). On convient que la hauteur d’un arbre ne contenant
+qu’un nœud vaut 1 et la hauteur de l’arbre vide vaut 0.\\
+
+On considère l’arbre binaire représenté ci-dessous:
+\begin{center}
+    \includegraphics[width=7cm]{img/fig1.png}\\
+    Figure 1
+\end{center}
+Donner la taille et la hauteur de cet arbre.\\
+
+\carreauxseyes{16.8}{2.4}\\
+
+\dleft{7cm}
+{
+    \begin{tikzpicture}
+        \draw[color=lightgray,step=.5cm] (0,0) grid (7,5);
+    \end{tikzpicture}
+}{\question Représenter ci-contre le sous-arbre droit du n\oe ud de valeur 15.\\
+
+    \question Justifier que l'arbre de la figure 1 est un arbre binaire de recherche.
+}
+
+
+
+\carreauxseyes{16.8}{3.2}\\
+
+\dleft{7cm}
+{
+    \begin{tikzpicture}
+        \draw[color=lightgray,step=.5cm] (0,0) grid (7,7);
+    \end{tikzpicture}
+}{
+    On insère la valeur 17 dans l’arbre de la figure 1 de telle sorte que 17 soit une
+    nouvelle feuille de l’arbre et que le nouvel arbre obtenu soit encore un arbre
+    binaire de recherche.\\
+
+    \question Représenter ci-contre ce nouvel arbre.
+}
+
+On considère la classe \mintinline{python}{Noeud} définie de la façon suivante en Python :
+
+
+\begin{minted}{python}
+        class Noeud:
+            def __init__(self, g, v, d):
+                self.gauche = g
+                self.valeur = v
+                self.droit = d
+\end{minted}
+
+\picleft{0.33}{img/fig1}{\question Parmi les trois instructions suivantes, entourer celle qui construit et stocke dans la variable abr l’arbre représenté ci-contre.}
+
+
+\begin{minted}{python}
+abr = Noeud(Noeud(Noeud(None, 13, None), 15, None), 21, None)
+abr = Noeud(None, 13, Noeud(Noeud(None, 15, None), 21, None))
+abr = Noeud(Noeud(None, 13, None), 15, Noeud(None, 21, None)) 
+\end{minted}
+
+\question Compléter le code de la fonction \mintinline{python}{ins} ci-dessous qui
+prend en paramètres une valeur \mintinline{python}{v} et un arbre binaire de recherche \mintinline{python}{abr} et qui
+renvoie l’arbre obtenu suite à l’insertion de la valeur \mintinline{python}{v} dans l’arbre \mintinline{python}{abr}.
+
+Les lignes 8 et 9 permettent de ne pas insérer la valeur \mintinline{python}{v} si celle-ci est déjà présente dans \mintinline{python}{abr}.
+
+
+\begin{minted}[linenos=true]{python}
+  def ins(v, abr):
+    if abr is None:
+        return Noeud(None, v, None)
+    if v > abr.valeur:
+        return Noeud(abr.gauche, abr.valeur, ins(v, abr.droit))
+    elif v < abr.valeur:
+        return ............................................
+    else:
+    return abr      
+\end{minted}
+
+La fonction \mintinline{python}{nb_sup} prend en paramètres une valeur \mintinline{python}{v} et un arbre binaire de recherche \mintinline{python}{abr} et renvoie le nombre de valeurs supérieures ou égales à la valeur \mintinline{python}{v} dans l’arbre \mintinline{python}{abr}.\\
+
+Le code de cette fonction \mintinline{python}{nb_sup} est donné ci-dessous :
+
+\begin{minted}{python}
+def nb_sup(v, abr):
+    if abr is None:
+        return 0
+    else:
+        if abr.valeur >= v:
+            return 1 + nb_sup(v, abr.gauche) + nb_sup(v, abr.droit)
+        else:
+            return nb_sup(v, abr.gauche) + nb_sup(v, abr.droit)
+\end{minted}
+
+On exécute l’instruction \mintinline{python}{nb_sup(16, abr)} dans laquelle \mintinline{python}{abr} est l’arbre initial de la figure 1.\\
+
+\question Déterminer le nombre d’appels à la fonction \mintinline{python}{nb_sup} lors de cette exécution.\\
+
+\carreauxseyes{16.8}{6.4}\\
+
+L’arbre passé en paramètre étant un arbre binaire de recherche, on peut
+améliorer la fonction \mintinline{python}{nb_sup} précédente afin de réduire ce nombre d’appels.\\
+
+\question Écrire sur la copie le code modifié de cette fonction. 
+
+\carreauxseyes{16.8}{8}
+\end{document}
