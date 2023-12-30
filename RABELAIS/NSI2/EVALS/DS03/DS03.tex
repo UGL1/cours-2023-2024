@@ -23,15 +23,17 @@ Donner la taille et la hauteur de cet arbre.\\
 
 \carreauxseyes{16.8}{2.4}\\
 
+\newpage 
+
 \question Représenter ci-dessous le sous-arbre droit du n\oe ud de valeur 15.\\
 
 \begin{tikzpicture}
-      \draw (0,0) rectangle (\linewidth,5);
+      \draw (0,0) rectangle (\linewidth,4.5);
 \end{tikzpicture}
 
 \question Justifier que l'arbre de la figure 1 est un arbre binaire de recherche.\\
 
-\carreauxseyes{16.8}{3.2}\\
+\carreauxseyes{16.8}{4}\\
 
 
 On insère la valeur 17 dans l'arbre de la figure 1 de telle sorte que 17 soit une
@@ -41,7 +43,7 @@ binaire de recherche.\\
 \question Représenter ci-dessous ce nouvel arbre.\\
 
 \begin{tikzpicture}
-      \draw (0,0) rectangle (\linewidth,7);
+      \draw (0,0) rectangle (\linewidth,6.5);
 \end{tikzpicture}
 On considère la classe \mintinline{python}{Noeud} définie de la façon suivante en Python :
 
@@ -56,7 +58,7 @@ On considère la classe \mintinline{python}{Noeud} définie de la façon suivant
 
 \question Parmi les trois instructions suivantes, entourer celle qui construit et stocke dans la variable abr l'arbre représenté ci-dessous.
 \begin{center}
-      \includegraphics[width=6cm]{img/fig1}
+      \includegraphics[width=3.5cm]{img/fig2}
 \end{center}
 
 
@@ -82,7 +84,7 @@ Les lignes 8 et 9 permettent de ne pas insérer la valeur \mintinline{python}{v}
           elif v < abr.valeur:
               return ............................................
           else:
-          return abr      
+            return abr      
       \end{minted}
 
 \question Compléter le code de la fonction \mintinline{python}{ins}.\\
@@ -105,9 +107,9 @@ def nb_sup(v, abr):
 
 On exécute l'instruction \mintinline{python}{nb_sup(16, abr)} dans laquelle \mintinline{python}{abr} est l'arbre initial de la figure 1.\\
 
-\question Déterminer le nombre d'appels à la fonction \mintinline{python}{nb_sup} lors de cette exécution.\\
+\question Déterminer le nombre d'appels à la fonction \mintinline{python}{nb_sup} lors de cette exécution (on ne demande aucune justification).\\
 
-\carreauxseyes{16.8}{6.4}\\
+\carreauxseyes{16.8}{1.6}\\
 
 L'arbre passé en paramètre étant un arbre binaire de recherche, on peut
 améliorer la fonction \mintinline{python}{nb_sup} précédente afin de réduire ce nombre d'appels.\\
@@ -151,7 +153,7 @@ On considère l'arbre binaire de recherche suivant :
 \question Recopier ci-dessous cet arbre après l'ajout des identifiants suivants : \mintinline{python}{'davidbg'}  et \mintinline{python}{'papicoeur'} dans cet ordre.\\
 
 \begin{tikzpicture}
-      \draw (0,0) rectangle (\linewidth,5);
+      \draw (0,0) rectangle (\linewidth,6);
 \end{tikzpicture}
 
 \question On décide de parcourir cet arbre pour obtenir la liste des identifiants dans l'ordre
@@ -162,6 +164,7 @@ lexicographique. Quel parcours doit-on utiliser ?\\
 Pour traiter informatiquement les arbres binaires, nous allons utiliser une classe
 \mintinline{python}{ABR} .\\
 Un arbre binaire de recherche, nommé \mintinline{python}{abr}  dispose des méthodes suivantes :
+\newpage
 \begin{itemize}
       \item \mintinline{python}{abr.est_vide()} : renvoie \mintinline{python}{True}  si \mintinline{python}{abr} est vide et \mintinline{python}{False} sinon.
       \item \mintinline{python}{abr.racine()} : renvoie l'élément situé à la racine de \mintinline{python}{abr}  si \mintinline{python}{abr} n'est pas vide et \mintinline{python}{None} sinon.
@@ -237,7 +240,7 @@ Après un appel à la fonction, la file \mintinline{python}{f}  doit retrouver s
         def longueur(f):
             resultat = 0
             g = creer_file()
-            while ... :
+            while ... 
                 elt = defiler(f)
                 resultat = ...
                 enfiler(... , ...)
@@ -279,7 +282,7 @@ l'exécution de l'instruction \mintinline{python}{ajouter_mot(f3, 'super')}  :
 \question Écrire le code de cette fonction \mintinline{python}{ajouter_mot}  qui prend en paramètres une file \mintinline{python}{f}  (qui a au plus 3 éléments) et une chaîne de caractères valide \mintinline{python}{mdp} . Cette fonction met à jour la file de stockage \mintinline{python}{f}  des mots de passe en y ajoutant \mintinline{python}{mdp}  et en défilant, si nécessaire, pour avoir au maximum trois éléments dans cette file.\\
 On pourra utiliser la fonction \mintinline{python}{longueur} définie précédemment.\\
 
-\carreauxseyes{16.8}{8}\\
+\carreauxseyes{16.8}{5.6}\\
 
 Pour intensifier sa sécurité, le site stocke les trois derniers mots de passe dans une
 file et interdit au client lorsqu'il change son mot de passe d'utiliser l'un des mots de
@@ -312,9 +315,9 @@ Après un appel à cette fonction, la file \mintinline{python}{f}  doit retrouve
 Si le mot de passe \mintinline{python}{nv_mdp}  répond bien aux deux
 exigences des questions \textbf{9.}  et \textbf{11.} , alors elle modifie la file des mots de passe stockés et
 renvoie \mintinline{python}{True} . Dans le cas contraire, elle renvoie \mintinline{python}{False}.\\
-On pourra utiliser les fonctions \mintinline{python}{mot_file} , \mintinline{python}{est_valide}  et \mintinline{python}{ajouter_mot}.
+On pourra utiliser les fonctions \mintinline{python}{mot_file} , \mintinline{python}{est_valide}  et \mintinline{python}{ajouter_mot}.\\
 
-\carreauxseyes{16.8}{8}\\
+\carreauxseyes{16.8}{8}\newpage
 
 
 \section*{Exercice 3 \small}
@@ -335,8 +338,57 @@ class Node:
 La notation \mintinline{python}{None | int}  signifie que le paramètre concerné peut être \mintinline{python}{None} ou une valeur de type \mintinline{python}{int}.\\
 
 
-On aimerait savoir, étant donnée une instance de la classe \mintinline{python}{Node} nommée \mintinline{python}{root}, si l'arbre binaire de racine \mintinline{python}{root} est un ABR (arbre binaire de recherche). 
+On aimerait savoir, étant donnée une instance de la classe \mintinline{python}{Node} nommée \mintinline{python}{root}, si l'arbre binaire de racine \mintinline{python}{root} est un ABR (arbre binaire de recherche).\\ 
 
-\question Rappeler quel parcours des n\oe uds d'un ABR permet d'obtenir les valeurs qu'ils contiennent dans l'ordre croissant et expliquer son fonctionnement.
+\question Rappeler quel parcours des n\oe uds d'un ABR permet d'obtenir les valeurs qu'ils contiennent dans l'ordre croissant et expliquer son fonctionnement.\\
 
+\carreauxseyes{16.8}{5.6}\\
+
+Le parcours dont il est désormais question est celui de la question \textbf{1.}.\\
+
+\question Écrire la fonction \textit{récursive} \mintinline{python}{parcours} qui
+\begin{itemize}
+    \item en entrée prend une instance \mintinline{python}{n}   de la classe \mintinline{python}{Node} ;
+    \item renvoie la liste des valeurs obtenue en parcourant l'arbre dont \mintinline{python}{n} est la racine.
+\end{itemize} 
+
+\carreauxseyes{16.8}{8}\\
+
+
+\question Écrire la fonction \mintinline{python}{est_triee} qui
+\begin{itemize}
+    \item en entrée prend une liste d'entiers ;
+    \item renvoie \mintinline{python}{True} si celle-ci est triée dans l'ordre croissant et \mintinline{python}{False} sinon.
+\end{itemize} 
+Il est interdit d'utiliser la méthode \mintinline{python}{sort} ou la fonction \mintinline{python}{sorted} : la fonction doit parcourir la liste en comparant deux éléments successifs.\\
+
+\carreauxseyes{16.8}{5.6}\\
+
+\question En déduire le code d'une fonction \mintinline{python}{est_un_abr} qui
+\begin{itemize}
+    \item en entrée prend une instance \mintinline{python}{n}   de la classe \mintinline{python}{Node} ;
+    \item renvoie \mintinline{python}{True} si l'arbre de racine \mintinline{python}{n}  est un ABR et \mintinline{python}{False} sinon.
+\end{itemize} 
+
+\carreauxseyes{16.8}{3.2}\\
+
+
+On peut également vérifier qu'un arbre binaire vérifie la définition... d'arbre binaire à l'aide d'une fonction récursive.
+
+Voici sa signature :\\
+
+\mintinline[fontsize=\small]{python}{def est_un_abr2(n: Node, mini = float('-inf'), maxi = float('inf')) -> bool:} \\
+
+Les valeurs par défaut de \mintinline{python}{mini} et \mintinline{python}{maxi} sont respectivement $-\infty$ et $+\infty$.
+Cette fonction vérifie que 
+\begin{itemize}
+    \item la valeur \mintinline{python}{v} du n\oe ud courant est bien entre \mintinline{python}{mini} et \mintinline{python}{maxi} ;
+    \item s'il y a un sous-arbre gauche, que c'est bien un ABR dont les valeurs sont comprises entre \mintinline{python}{mini} et \mintinline{python}{v} ;
+    \item similairement pour le sous-arbre droit.
+\end{itemize}
+
+\question Donner le code de la fonction \mintinline{python}{est_un_abr2}.\\
+
+\carreauxseyes{16.8}{9.6}
 \end{document}
+

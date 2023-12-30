@@ -1,0 +1,77 @@
+\documentclass[a4paper,12pt,eval,firamath]{nsi}
+\titre{Contrôle 03}
+\classe{NSI2}
+\begin{document}
+\maketitle
+
+\section*{Exercice 3 \small}
+
+\resetquestion
+On implémente une structure d'arbre binaire grâce à la classe \mintinline{python}{Node} du cours, dont voici un extrait :
+
+\begin{pyc}
+      \begin{minted}{python}
+class Node:
+     def __init__(self, v, left=None | int, right=None | int):
+        self.value = v
+        self.left = left  # vaut None ou bien un entier
+        self.right = right  # vaut None ou bien un entier
+\end{minted}
+\end{pyc}
+
+La notation \mintinline{python}{None | int}  signifie que le paramètre concerné peut être \mintinline{python}{None} ou une valeur de type \mintinline{python}{int}.\\
+
+
+On aimerait savoir, étant donnée une instance de la classe \mintinline{python}{Node} nommée \mintinline{python}{root}, si l'arbre binaire de racine \mintinline{python}{root} est un ABR (arbre binaire de recherche). 
+
+\question Rappeler quel parcours des n\oe uds d'un ABR permet d'obtenir les valeurs qu'ils contiennent dans l'ordre croissant et expliquer son fonctionnement.\\
+
+\carreauxseyes{16.8}{5.6}\\
+
+Le parcours dont il est désormais question est celui de la question \textbf{1.}.\\
+
+\question Écrire la fonction \textit{récursive} \mintinline{python}{parcours} qui
+\begin{itemize}
+    \item en entrée prend une instance \mintinline{python}{n}   de la classe \mintinline{python}{Node} ;
+    \item renvoie la liste des valeurs obtenue en parcourant l'arbre dont \mintinline{python}{n} est la racine.
+\end{itemize} 
+
+\carreauxseyes{16.8}{5.6}\\
+
+
+\question Écrire la fonction \mintinline{python}{est_triee} qui
+\begin{itemize}
+    \item en entrée prend une liste d'entiers ;
+    \item renvoie \mintinline{python}{True} si celle-ci est triée dans l'ordre croissant et \mintinline{python}{False} sinon.
+\end{itemize} 
+Il est interdit d'utiliser la méthode \mintinline{python}{sort} ou la fonction \mintinline{python}{sorted} : la fonction doit parcourir la liste en comparant deux éléments successifs.\\
+
+\carreauxseyes{16.8}{8}\\
+
+\question En déduire le code d'une fonction \mintinline{python}{est_un_abr} qui
+\begin{itemize}
+    \item en entrée prend une instance \mintinline{python}{n}   de la classe \mintinline{python}{Node} ;
+    \item renvoie \mintinline{python}{True} si l'arbre de racine \mintinline{python}{n}  est un ABR et \mintinline{python}{False} sinon.
+\end{itemize} 
+
+\carreauxseyes{16.8}{8}\\
+
+
+On peut également vérifier qu'un arbre binaire vérifie la définition... d'arbre binaire à l'aide d'une fonction récursive.
+
+Voici sa signature :\\
+
+\mintinline{python}{def est_un_abr2(n: Node, mini = float('-inf'), maxi = float('inf')) -> bool:} \\
+
+Les valeurs par défaut de \mintinline{python}{mini} et \mintinline{python}{maxi} sont respectivement $-\infty$ et $+\infty$.
+Cette fonction vérifie que 
+\begin{itemize}
+    \item la valeur \mintinline{python}{v} du n\oe ud courant est bien entre \mintinline{python}{mini} et \mintinline{python}{maxi} ;
+    \item s'il y a un sous-arbre gauche, que c'est bien un ABR dont les valeurs sont comprises entre \mintinline{python}{mini} et \mintinline{python}{v} ;
+    \item similairement pour le sous-arbre droit.
+\end{itemize}
+
+\question Donner le code de la fonction \mintinline{python}{est_un_abr2}.\\
+
+\carreauxseyes{16.8}{9.6}
+\end{document}
