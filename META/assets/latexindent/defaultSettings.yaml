@@ -112,6 +112,7 @@ verbatimEnvironments:
 verbatimCommands:
     verb: 1
     lstinline: 1
+    mintinline: 1
 
 #  no indent blocks (not necessarily verbatim
 #  environments) which are marked as %\begin{noindent}
@@ -173,6 +174,7 @@ lookForAlignDelims:
    tabu: 1
    array: 1
    matrix: 1
+   matrice: 1
    listabla: 1
    # amsmath
    align: 1
