@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt,exos,firamath]{nsi}
+\documentclass[a4paper,12pt,article,firamath]{nsi}
 
 \input{../preambule.tex}
 
@@ -36,23 +36,25 @@ Une image rectangulaire en noir et blanc peut être représentée par une liste 
 \end{multicols}
 \section*{\'Etape 1}
 
-\begin{encadrecolore}{Question 1}{UGLiOrange}
+\begin{questionnum}
     Si \mintinline{python}{lst} représente une image de $n$ lignes par $p$ colonnes.
     \begin{enumerate}
         \item	Quel est le nombre d'éléments de \mintinline{python}{lst} ?
         \item	Quel est le nombre d'éléments de \mintinline{python}{lst[0]} ?
     \end{enumerate}
-\end{encadrecolore}
+\end{questionnum}
 
-\begin{encadrecolore}{Question 2}{UGLiOrange}
-    Compléter le code de la fonction \mintinline{python}{binarise} qui
+
+\begin{questionnum}
+    Compléter sur votre copie le code de la fonction \mintinline{python}{binarise} qui
     \begin{itemize}
         \item en entrée prend une liste représentant une image ;
         \item  modifie chaque pixel en mettant à 0 ceux qui sont inférieurs à 128 et à 255 ceux qui sont supérieurs.
     \end{itemize}
+\end{questionnum}
 
-    \small
-    \begin{verbatim}    
+
+\begin{verbatim}    
 fonction binarise(lst)    
     variables
         i, j, n, p : entiers 
@@ -67,11 +69,12 @@ fonction binarise(lst)
         fin pour
     fin pour
     \end{verbatim}
-    \normalsize
-\end{encadrecolore}
 
-\begin{encadrecolore}{Question}{UGLiOrange}
-    Compléter le code de la fonction \mintinline{python}{cree_image_vide} qui
+
+
+
+\begin{questionnum}
+    Compléter sur votre copie le code de la fonction \mintinline{python}{cree_image_vide} qui
     \begin{itemize}
         \item en entrée prend deux entiers \mintinline{python}{n} et \mintinline{python}{p} ;
         \item renvoie une liste représentant une image « toute noire » de \mintinline{python}{n} lignes et \mintinline{python}{p} colonnes.
@@ -91,7 +94,8 @@ fonction cree_image_vide(n, p)
     fin pour
     ...
             \end{verbatim}
-\end{encadrecolore}
+
+\end{questionnum}
 
 
 On aimerait coder une fonction \mintinline{python}{miroir_vertical} qui
@@ -132,9 +136,9 @@ Par exemple, en appliquant cette fonction à l'image de gauche, on doit obtenir 
         \draw[fill=black!20] (3,0) rectangle (4,1);
     \end{tikzpicture}
 \end{center}
-\begin{encadrecolore}{Question}{UGLiOrange}
-    Compléter le code de la fonction \mintinline{python}{miroir_vertical}.
 
+\begin{questionnum}
+    Compléter sur votre copie le code de la fonction \mintinline{python}{miroir_vertical}.
     \begin{verbatim}    
 fonction cree_image_vide(lst)    
     variables
@@ -149,20 +153,29 @@ fonction cree_image_vide(lst)
         fin pour
     fin pour
     renvoyer resultat
-    \end{verbatim}
-\end{encadrecolore}
+\end{verbatim}
+\end{questionnum}
+
+
+
 
 \section*{Étape 2}
-\begin{encadrecolore}{Question}{UGLiOrange}
-    Ouvrir le fichier \mintinline{python}{traitement_image.py} et coder les fonctions manquantes.
-\end{encadrecolore}
 
-\begin{encadrecolore}{Question}{UGLiOrange}
-Coder la fonction \mintinline{python}{miroir_horizontal} qui
-\begin{itemize}
-\item en entrée prend une liste \mintinline{python}{lst} qui représente une image ;
-\item renvoie une liste qui est l'image de \mintinline{python}{list} par une symétrie horizontale.
-\end{itemize}
-\end{encadrecolore}
+\begin{questionnum}
+    Ouvrir le fichier \mintinline{python}{traitement_image.py} et coder les fonctions manquantes.
+\end{questionnum}
+
+
+
+\begin{questionnum}
+    Coder la fonction \mintinline{python}{miroir_horizontal} qui
+    \begin{itemize}
+        \item en entrée prend une liste \mintinline{python}{lst} qui représente une image ;
+        \item renvoie une liste qui est l'image de \mintinline{python}{list} par une symétrie horizontale.
+    \end{itemize}
+\end{questionnum}
+
+
+
 
 \end{document}

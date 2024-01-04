@@ -1,0 +1,98 @@
+\documentclass[a4paper,12pt,article,firamath]{nsi}
+
+\input{../preambule.tex}
+
+\titre{Nombre de diviseurs d'un entier}
+\classe{CCF Algo SIO}
+\maketitle
+
+\section*{\'Etape 1}
+
+On s'intéresse au nombre de diviseurs qu'un entier peut avoir : on veut fabriquer une fonction \pythoninline{nb_div} qui
+\begin{itemize}
+	\item en entrée prend un \pythoninline{int} non nul \pythoninline{n};
+    \item renvoie  le nombre de diviseurs de \pythoninline{n}.
+\end{itemize}
+
+\begin{questionnum}
+Que devra renvoyer \pythoninline{nb_div(12)} ? \pythoninline{nb_div(49)} ?
+\end{questionnum}
+
+On a implémenté la fonction en \textsc{Python} :
+
+\begin{pyc}
+    \begin{minted}{python}
+def nb_div( n : int) -> int:
+    r = ......
+    for i in range(......):
+        if n % i == ......:
+            r = ......
+    return r        
+    \end{minted}
+\end{pyc}
+\begin{questionnum}
+    Compléter sur votre copie les pointillés pour que la fonction remplisse son rôle.    
+\end{questionnum}
+
+On souhaite construire une fonction \pythoninline{nb_div_tous_entiers} qui :
+\begin{itemize}
+	\item  en entrée prend un \pythoninline{int} non nul \pythoninline{n};
+    \item  renvoie la liste de tous les diviseurs de 1, 2, 3 jusqu'à \pythoninline{n}.
+\end{itemize}
+Par exemple \pythoninline{nb_div_tous_entiers(6)} renverra \\
+\pythoninline{[1, 2, 2, 3, 2, 4]} car 
+\begin{itemize}
+	\item 1 n'a qu'un diviseur;
+    \item 2 en a 2;
+    \item 3 en a 2;
+    \item \textit{et c\ae tera}.
+\end{itemize}
+
+\begin{questionnum}
+    \'Ecrire la fonction \pythoninline{nb_div_tous_entiers}.    
+\end{questionnum}
+
+
+On dispose de la fonction \pythoninline{mystere} suivante :
+
+\begin{pyc}
+    \begin{minted}{python}
+def mystere(n : int) -> int:
+    m = 0
+    r = 0
+    for i in range(1, n+1):
+        if nb_div(i) > m:
+            m = nb_div(i)
+            r = i
+    return r
+        
+    \end{minted}
+\end{pyc}
+
+\begin{questionnum}
+    Que fait la fonction \pythoninline{mystere} ?\\
+    Que renvoie \pythoninline{mystere(10)} ?        
+\end{questionnum}
+
+\section*{\'Etape 2}
+
+Les fonctions de l'étape précédente ont été implémentées en \textsc{Python} dans le fichier \texttt{nombre\_diviseurs.py}.
+
+\begin{questionnum}
+    \'Ecrire la fonction \pythoninline{nb_div_connus} qui
+    \begin{itemize}
+        \item en entrée prend un entier \pythoninline{n} non nul;
+        \item renvoie le plus petit entier qui a \pythoninline{n} diviseurs.
+    \end{itemize}
+    Par exemple \pythoninline{nb_div_connus(4)} devra renvoyer 6 car 6 est le plus petit entier qui a 4 diviseurs.        
+\end{questionnum}
+
+
+\begin{questionnum}
+    \'Ecrire la fonction \pythoninline{liste_div_connus} qui
+    \begin{itemize}
+        \item en entrée prend un entier 3 entiers \pythoninline{a}, \pythoninline{b} et \pythoninline{n} avec \pythoninline{0 < a < b}  et \pythoninline{n} non nul;
+        \item renvoie la liste des entiers compris entre \pythoninline{a} et \pythoninline{b} \textbf{inclus} qui ont exactement \pythoninline{n} diviseurs
+    \end{itemize}        
+\end{questionnum}
+\end{document}

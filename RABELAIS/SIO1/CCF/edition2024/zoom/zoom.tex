@@ -30,24 +30,52 @@ Ci-dessous figure un exemple d'utilisation de la fonction \mintinline{python}{zo
 \end{center}
 \section*{Étape 1}
 
-\begin{encadrecolore}{Question 1}{UGLiOrange}
+
+\begin{questionnum}
 	Dessiner l'image obtenue en appliquant \mintinline{python}{zoom(lst,2)} avec une liste \mintinline{python}{lst} représentant l'image suivante :
 	\begin{center}
 		\includegraphics[width=2.8cm]{img/fig2.png}
-	\end{center}	  
-\end{encadrecolore}
+	\end{center}	
+\end{questionnum}  
 
-\begin{encadrecolore}{Question 2}{UGLiOrange}
+
+
+\begin{questionnum}
 	Si \mintinline{python}{lst} représente une image de $n$ lignes par $p$ colonnes, et que \mintinline{python}{lst2 = zoom(lst, k)},  quelle est la taille de 
 	\begin{enumerate}
 		\item	\mintinline{python}{lst2} ? 
 		\item	\mintinline{python}{lst2[0]} ? 
 	\end{enumerate}
-\end{encadrecolore}
+\end{questionnum}
 
-\begin{encadrecolore}{Question 3}{UGLiOrange}
+
+
+\begin{questionnum}
 	Compléter le pseudocode de la fonction \mintinline{python}{zoom_horiz} qui
+	\begin{itemize}
+		\item	en entrée prend une liste d'entiers \mintinline{python}{ligne} et un entier \mintinline{python}{k} ; 
+		\item	renvoie une liste d'entiers dans laquelle chaque valeur de \mintinline{python}{ligne} est dupliquée \mintinline{python}{k} fois.  
+	\end{itemize} 
+	\begin{minted}{pseudocode}
+		fonction zoom(ligne, k)
+		
+			variables
+				résultat : liste
+				valeur, compteur, i : entiers
+				
+			résultat ← liste vide
+			n ← longueur(ligne)
+			pour i ...
+			    pour j ...    
+					ajouter ... à la fin de résultat
+			renvoyer résultat
+		\end{minted}
+\end{questionnum}
 
+
+
+\begin{questionnum}
+	Compléter le pseudocode de la fonction \mintinline{python}{zoom} que l'on veut coder
 
 	\begin{minted}{pseudocode}
 		fonction zoom(lst, k)
@@ -57,50 +85,32 @@ Ci-dessous figure un exemple d'utilisation de la fonction \mintinline{python}{zo
 				valeur, compteur, i : entiers
 				
 			résultat ← liste vide
-			n ← longueur(lst)
+			p ← longueur(lst)
 			pour i ...
 			    pour j ...    
 					ajouter ... à la fin de résultat
 			renvoyer résultat
 		\end{minted}
-\end{encadrecolore}
+\end{questionnum}
 
-\begin{encadrecolore}{Question 4}{UGLiOrange}
-	Compléter le pseudocode de la fonction \mintinline{python}{zoom} que l'on veut coder
-	\begin{itemize}
-		\item	en entrée prend une liste d'entiers \mintinline{python}{ligne} et un entier \mintinline{python}{k} ; 
-		\item	renvoie une liste d'entiers dans laquelle chaque valeur de \mintinline{python}{ligne} est dupliquée \mintinline{python}{k} fois.  
-	\end{itemize} 
-
-	\begin{minted}{pseudocode}
-		fonction zoom_horiz(ligne, k)
-		
-			variables
-				résultat : liste
-				valeur, compteur, i : entiers
-				
-			résultat ← liste vide
-			p ← longueur(ligne)
-			pour i ...
-			    pour j ...    
-					ajouter ... à la fin de résultat
-			renvoyer résultat
-		\end{minted}
-\end{encadrecolore}
 
 \section*{Étape 2}
-\begin{encadrecolore}{Question 5}{UGLiOrange}
-	Ouvrir le fichier \mintinline{python}{zoom.py} et coder les fonctions manquantes.	
-\end{encadrecolore}
 
-\begin{encadrecolore}{Question 5}{UGLiOrange}
+\begin{questionnum}
+	Ouvrir le fichier \mintinline{python}{zoom.py} et coder les fonctions manquantes.	
+\end{questionnum}
+
+
+
+\begin{questionnum}
 	Coder la fonction \mintinline{python}{affiche} qui
 	\begin{itemize}
 		\item en entrée prend une liste \mintinline{python}{lst} qui représente une image ;
 		\item ne renvoie rien mais affiche joliment l'image avec des \mintinline{python}{'.'}  à la place des zéros et des \mintinline{python}{'*'} à la place des 1.
 	\end{itemize} 
 	On rappelle que \mintinline{python}{print('*', end="")} affiche \mintinline{python}{'*'} sans retour à la ligne.
-\end{encadrecolore}
+\end{questionnum}
+
 
 
 \end{document}

@@ -1,0 +1,117 @@
+\documentclass[a4paper,12pt,article,firamath]{nsi}
+
+\input{../preambule.tex}
+
+\titre{Suite de Conway}
+\classe{CCF Algo SIO}
+\maketitle
+
+\begin{center}
+\includegraphics[width=8cm]{img/conway}\\
+
+\footnotesize \textit{John Horton Conway}
+\end{center}
+\section*{\'Etape 1}
+
+La suite de Conway est une succession de lignes obtenue très simplement :
+\begin{itemize}
+	\item 	On part de la ligne 0, qui vaut « 1 ».
+	\item 	Chaque ligne est obtenue en \textit{décrivant} la ligne précédente.\\
+            Par exemple, en décrivant la ligne 0, il y a un 1, ce qui donne « 1 1 » et c'est la ligne 1.\\
+            La ligne 2 s'obtient de même : en décrivant « 1 1 » on obtient « 2 1 » et ainsi de suite.
+\end{itemize}
+
+
+\begin{questionnum}
+    \'Ecrire les 7 premières lignes de la suite de Conway et vérifier que la ligne 6 est « 1 3 1 1 2 2 2 1 ».
+\end{questionnum}
+
+\begin{questionnum}
+    \begin{itemize}
+        \item 	Expliquer pourquoi il est impossible d'obtenir le nombre 0 dans une ligne.
+        \item 	Expliquer pourquoi il est impossible d'obtenir le nombre 4 dans une ligne. 	
+    \end{itemize}        
+\end{questionnum}
+
+
+\textit{On considère maintenant comme acquis le fait que sur chaque ligne il n'y a que des 1, des 2 et des 3.}\\
+\newpage
+La fonction suivante:
+\begin{itemize}
+	\item 	prend en entrée une liste d'entiers qui est une ligne de la suite de Conway ;
+	\item 	renvoie la ligne suivante.
+\end{itemize}
+
+\begin{questionnum}
+Complète sur ta copie le pseudo-code de cette fonction
+\begin{verbatim}
+    fonction conway(L : liste d'entiers)
+        
+        variables
+        
+            valeur, compteur, i , n : entiers
+            resultat : ............
+        
+        début
+            n ← longueur(............)
+            resultat ← liste vide
+            valeur ← L[0]    
+            compteur ← 0     
+            pour i allant de ............ à ............
+                si L[i] = ............
+                    compteur ← 
+                sinon
+                    resultat.ajoute(compteur)
+                    resultat.ajoute(............)
+                    valeur ← L[i]
+                    compteur ← 1
+                finsi
+            finpour
+            resultat.ajoute(............)
+            resultat.ajoute(valeur)
+            renvoyer resultat
+        fin
+    \end{verbatim}
+\end{questionnum}
+
+
+On aimerait savoir si le motif « 3 3 » apparaît dans la suite (en vérité, c'est le cas).
+
+\begin{questionnum}
+\'Ecrire le pseudo-code de la fonction \pythoninline{contient33} qui
+\begin{itemize}
+	\item 	en entrée prend une liste d'entiers ;
+	\item 	renvoie un booléen indiquant si cette liste contient deux 3 consécutifs.
+\end{itemize}
+
+\end{questionnum}
+
+
+\begin{questionnum}
+    \'Ecrire le pseudocode de l'algorithme qui détermine la première ligne de la suite de Conway qui contient deux 3 consécutifs.
+\end{questionnum}
+
+\section*{\'Etape 2}
+
+Le fichier \pythoninline{conway.py} contient le début de la fonction \pythoninline{conway} à compléter.
+
+\begin{questionnum}
+    Complète la fonction.
+\end{questionnum}
+
+
+
+
+\begin{questionnum}
+    \'Ecris la fonction \pythoninline{contient33}.
+\end{questionnum}
+
+
+\begin{questionnum}
+    \'Ecris le programme qui détermine la première ligne où deux 3 consécutifs apparaissent.
+\end{questionnum}
+
+
+
+
+\end{document}

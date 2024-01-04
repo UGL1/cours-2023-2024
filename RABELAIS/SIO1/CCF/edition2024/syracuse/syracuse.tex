@@ -1,0 +1,108 @@
+\documentclass[a4paper,12pt,article,firamath]{nsi}
+
+\input{../preambule.tex}
+\titre{Suites de Syracuse}
+\classe{CCF Algo SIO}
+\maketitle
+
+\section*{\'Etape 1}
+
+On considère un entier $n\geqslant 1$ et on lui applique le processus suivant :
+
+\begin{encadrecolore}{Processus}{UGLiGreen}
+    \begin{itemize}
+        \item si $n$ est pair, on le divise par 2;
+        \item sinon, on le multiplie par 3 et on ajoute 1.
+    \end{itemize}
+\end{encadrecolore}
+Par exemple, si on choisit 5, puisqu'il est impair, on le multiplie par 3 et on ajoute 1, ce qui fait 16.\\
+
+Le but de cette épreuve est d'étudier des propriétés de ce processus lorsqu'on le répète plusieurs fois à la suite.
+
+
+\begin{questionnum}
+    \begin{enumalph}
+        \item Répéter ce processus huit fois en prenant 5 comme valeur de départ en indiquant les résultats successifs.\\
+        Comment cela va-t-il se poursuivre ?
+        \item Répéter 4 fois ce processus en prenant 13 et expliquer comment on peut continuer un peu « sans se fatiguer ».
+    \end{enumalph}
+\end{questionnum}
+Le résultat suivant n'est pas (encore) démontré :
+\begin{encadrecolore}{Conjecture}{UGLiRed}
+    Quel que soit l'entier positif $n$ que l'on prend au départ, en répétant ce processus on atteint \textit{immanquablement} la valeur 1, après quoi le cycle $(4,\,2,\,1)$ se répète indéfiniment.
+\end{encadrecolore}
+On aimerait écrire une fonction \pythoninline{temps_de_vol} qui
+\begin{itemize}
+    \item en entrée prend un entier \texttt{n}
+    \item renvoie le nombre de répétitions du processus nécessaire pour obtenir la valeur 1.
+\end{itemize}
+
+
+\begin{questionnum}
+    \begin{enumalph}
+        \item Que devra renvoyer \pythoninline{temps_de_vol(5)} ?
+        \item Que devra renvoyer \pythoninline{temps_de_vol(13)} ?
+        \item Compléter sur votre copie la ligne de définition de la fonction avec les indications de type nécessaires :
+    \end{enumalph}
+\end{questionnum}
+
+\begin{pyc}
+    \begin{minted}{python}
+def temps_de_vol(.........) -> ......... :        
+    \end{minted}
+\end{pyc}
+
+
+\begin{questionnum}
+    Compléter sur votre copie la fonction suivante.
+\end{questionnum}
+
+\begin{pyc}
+    \begin{minted}{python}
+resultat = 0
+    while .........:
+        if .........:
+            n = .........
+        else:
+            n = .........
+        resultat = .........
+     return .........        
+    \end{minted}
+\end{pyc}
+
+
+On appelle \textit{hauteur de vol} de $n$ le plus grand nombre qu'on obtient quand on répète le processus jusqu'à obtenir 1.
+
+\begin{questionnum}
+    \begin{enumalph}
+        \item Quelle est la hauteur de vol de 5 ? Quelle est celle de 13 ?
+        \item \'Ecrire en \textsc{Python} la fonction \pythoninline{hauteur_de_vol}
+    \end{enumalph}
+\end{questionnum}
+
+
+
+\section*{\'Etape 2}
+
+Ouvrir le fichier \pythoninline{syracuse.py}.\\
+Celui-ci contient une implémentation de la fonction \pythoninline{temps_de_vol} de l'étape 1.
+
+\begin{questionnum}
+    Implémenter la fonction \pythoninline{hauteur_de_vol} de l'étape 1 
+\end{questionnum}
+
+
+On dit qu'un nombre vole bien lorsque son temps de vol est plus grand ou égal à lui-même. Par exemple, 7 vole bien car son vol est
+$$(22,\, 11,\,34,\, 17,\, 52,\, 26,\, 13,\, 40,\, 20,\, 10,\, 5,\, 16,\, 8,\, 4,\, 2,\, 1)$$
+et sa longueur (16), est plus grande que 7.
+
+
+\begin{questionnum}
+    Coder la fonction \pythoninline{vole_bien} qui
+\begin{itemize}
+    \item en entrée prend un entier $n$ positif;
+    \item renvoie \pythoninline{True} si $n$ vole bien et \pythoninline{False} sinon.
+\end{itemize}
+\end{questionnum}
+
+\end{document}

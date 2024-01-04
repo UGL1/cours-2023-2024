@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt,exos,firamath]{nsi}
+\documentclass[a4paper,12pt,article,firamath]{nsi}
 
 \input{../preambule.tex}
 \titre{ Compression RLE}
@@ -65,7 +65,8 @@ $$100\times\left( 1-\dfrac{7}{12}\right)\simeq 41,6\%$$
 
 \section*{\'Etape 1}
 
-\begin{encadrecolore}{Question 1}{UGLiOrange}
+\begin{questionnum}
+
     Pour l'image suivante :
     \begin{center}
         \begin{tikzpicture}
@@ -88,9 +89,10 @@ $$100\times\left( 1-\dfrac{7}{12}\right)\simeq 41,6\%$$
         \item Donner la liste compressée.
         \item Quel est le taux de compression ?
     \end{enumalph}
-\end{encadrecolore}
+\end{questionnum}
 
-\begin{encadrecolore}{Question 2}{UGLiOrange}
+
+\begin{questionnum}
     Refaire la même chose avec l'image suivante :
     \begin{center}
         \begin{tikzpicture}
@@ -108,11 +110,9 @@ $$100\times\left( 1-\dfrac{7}{12}\right)\simeq 41,6\%$$
             \draw[fill=black] (3,0) rectangle (4,1);
         \end{tikzpicture}
     \end{center}
-\end{encadrecolore}
-
+\end{questionnum}
 L'algorithme de compression est en partie donné :
 \newpage
-
 
 \begin{minted}[linenos]{pseudocode}
 fonction compresse(ligne)
@@ -137,24 +137,24 @@ fonction compresse(ligne)
     renvoyer résultat
 \end{minted}
 
-\begin{encadrecolore}{Question 3}{UGLiOrange}
+
+\begin{questionnum}
     \begin{enumalph}
         \item Si, juste avant d'exécuter la ligne 15, \texttt{valeur} vaut zéro, que devient \texttt{valeur} après l'exécution de la ligne 15 ?
         \item Même question si \texttt{valeur} vaut 1.
         \item Quel est le rôle de cette ligne ?
     \end{enumalph}
-\end{encadrecolore}
+\end{questionnum}
 
 
-\begin{encadrecolore}{Question 4}{UGLiOrange}
-    Compléter l'algorithme.
-\end{encadrecolore}
+\begin{questionnum}
+    Compléter l'algorithme sur votre copie
+\end{questionnum}
 
-
-\begin{encadrecolore}{Question 5}{UGLiOrange}
+\begin{questionnum}
     Dessiner l'image qui produit la liste compressée
     \mint{python}{[3,3,3,3]}
-\end{encadrecolore}
+\end{questionnum}
 
 
 \section*{\'Etape 2}
@@ -162,21 +162,21 @@ fonction compresse(ligne)
 Le fichier \texttt{rle.py} contient l'implémentation en \textsc{Python} de la fonction \texttt{compresse} ainsi que 2 listes de test.
 
 
-\begin{encadrecolore}{Question 7}{UGLiOrange}
+\begin{questionnum}
     Implémenter la fonction \texttt{taux\_de\_compression} qui
     \begin{itemize}
         \item en entrée prend une liste composée de 0 et de 1 ;
         \item renvoie le taux de compression quand on compresse la liste.
     \end{itemize}
-\end{encadrecolore}
+\end{questionnum}
 
 
-\begin{encadrecolore}{Question 8}{UGLiOrange}
+\begin{questionnum}
     Implémenter la fonction \texttt{decompresse} qui
     \begin{itemize}
         \item en entrée prend une liste compressée ;
         \item renvoie la liste décompressée.
     \end{itemize}
-\end{encadrecolore}
+\end{questionnum}
 
 \end{document}
