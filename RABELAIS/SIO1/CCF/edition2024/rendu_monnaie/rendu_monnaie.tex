@@ -1,0 +1,109 @@
+\documentclass[a4paper,12pt,article,firamath]{nsi}
+
+\input{../preambule.tex}
+
+\titre{Rendu de monnaie}
+\classe{CCF Algo SIO}
+\maketitle
+
+
+\section*{Étape 1}
+
+On dispose d'une liste de pièces et billets de monnaie rangée dans l'ordre décroissant. Pour faire simple on appellera « pièce » une pièce ou un billet sans faire la distinction.\\
+Voici la variable \mintinline{python}{piece} ainsi que sa valeur :\\
+
+\mintinline{python}{pieces = [100, 50, 20, 10, 5, 2, 1]}\\
+
+Dans cette situation, pour rendre une certaine somme en le moins de pièces possible, c'est simple : il faut commencer par rendre la plus grosse pièce possible et recommencer tant qu'il reste de l'argent à rendre.\\
+
+Par exemple $13 = 10 + 2 + 1$ et cette égalité indique qu'on rend 13€ en 3 pièces.
+\begin{questionnum}
+    Tu dois rendre 26€. Écris l'égalité correspondant au rendu de pièces.\\
+    Combien de pièces faut-il pour rendre cette somme ?
+\end{questionnum}
+
+\begin{questionnum}
+    Même question avec 267€.
+\end{questionnum}
+
+On a commencé à écrire une fonction \mintinline{python}{trouve_piece} qui
+\begin{itemize}
+    \item	en entrée prend un entier \mintinline{python}{somme} qui est la somme d'argent à rendre ;
+    \item	renvoie le plus grand élément de la liste \mintinline{python}{piece} que l'on peut rendre
+\end{itemize}
+Par exemple \mintinline{python}{trouve_piece(49)} vaut 20 car 20 est la plus grosse pièce qu'on peut rendre quand on veut rendre 49€.
+
+\begin{questionnum}
+    Sur ta copie, complète l'algorithme de la fonction \mintinline{python}{trouve_piece} :
+    \begin{minted}{pseudocode}
+        fonction trouve_piece(somme)
+            variables
+                resultat, i, n : entiers
+                trouve : booleen
+
+            resultat ← 0
+            trouve ← faux
+            i ← 0
+            n ← longueur(...)
+            tant que i < n et trouve = faux repeter
+                si piece[i] <= ... alors
+                    resultat ← ...
+                    trouve ← vrai
+                fin si
+                i ← ...
+            fin tant que
+            renvoyer resultat
+    \end{minted}
+\end{questionnum}
+
+On a ensuite écrit la fonction \mintinline{python}{nb_pieces_rendues} qui
+\begin{itemize}
+    \item	en entrée prend un entier \mintinline{python}{somme} qui est la somme d'argent à rendre ;
+    \item	renvoie le nombre de pièces nécessaires pour rendre la somme à l'aide des pièces de la liste \mintinline{python}{piece}.
+\end{itemize}
+Par exemple \mintinline{python}{nb_pieces_rendues(13)}  vaut 3 puisqu'on rend 13€ en 3 pièces.
+
+\begin{questionnum}
+    Sur ta copie, complète l'algorithme de la fonction \mintinline{python}{nb_pieces_rendues} :
+    \begin{minted}{pseudocode}
+        fonction trouve_piece(somme)
+            variables
+                resultat: entier
+            
+                resultat ← ...
+            tant que somme > 0 repeter
+                somme ← ...
+                resultat ← resultat + 1
+            fin tant que
+            renvoyer resultat
+    \end{minted}
+\end{questionnum}
+
+On suppose maintenant que \mintinline{python}{piece = [4,3,1]} 
+
+\begin{questionnum}
+    \begin{enumalph}
+        \item	Que renvoie alors \mintinline{python}{nb_pieces_rendues(6)} ?
+        \item	Peut-on rendre la valeur 6 avec moins de pièces ?
+        \item   L'algorithme utilisé est-il optimal dans ce cas ?
+    \end{enumalph}
+\end{questionnum}
+
+\section*{Étape 2}
+\begin{questionnum}
+    Ouvrir le fichier \mintinline{python}{rendu_monnaie.py} et compléter les fonctions.    
+\end{questionnum}
+
+\begin{questionnum}
+    Écrire la fonction \mintinline{python}{liste_pieces_rendues qui}
+    \begin{itemize}
+        \item	en entrée prend un entier \mintinline{python}{somme} qui est la somme d'argent à rendre ;
+        \item	renvoie la liste des pièces nécessaires pour rendre la somme à l'aide des pièces de la liste \mintinline{python}{piece}.
+    \end{itemize}
+    Par exemple \mintinline{python}{liste_pieces_rendues(13)}  vaut \mintinline{python}{[10, 2, 1]}.\\
+    Autre exemple : \mintinline{python}{liste_pieces_rendues(43)}  vaut \mintinline{python}{[20, 20, 2, 1]}.
+    
+\end{questionnum}
+
+
+\end{document}
