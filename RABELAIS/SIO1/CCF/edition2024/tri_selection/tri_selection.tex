@@ -1,0 +1,88 @@
+\documentclass[a4paper,12pt,article,firamath]{nsi}
+
+\input{../preambule.tex}
+
+\titre{Tri par sélection}
+\classe{CCF Algo SIO}
+\maketitle
+On dispose d'une liste d'entiers \mintinline{python}{lst} que l'on aimerait trier dans l'ordre croissant.\\
+Nous allons utiliser l'algorithme de tri par sélection qui consiste à
+\begin{itemize}
+    \item	parcourir la liste et trouver l'indice du plus petit élément ;
+    \item	échanger ce plus petit élément avec celui d'indice 0 ;
+    \item   maintenant que l'élément d'indice 0 est bien placé, on parcourt la liste à partir de l'élément d'indice 1 pour trouver son plus petit élément ;
+    \item   on l'échange avec l'élément d'indice 1 ;
+    \item   on répète cela « jusqu'au bout de la liste ».
+\end{itemize}
+Voici un exemple avec \mintinline{python}{lst = [3, 2, 7, 4]} :
+\begin{itemize}
+    \item	on parcourt la liste en entier on trouve que le plus petit élément est 2, à l'indice 1 ;
+    \item	on l'échange avec celui d'indice 0 on obtient la liste \mintinline{python}{[2, 3, 7, 4]} ;
+    \item   on parcourt la liste à partir de l'indice 1, on trouve que le plus petit élément est 3, à l'indice 1 ;
+    \item   on l'échange avec lui-même (même si c'est inutile) ;
+    \item   on parcourt la liste à partir de l'indice 2, on trouve que le plus petit élément est 4, à l'indice 3 ;
+    \item   on l'échange avec l'élément d'indice 2, on obtient \mintinline{python}{[2, 3, 4, 7]} ;
+    \item   la liste est de longueur 4 donc comme on a rangé les 3 plus petits au début, le dernier élément est obligatoirement le plus grand donc on s'arrête.
+\end{itemize}
+
+\begin{questionnum}
+    Applique cet algorithme étape par étape en faisant comme à l'exemple précédent avec \mintinline{python}{lst = [4, 2, 8, 0, 3]} 
+\end{questionnum}
+
+On a commencé à écrire l'algorithme de la fonction \mintinline{python}{indice_min} qui
+\begin{itemize}
+    \item	en entrée prend une liste \mintinline{python}{lst} et un entier \mintinline{python}{i}  
+    \item	parcourt la liste \mintinline{python}{lst} à partir de l'élément d'indice \mintinline{python}{i}  inclus et renvoie l'indice du plus petit élément rencontré lors du parcours ;
+\end{itemize} 
+Par exemple \mintinline{python}{indice_min([0, 2, 4, 1, 8],2)} 
+\begin{itemize}
+    \item	parcourt la liste \mintinline{python}{[0, 2, 4, 1, 8]} à partir de l'indice 2 (donc ignore 0 et 2) ;
+    \item trouve que le plus petit élément est 1, à l'indice 3 de la liste, donc renvoie 3.
+\end{itemize}
+\begin{questionnum}
+    Complète sur ta copie l'algorithme de la fonction.
+    \begin{minted}{pseudocode}
+        fonction indice_minimum(lst, i)
+            variables
+                j, j_min : entiers
+            jmin ← i
+            pour j allant de i à longueur(lst) repeter
+                si lst[j] < ... alors
+                    ...
+                fin si
+            fin pour
+            renvoyer ...
+    \end{minted}
+\end{questionnum}
+
+On a commencé à écrire la fonction \mintinline{python}{tri_insertion} qui
+\begin{itemize}
+    \item	en entrée prend la liste \mintinline{python}{lst} à trier ; 
+    \item	ne renvoie rien mais trie \mintinline{python}{lst} en appliquant le principe de tri par selection exposé plus haut.
+\end{itemize}
+
+\begin{questionnum}
+    Complète sur ta copie l'algorithme de la fonction.
+    \begin{minted}{pseudocode}
+        fonction tri_selection(lst)
+            variables
+                i, i_min, tmp : entiers
+            pour i allant de 0 à ... repeter
+                i_min = ...
+                temp ← lst[i]
+                lst[i] ← ...
+                lst[i_min] ← temp
+            fin pour
+    \end{minted}
+\end{questionnum}
+
+\section*{Étape 2}
+
+\begin{questionnum}
+    Ouvrir le fichier \mintinline{python}{tri_selection.py} et coder les fonctions manquantes. 
+\end{questionnum}
+
+\begin{questionnum}
+    En s'inspirant de ce qui a été fait, créer une fonction \mintinline{python}{tri_selection_decroissant} qui trie les listes dans l'ordre décroissant. 
+\end{questionnum}
+\end{document}
