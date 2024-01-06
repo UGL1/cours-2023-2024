@@ -30,7 +30,8 @@ C'est un opérateur \textbf{unaire} : il ne prend qu'une seule variable booléen
             \hline
         \end{tabular}
         \hspace{3em}
-        \tikz{\draw (0,0) node[european not port]{};}
+        \raisebox{-2em}{\includegraphics[width=4cm]{ch-logique/img/non}}
+        
     \end{center}
     \caption*{La table de vérité et le symbole de porte européen du \texttt{non}.}
 \end{figure}
@@ -66,7 +67,7 @@ C'est un opérateur \textbf{binaire} : il prend deux variables booléennes en en
             \hline
         \end{tabular}
         \hspace{3em}
-        \tikz{\draw (0,0) node[european and port]{};}
+        \raisebox{-2em}{\includegraphics[width=4cm]{ch-logique/img/et}}
     \end{center}
     \caption*{La table de vérité et le symbole de porte européen du \texttt{et}.}
 \end{figure}
@@ -98,7 +99,7 @@ C'est également un opérateur \textbf{binaire}.
             1        & 1        & 1                     \\
             \hline
         \end{tabular}\hspace{3em}
-        \tikz{\draw (0,0) node[european or port]{};}
+        \raisebox{-2em}{\includegraphics[width=4cm]{ch-logique/img/ou}}
     \end{center}
     \caption*{La table de vérité et le symbole de porte européen du \texttt{ou}.}
 \end{figure}
@@ -227,25 +228,7 @@ On va décomposer m à l'aide des opérateurs de base. Ici, un raisonnement simp
 \end{itemize}
 Le circuit logique modélisant m est le suivant :
 \begin{center}
-    \begin{tikzpicture}[yscale=.7]
-        \coordinate (A) at (0,4);
-        \draw (A) node[left]{A}	 ;
-        \coordinate (B) at (0,2.68);
-        \draw (B) node[left]{B}	 ;
-        \coordinate (C) at (0,.68);
-        \draw (C) node[left]{C}	 ;
-        \node[european not port] (not1) at (2,4) {};
-        \node[european and port] (and1) at (5,3) {};
-        \node[european and port] (and2) at (5,1) {};
-        \node[european or port] (or1) at (8,2) {};
-        \draw (and1.out) |- (or1.in 1) (and2.out) |- (or1.in 2);
-        \draw (C) |- (and2.in 2);
-        \draw (B) |- (and1.in 2);
-        \draw (not1.out) |- (and1.in 1);
-        \draw (A) |- (not1.in);
-        \draw (0.5,4)|- (and2.in 1);
-        \draw (or1.out)  node[right]{m(A,B,C)};
-    \end{tikzpicture}
+   \includegraphics[width=10cm]{ch-logique/img/multiplexeur.png}
 \end{center}
 
 \begin{exercice}[]

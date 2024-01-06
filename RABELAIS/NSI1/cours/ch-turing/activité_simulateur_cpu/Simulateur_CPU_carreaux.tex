@@ -1,0 +1,96 @@
+\documentclass[11pt,a4paper,eval,firamath]{nsi}
+\begin{document}
+\titre{Simulateur de CPU}
+\classe{NSI1}
+\maketitle
+
+L'objectif de cette séance est de découvrir l'assembleur \textit{sans que ce soit trop compliqué}.\\
+
+La page sur laquelle tu vas travailler est adaptée d'un simulateur de microprocesseur écrit par Peter Higginson et disponible sur \texttt{http://www.peterhigginson.co.uk/RISC/}.\\
+
+Ce CPU fonctionne avec des mots de 16 bits. Chaque instruction (et ses données éventuelles) est donc codée sur 2 octets. Dans la mémoire centrale on a donc regroupé les octets par paquets de deux.\\
+
+Tu disposes d'un lexique avec quelques commandes de bases à la fin de ce document.\\
+
+Voici un programme ajoutant 2 nombres
+\begin{encadrecolore}{Code assembleur}{UGLiOrange}
+\begin{minted}{asm}
+INP R0,2      // Lire un nombre au clavier et le mettre dans R0.
+INP R1,2      // Lire un nombre au clavier et le mettre dans R1.
+ADD R2,R1,R0  // Mettre R0 + R1 dans R2.
+OUT R2,4      // Afficher R2 à l'écran.
+HLT           // Stop.
+\end{minted}
+\end{encadrecolore}
+
+
+
+\textbf{1.}	\'Ecrire ce programme dans la fenêtre \textit{Code assembleur}, sans recopier les commentaires (les // suivis de phrases) puis cliquer sur \textit{ASSEMBLER}. Où voit-on les instructions machine ? Quelle est la longueur en octets de ce programme ?\\
+
+\carreauxseyes{16.8}{4}\\
+
+Cliquer sur \textit{PAS} pour effectuer la première instruction en mode pas-à-pas. Observer la valeur de PC qui change et entrer la valeur dans la boîte de texte prévue à cet effet.
+Continuer à exécuter le programme en mode pas-à-pas.
+\newpage 
+\textbf{2.} Quelle est la plus grande somme que l'on puisse obtenir ? Comment
+expliquer cela ?\\
+
+\carreauxseyes{16.8}{4}\\
+
+
+\textbf{3.} Modifier le code du programme pour qu'il fasse une soustraction.\\
+Quelle ligne faut-il changer et comment ?\\
+
+\carreauxseyes{16.8}{4}\\
+
+Voici un deuxième programme à lire attentivement. BGE veut dire « \textit{Branch if Greater or Equal} », ce qui peut se traduire ici par « si le résultat de la comparaison précédente indique  plus grand ou égal alors va à l'adresse spécifiée ».
+
+\begin{encadrecolore}{Code assembleur}{UGLiOrange}
+\begin{minted}{asm}
+            INP R0,2  // Lire un nombre au clavier et mettre dans R0.
+            INP R1,2  //Lire un nombre au clavier et mettre dans R1.
+            CMP R1,R0   // Comparer R1 à R0.
+            BGE plusgrand  // Si R1 > R0 aller à pgrand.
+            OUT R0,4    // Sinon afficher R0.
+            BRA fini    // Et aller à fini.
+plusgrand:  OUT R1,4    // Afficher R1.
+fini:       HLT         // Stop.
+\end{minted}
+\end{encadrecolore}
+
+
+\textbf{5.} Taper et exécuter ce programme en entrant 2 et 3.\\
+Qu'affiche le programme ? Dans quels états les flags sont-ils ?\\
+
+\carreauxseyes{16.8}{4}\\
+
+\textbf{6.} Recommencer avec 3 et 2, puis 3 et 3.\\
+
+\carreauxseyes{16.8}{4}\\
+
+\textbf{7.} \'Emettre une hypothèse sur la signification des flags.\\
+
+\carreauxseyes{16.8}{4}\\
+
+\textbf{8.} \'Ecrire un petit programme qui demande un entier $n$ au clavier, le stocke dans R0, puis calcule dans R1 la
+	somme de tous les entiers de 1 à $n$ : il suffit de mettre R1 à 0 puis créer une boucle : on ajoute R0 à R1 et on enlève 1 à R0. Si R0 n'est pas nul on boucle, sinon on affiche le résultat et on s'arrête.\\
+
+\carreauxseyes{16.8}{10.4}
+\newpage
+
+\subsection*{Lexique}
+\begin{tabbing}
+\mintinline{asm}{INP Rx,2} \hspace{4em}\=: Saisir une valeur dans Rx \hspace{10em}\= Exemple : \mintinline{asm}{INP R0,2}\\
+\mintinline{asm}{OUT Rx,4} \hspace{4em}\>: Afficher Rx à l'écran \hspace{12em}\>  Exemple : \mintinline{asm}{OUT R0,4}\\
+
+\mintinline{asm}{MOV Rx,Ry} \hspace{4em}\>: dans Rx recopier Ry.\hspace{12em}\> Exemple : \mintinline{asm}{MOV R1,R2}\\
+\mintinline{asm}{MOV Rx,#val} \> : dans Rx, recopier la valeur val. \> Exemple : \mintinline{asm}{MOV R0,#42}\\
+\mintinline{asm}{ADD Rz,Ry,Rx} \> : Ajouter Rx et Ry et stocker dans Rz \> Exemple : \mintinline{asm}{ADD R2,R1,R0}\\
+\mintinline{asm}{SUB Rz,Ry,Rx} \> : Retirer Rx à Ry et stocker dans Rz \> Exemple : \mintinline{asm}{MUL R2,R1,R0}\\
+\mintinline{asm}{BEQ adr} \> : Si le flag Z est à 1, aller à adr. \> Exemple : \mintinline{asm}{BEQ fin}\\
+\mintinline{asm}{BNE adr} \> : Si le flag Z est à 0, aller à adr. \> Exemple : \mintinline{asm}{BNE fin}
+
+
+\end{tabbing}
+Le flag Z est mis à 1 dès qu'une opération donne 0.\\
+\end{document}

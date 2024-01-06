@@ -1,0 +1,40 @@
+\documentclass[12pt,a4paper,article,firamath]{nsi}
+\pagestyle{empty}
+\begin{document}
+\titre{Simulateur de CPU - corrigé}
+\classe{NSI1}
+\maketitle
+\begin{enumerate}
+
+
+
+\item	On voit les instructions machine directement dans la mémoire, à droite. Il y a 4 adresses prises par le programme, donc cela fait une longueur de 8 octets.\\
+
+\item La plus grande somme que l'on puisse obtenir est \np{32767}, « après on passe à \np{-32768} ». On peut donc remarquer que la plage de valeurs autorisée est de $-2^{15}$ à $2^{15}-1$. En faisant l'analogie avec le complément à 2 sur 8 bits, on peut raisonnablement penser que le format utilisé est le complément à 2 sur 1- bits.\\
+
+\item On change la ligne 2 en \mintinline{asm}{SUB R2,R1,R0}.\\
+
+\item Pas de question 4.\\
+
+\item Le programme affiche 3 et seul le flag \texttt{C} est à 1.\\
+
+\item Avec et 2 il affiche 3 mais c'est le flag \texttt{N} qui est à 1.\\
+Avec 3 et 3 il affiche 3 et là les flags \texttt{Z} et \texttt{C} sont à 1.\\
+
+\item \texttt{N} passe à 1 quand un résultat est négatif, \texttt{Z} lorsqu'un résultat est nul et pour \texttt{C} c'est moins clair : il passe à 1 lorsqu'une retenue survient.\\
+
+\item \ \\
+\begin{encadrecolore}{Code assembleur}{UGLiOrange}
+\begin{minted}{asm}
+        INP R0, 2       // Lire R0 au clavier
+        MOV R1, #0      // Initialiser R1 à 0
+bcl:    ADD R1, R1, R0  // Ajouter R0 dans R1
+        SUB R0, #1      // Retirer 1 à R0
+        BNE bcl         // Si R0 n'est pas nul, recommencer
+        OUT R1, 4       // Sinon afficher la somme
+        HLT             // Et s'arrêter
+\end{minted}
+\end{encadrecolore}
+
+\end{enumerate}
+\end{document}
