@@ -1,0 +1,72 @@
+#! /bin/sh
+
+rm -rf EXO
+mkdir EXO
+cd EXO
+
+cat <<EOF >fichier
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+Ceci est le contenu du fichier dont le nom est "fichier". Il est un peu repetitif.
+EOF
+
+cat fichier | gzip - >fichier-binaire
+
+echo poufpouf badaboum >mot-de-passe
+
+for i in $(seq 1 30); do
+  cat >>fichier_long <<EOF
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est meme longuet a force.
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est plus long, mais pas plus interessant.
+Et ca continue, ce fichier est ennuyant comme la pluie la nuit.
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est plus long, mais pas plus interessant.
+Ne trouvez pas ca penible a force, toutes ces lignes qui se ressemblent ?
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est plus long, mais pas plus interessant.cd
+En fait, ce fichier semble tout simplement interminable.
+Ce fichier est plus long, mais pas plus interessant.
+Ce fichier est plus long, mais pas plus interessant.
+EOF
+done
+
+echo "L'info cachee au debut est : Attention, attention" >cache-cache-passe
+for i in $(seq 1 50); do
+  echo "Pas interessant." >>cache-cache-passe
+done
+echo "L'info cachee un peu apres est : Plouf plouf" >>cache-cache-passe
+for i in $(seq 1 200); do
+  echo "Pas interessant." >>cache-cache-passe
+done
+echo "L'info cachee vers le milieu est : Bim bam" >>cache-cache-passe
+for i in $(seq 1 250); do
+  echo "Pas interessant." >>cache-cache-passe
+done
+echo "L'info cachee a la fin est : Bop bop BOUM" >>cache-cache-passe
+
+for f in fichier fichier_long cache-cache-passe; do
+  iconv -f ISO_8859-1 -t utf8 -o /tmp/AZE $f && mv /tmp/AZE $f
+done
+
+echo "Tu peux commencer l'EXO"
+echo "Tape 'cd EXO'."

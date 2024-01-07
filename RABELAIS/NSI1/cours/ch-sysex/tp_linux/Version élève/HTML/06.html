@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html  dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Exercice 6 - Fouiller des fichiers</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.4/css/uikit.gradient.css">
+
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="https://cdn.rawgit.com/diversen/pandoc-uikit/master/style.css">
+        <link href="https://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <!-- <script src="uikit.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/uikit.js"></script>
+        <!-- <script src="scripts.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/scripts.js"></script>
+        <!-- <script src="jquery.sticky-kit.js "></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/jquery.sticky-kit.js"></script>
+
+        <meta name="generator" content="pandoc-uikit" />
+                        <title>EX6</title>
+        <style type="text/css">code{white-space: pre;}</style>
+                                                        </head>
+
+    <body>
+
+
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+                        <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1">
+                    <h1 class="uk-heading-large">Exercice 6 - Fouiller des fichiers</h1>
+                                                        </div>
+            </div>
+            
+            <div class="uk-grid" data-uk-grid-margin >
+
+                <div class="uk-width-medium-3-4">
+<p>La commande <code>find</code> est très pratique pour trouver un fichier d’après son nom ou ses attributs de fichier, mais elle ne permet pas d’ouvrir les fichiers à la recherche d’un contenu particulier. C’est l’un des multiples services que la commande <code>grep</code> peut rendre.</p>
+<p>Grep permet de chercher efficacement un texte donné dans des fichiers ou des flux de données. Cet outil est installé sur tous les Unix de la terre, et il existe des versions pour Windows. Tout les utilisateurs du terminal utilisent grep de temps à autres.</p>
+<p>Allez, un petit <code>bash 06_start</code> pour la route…</p>
+<p>Voici un exemple : <code>grep xeruti aa/*</code> cherche la chaîne <code>xeruti</code> dans tous les fichiers du répertoire <code>aa/</code>. Chaque fois que cette chaîne est trouvée, grep écrit le nom du fichier où il l’a trouvé séparé par ‘:’ de la ligne complète contenant la chaîne.</p>
+<p>Mais grep est bien plus puissant que cela. Il permet de chercher non seulement des mots, mais également des motifs avancés comme “un i suivi d’un nombre pair de t (ou bien d’un nombre impair de s), mais uniquement si c’est en début de ligne”. En informatique, ces motifs s’appellent des expressions régulières (<em>regular expression</em> ou <em>regex</em> en anglais), et c’est d’ailleurs de là que vient le nom de grep: <em>Global Regular Expression Print</em> (affichage d’expressions régulières globales).</p>
+<p>La syntaxe des expressions régulières fleure bon les années 70 (en informatique, cela veut dire que c’est affreusement préhistorique), mais la puissance de la chose vaut bien la peine qu’on apprenne un peu à s’en servir. En cas de problème, on trouve même des assistants à l’écriture de regex sur internet.</p>
+<p>Vous devez maintenant utiliser la commande grep pour trouver des informations dans le répertoire de l’exercice. La page de manuel de grep n’est pas très utile car elle n’est absolument pas pédagogique (c’est un guide de référence), et elle ne donne même pas l’intégralité de la syntaxe. Préférez la <a href="https://fr.wikipedia.org/wiki/Expression_r%C3%A9guli%C3%A8re#Utilisation">page wikipédia</a>.</p>
+<h3 id="chercher-un-mot">Chercher un mot</h3>
+<p>On trouve 243 fichiers aux noms parfaitement inintéressants dans le répertoire <code>aa</code>. L’un d’entre eux contient la chaîne ‘ici’. Utilisez grep pour trouver lequel.</p>
+<ol type="1">
+<li>Quel est le mot étrange sur une ligne contenant ‘ici’ dans ‘aa’ ?</li>
+</ol>
+<h3 id="limiter-aux-mots-débutant-la-ligne">Limiter aux mots débutant la ligne</h3>
+<p>Cette fois, dans le répertoire <code>bb</code>, ‘ici’ est dans deux fichiers et il faut sélectionner la ligne où le motif est placé en début de ligne. Bien sûr, vous pouvez grepper ‘ici’ sans spécifier et choisir à la main lequel des deux recopier. Mais rien ne sert de tricher ici: ce n’est pas évalué. Il vaut mieux chercher la regex magique sélectionnant directement la bonne ligne (relisez wikipedia au besoin).</p>
+<ol start="2" type="1">
+<li>Quel est le mot étrange sur une ligne débutant par ‘ici’ dans ‘bb’ ?</li>
+</ol>
+<h3 id="ignorer-la-casse">Ignorer la casse</h3>
+<p>Cette fois, dans le répertoire <code>cc</code>, on cherche “plutot” sans accent, mais on ne sait pas s’il est écrit en majuscule ou minuscule. Il y a une option pour ignorer la casse, comme indiqué sur la page man de grep (<code>man grep</code>) ou dans le message d’aide du programme (<code>grep --help</code>).</p>
+<ol start="3" type="1">
+<li>Quel est le mot étrange sur une ligne contenant ‘plutot’ dans ‘cc’ ?</li>
+</ol>
+<h3 id="répéter-un-motif">Répéter un motif</h3>
+<p>Comme indiqué sur wikipédia, on utilise des accolades pour indiquer des répétitions de motif. Mais grep demande à ce qu’on écrive <code>\{</code> au lieu de <code>{</code>. À la fin, la regex pour attraper <code>hiiiiiiiiii</code> sera <code>'hi\{10\}'</code>. N’oubliez pas les guillemets simples: <code>hi\{10\}</code> serait d’abord interprété par le shell qui passerait des choses étranges à grep.</p>
+<p>Là encore, il est plus facile de tricher que de trouver la bonne regex. Soyez fort, persistez !</p>
+<ol start="4" type="1">
+<li>Quel est le mot sur une ligne contenant entre 3 et 7 ‘a’ consécutifs dans ‘dd’ ?</li>
+</ol>
+<h3 id="classes-de-caractères">Classes de caractères</h3>
+<p>On cherche un mot contenant trois voyelles successives, suivies de quelque chose qui n’est pas un chiffre. On est obligé de décrire les voyelles en extension (il s’agit de l’une des lettres suivantes: <code>aeoiu</code>), mais on peut décrire les chiffres en intension (un caractère entre <code>0</code> et <code>9</code>).</p>
+<p>En grep, il faut bien écrire <code>[</code> et non <code>\[</code>. Mais c’est toujours une bonne idée de protéger ses expressions régulières du shell avec des guillemets simples.</p>
+<ol start="5" type="1">
+<li>Quel est le mot sur une ligne contenant trois voyelles consécutives, non suivies d’un chiffre dans ‘ee’ ?</li>
+</ol>
+<p><a href="07.html">Continuer avec l’exercice 7</a></p>                    
+                </div>
+            </div>
+            <script src="https://vjs.zencdn.net/5.4.4/video.js"></script>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+1. Que contient ce fichier 'ici'?
+=~= depikapolu
+
+2. Que contient le fichier caché dans 'bbb'?
+=~= bepitasolu
+
+3. Que contient le fichier caché dans 'ccc'?
+=~= deliravo
+
+4. Que contient le fichier caché dans 'ddd'?
+=~= xepitapozu

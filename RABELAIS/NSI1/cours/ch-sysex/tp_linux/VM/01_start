@@ -1,0 +1,7 @@
+#! /bin/sh
+
+rm -rf EXO
+mkdir EXO
+echo "Tu peux commencer l'EXO"
+echo "Tape 'cd EXO'."
+

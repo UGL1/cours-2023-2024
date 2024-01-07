@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html  dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Exercice 1 - Créer des fichiers et des répertoires</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.4/css/uikit.gradient.css">
+
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="https://cdn.rawgit.com/diversen/pandoc-uikit/master/style.css">
+        <link href="https://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <!-- <script src="uikit.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/uikit.js"></script>
+        <!-- <script src="scripts.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/scripts.js"></script>
+        <!-- <script src="jquery.sticky-kit.js "></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/jquery.sticky-kit.js"></script>
+
+        <meta name="generator" content="pandoc-uikit" />
+                        <title>EX1</title>
+        <style type="text/css">code{white-space: pre;}</style>
+                                                        </head>
+
+    <body>
+
+
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+                        <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1">
+                    <h1 class="uk-heading-large">Exercice 1 - Créer des fichiers et des répertoires</h1>
+                                                        </div>
+            </div>
+            
+            <div class="uk-grid" data-uk-grid-margin >
+
+                <div class="uk-width-medium-3-4">
+<h1 id="petit-tutoriel">Petit tutoriel</h1>
+<p>Comme les autres systèmes d’exploitation, Linux range les fichiers dans une arborescence de répertoires. Voici quelques commandes utiles. Tapez-les une à une pour constater le résultat.</p>
+<ul>
+<li><code>pwd</code> savoir où on est sur le disque (Print Working Directory)</li>
+<li><code>mkdir machin</code> créer un nouveau répertoire nommé machin</li>
+<li><code>ls</code> lister les fichiers et répertoires du répertoire courant</li>
+<li><code>cd machin</code> entrer dans le répertoire machin (Change Directory)</li>
+
+<li><code>cd ..</code> aller dans le répertoire “..”, c’est-à-dire un étage plus haut</li>
+
+<li><code>touch bidule</code> créer un fichier vide nommé bidule (ou change sa date d’accès si le fichier existe)</li>
+
+<li><code>rm bidule</code> effacer le fichier bidule. Attention, c’est une opération irréversible.</li>
+
+<li><code>rmdir machin</code> effacer le répertoire machin (il faut qu’il soit vide). On peut aussi utiliser <code>rm -r machin</code> pour effacer récursivement <code>machin</code> et tout son contenu.</li>
+
+<li><code>clear</code> permet d’effacer l’écran pour nettoyer.</li>
+</ul>
+<p>Au besoin, lisez la documentation de ces commandes avec par exemple <code>man ls</code> (‘q’ pour quiter cette aide).</p>
+<p>Sachez aussi que :</p>
+<ul>
+<li>les touches ↑ et ↓ du clavier permettent de naviguer dans l’historique des commandes déjà tapées</li>
+<li>la touche ↹ (tabulation) permet de compléter un nom de fichier</li>
+</ul>
+<h1 id="au-travail">Au travail</h1>
+<p>Il s’agit maintenant de créer l’aborescence suivante.</p>
+<pre><code>📁 EXO
+├── 📁 dir1
+│    └── 📁 dir2
+│         └── 🖹 doc1
+└── 📁 dir3
+    └── 🖹 doc2</code></pre>
+<p>Les logos sont juste là pour l’explication, les noms de fichiers et répertoires ne doivent contenir que des lettres et des chiffres dans cet exercice.</p>
+<p>Le répertoire au sommet est l’endroit où commence l’exercice, noté <code>EXO</code>.</p>
+<p>Pour commencer l’exercice, dans le terminal, entrez <code>bash 01_start</code></p>
+<p>Coincé? Utilisez la commande <code>ls -R</code> pour afficher <em>récursivement</em> le contenu de tous les répertoires.</p>
+<p>Si c’est plus grave, tapez <code>cd</code> pour revenir au répertoire de départ et <code>bash 01_start</code> pour tout recommencer.</p>
+<p>Lorsque vous avez terminé, tapez <code>bash 01_verif</code> pour vérifier et passer à l’exercice suivant.</p>
+<p><a href="02.html">Continuer avec l’exercice 2</a></p>                    
+                </div>
+            </div>
+            <script src="https://vjs.zencdn.net/5.4.4/video.js"></script>
+        </div>
+    </body>
+</html>

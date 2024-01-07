@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html  dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Exercice 4 - Lire le contenu des fichiers</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.4/css/uikit.gradient.css">
+
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="https://cdn.rawgit.com/diversen/pandoc-uikit/master/style.css">
+        <link href="https://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <!-- <script src="uikit.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/uikit.js"></script>
+        <!-- <script src="scripts.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/scripts.js"></script>
+        <!-- <script src="jquery.sticky-kit.js "></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/jquery.sticky-kit.js"></script>
+
+        <meta name="generator" content="pandoc-uikit" />
+                        <title>EX4</title>
+        <style type="text/css">code{white-space: pre;}</style>
+                                                        </head>
+
+    <body>
+
+
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+                        <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1">
+                    <h1 class="uk-heading-large">Exercice 4 - Lire le contenu des fichiers</h1>
+                                                        </div>
+            </div>
+            
+            <div class="uk-grid" data-uk-grid-margin >
+
+                <div class="uk-width-medium-3-4">
+<p>Commencez donc par un petit <code>bash 04_start</code>.</p>
+<p>Il existe de nombreuses commandes pour afficher le contenu des fichiers à l’écran. La plus simple est <code>cat fichier</code>, qui affiche le contenu du fichier sur la console.</p>
+<p>Si on affiche un fichier contenant non pas du texte mais du binaire, on peut avoir des résultats surprenants: <code>cat fichier-binaire</code> affiche un fichier peu intelligible en l’état. Si votre terminal est … dérangé après un tel affichage, il suffit de taper <code>reset</code> pour tout réinitialiser.</p>
+<p>Si le fichier est plus long, cette méthode permet assez facilement de voir la fin du contenu. C’est déjà ça. Par exemple, <code>cat fichier_long</code> risque de vous remplir l’écran. Et si on demande à afficher un programme binaire, c’est long ET illisible à priori: <code>cat /bin/cat</code> affiche le programme cat lui-même.</p>
+<p>Si on veut voir le début d’un fichier, on peut utiliser la commande <code>head fichier_long</code> qui n’affiche que les premières lignes du fichier passé. On peut aussi préciser que l’on veut les 50 premières lignes avec l’option <code>-n</code>: <code>head -n 50 fichier_long</code></p>
+<p>De même, la commande <code>tail -n 10 fichier_long</code> permet d’afficher les 10 dernières lignes d’un fichier long. Enfin, la commande <code>less fichier_long</code> permet de se promener dans l’affichage d’un fichier : la navigation se fait avec les mêmes raccourcis que le manuel (le manuel appelle <code>less</code> en interne). Pour rappel : les flèches et page vers le haut/bas permettent de se déplacer dans le fichier, <code>q</code> quitte le programme et on voit l’aide avec <code>h</code>.</p>
+<h2 id="but-de-lexercice">But de l’exercice</h2>
+<p>Pour passer à la suite, il suffit de trouver différents mots de passe, répartis dans différents fichiers du répertoire.</p>
+<p>Normalement <code>Ctrl-C</code> ne fonctionne pas dans le terminal et il faut sélectionner à la souris puis faire <code>Ctrl-Inser</code> pour copier, et <code>Shift-Inser</code> pour coller.</p>
+<p><strong>Ceci dit, dans CoCalc, les développeurs ont eu la bonne idée d’autoriser également les bons vieux <code>CTRL+C</code> pour copier et <code>CTRL+V</code> pour coller, donc il ne faut pas vous en priver.</strong></p>
+<p>Bien entendu, il est presque impossible de taper la bonne commande, juste du premier coup. On pourrait la copier/coller depuis juste au dessus avec <code>Ctrl+Inser</code> et <code>Shift+Inser</code>, mais ce serait affreusement lent et frustrant. Il y a bien mieux : on peut retrouver les commandes qu’on vient d’écrire simplement avec les flèches haut/bas et les modifier.</p>
+<p>En fait, le terminal est un truc de fainéants où tout est fait pour vous simplifier la vie, vous allez voir. Vous avez la flemme de chercher manuellement dans l’historique la ligne où vous utilisez <code>head</code>? Tapez simplement <code>Ctrl-R</code> pour passer en mode recherche, et écrivez <code>head</code>. Le shell va fouiller l’historique pour vous. Appuyez sur <code>Entrée</code> quand vous l’avez trouvé. Essayez aussi d’utiliser les flèches pendant/après la recherche ou de refaire <code>Ctrl-R</code> en cours de recherche: c’est assez bien fait.</p>
+<ol type="1">
+<li><p>Quel est le contenu du fichier <code>mot-de-passe</code> ?</p></li>
+<li><p>Quelle information se cache à la fin du fichier <code>cache-cache-passe</code> ?</p></li>
+<li><p>Quelle information se cache au début du fichier <code>cache-cache-passe</code> ?</p></li>
+<li><p>Quelle information se cache un peu après le début du fichier <code>cache-cache-passe</code> ?</p></li>
+<li><p>Quelle information se cache vers le milieu du fichier <code>cache-cache-passe</code> ?</p></li>
+</ol>
+<p>Vous ne trouvez pas les informations ? Essayez avec les commandes <code>cat</code>, <code>head</code> et <code>less</code>.</p>
+<p><a href="05.html">Continuer avec l’exercice 5</a></p>                    
+                </div>
+            </div>
+            <script src="https://vjs.zencdn.net/5.4.4/video.js"></script>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html  dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Exercice 5 - Trouver des fichiers</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.4/css/uikit.gradient.css">
+
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="https://cdn.rawgit.com/diversen/pandoc-uikit/master/style.css">
+        <link href="https://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <!-- <script src="uikit.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/uikit.js"></script>
+        <!-- <script src="scripts.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/scripts.js"></script>
+        <!-- <script src="jquery.sticky-kit.js "></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/jquery.sticky-kit.js"></script>
+
+        <meta name="generator" content="pandoc-uikit" />
+                        <title>EX5</title>
+        <style type="text/css">code{white-space: pre;}</style>
+                                                        </head>
+
+    <body>
+
+
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+                        <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1">
+                    <h1 class="uk-heading-large">Exercice 5 - Trouver des fichiers</h1>
+                                                        </div>
+            </div>
+            
+            <div class="uk-grid" data-uk-grid-margin >
+
+                <div class="uk-width-medium-3-4">
+<p>Vous avez l’habitude, maintenant : <code>bash 05_start</code>.</p>
+<p>Il arrive souvent qu’on ait besoin de retrouver un fichier sur son disque. Deux commandes sont bien pratiques en pareille situation.</p>
+<p>La commande <code>locate</code> <strong>qui n’est pas installée sur CoCalc</strong> utilise une base de données des fichiers sur disque et permet de retrouver très rapidement un fichier par son nom. Le défaut est qu’il faut que le fichier soit là depuis assez longtemps pour qu’il ait été indexé dans la base. Mais si vous cherchez un fichier dont vous connaissez une partie du nom sans savoir du tout où il se trouve, cette commande est faite pour vous.</p>
+<p>La commande <code>find</code> qui elle, en revanche, est installée sur CoCalc, permet de fouiller le disque de façon bien plus approfondie. Par exemple, la commande <code>find ddd -name "pas-la"</code> cherche dans le répertoire <code>ddd</code> un fichier dont le nom est “pas-la” (il y en a un, juste pour l’exemple).</p>
+<h2 id="but-de-lexercice">But de l’exercice</h2>
+<p>La commande <code>find</code> offre de nombreuses autres possibilités, que vous pourrez découvrir en lisant la documentation avec <code>man find</code>. Cela vous permettra de répondre aux questions suivantes.</p>
+<p>Comme précédemment, pas question de retaper la ligne de commande en entier à chaque tentative. Soyez fainéants. Utilisez l’historique des commandes. Les informaticiens sont de grands fainéants prêts à tout pour faire travailler l’ordinateur à leur place.</p>
+<h3 id="dans-aaa">Dans aaa</h3>
+<p>Un fichier nommé ‘ici’ se cache quelque part dans le répertoire ‘aaa’, mais la commande <code>tree</code> n’aide pas beaucoup. Il va falloir utiliser <code>find</code>!</p>
+<ol type="1">
+<li>Que contient ce fichier ‘ici’?</li>
+</ol>
+<h3 id="dans-bbb">Dans bbb</h3>
+<p>Cette fois, on ne connaît même pas le nom du fichier. On sait juste que c’est un fichier, et que le prédicat <code>-type</code> de <code>find</code> peut nous aider.</p>
+<p>Notez que pour chercher dans le manuel, il faut appuyer sur la touche ‘/’ après l’avoir ouvert avec <code>man find</code>. Tapez ensuite la chaîne à chercher (par exemple <code>-type</code>) et entrée. On saute à l’occurrence suivante avec ‘n’ (précédente avec ‘N’), et on quitte le manuel avec ‘q’.</p>
+<ol start="2" type="1">
+<li>Que contient le fichier caché dans ‘bbb’?</li>
+</ol>
+<h3 id="dans-ccc">Dans ccc</h3>
+<p>Il y a maintenant une multitude de fichiers, et on cherche celui dont la taille est supérieure à zéro. Les prédicats <code>-size</code> ou <code>-empty</code> vont probablement nous rendre service, ainsi que les connecteurs logiques <code>-and</code>,<code>-or</code> ou <code>-not</code>, à vous de voir…</p>
+<ol start="3" type="1">
+<li>Que contient le fichier caché dans ‘ccc’?</li>
+</ol>
+<h3 id="dans-ddd">Dans ddd</h3>
+<p>Cette fois, il y a une multitude de fichiers, et il faut utiliser celui modifié plus récemment que le fichier <code>timestamp</code> placé à la racine de <code>EXO</code>. Notez que c’est bien la date de dernière modification qui compte.</p>
+<ol start="4" type="1">
+<li>Que contient le fichier caché dans ‘ddd’?</li>
+</ol>
+<p><a href="06.html">Continuer avec l’exercice 6</a></p>                    
+                </div>
+            </div>
+            <script src="https://vjs.zencdn.net/5.4.4/video.js"></script>
+        </div>
+    </body>
+</html>

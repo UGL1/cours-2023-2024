@@ -1,0 +1,14 @@
+>>Quel est le contenu du fichier 'mot-de-passe' ?<<
+=== poufpouf badaboum
+
+>>Quelle information se cache à la fin du fichier 'cache-cache-passe' ?<<
+=== Bop bop BOUM
+
+>>Quelle information se cache au début du fichier 'cache-cache-passe' ?<<
+=== Attention, attention
+
+>>Quelle information se cache un peu après le début du fichier 'cache-cache-passe' ?<<
+=== Plouf plouf
+
+>>Quelle information se cache vers le millieu du fichier 'cache-cache-passe' ?<<
+=== Bim bam

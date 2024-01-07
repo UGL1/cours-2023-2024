@@ -1,0 +1,10 @@
+#! /bin/sh
+
+rm -rf EXO
+mkdir EXO
+cp data/animaux data/plus.sh EXO
+
+echo "Tu peux commencer l'EXO"
+echo "Tape 'cd EXO'."
+
+
