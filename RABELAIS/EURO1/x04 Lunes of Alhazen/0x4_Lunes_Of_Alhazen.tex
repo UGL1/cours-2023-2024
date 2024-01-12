@@ -4,16 +4,22 @@
 \titre{The Lunes of Alhazen}
 \classe{Euro 1\ere}
 \maketitle
-\begin{center}
-    \includegraphics[width=8.5cm]{img/lunes.png}
-\end{center}
-The blue triangle is rectangle.\\
-Can you show its area is the same as the sum of the areas of the two red lunes ?\\[13em]
 
-\maketitle
+
 \begin{center}
-    \includegraphics[width=8.5cm]{img/lunes.png}
+    \begin{tikzpicture}[scale=2,rotate=-143.13]
+        % Draw triangle
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (4,0);
+        \coordinate (C) at (0,3);
+        % Draw half circles on each side
+        \draw[fill=UGLiBlue!25] (A)  arc (180:360:4/2) -- (B) -- cycle;
+        \draw[fill=UGLiBlue!25] (C)  arc (90:270:3/2) -- (A) -- cycle;
+        \draw[fill=white] (C) arc[start angle = 180-36.87, delta angle=180,radius=2.5] -- (B)--cycle;
+        \draw[fill=UGLiRed!25](A)--(B)--(C)--cycle;
+        
+    \end{tikzpicture}
 \end{center}
-The blue triangle is rectangle.\\
-Can you show its area is the same as the sum of the areas of the two red lunes ?
+The red triangle is rectangle.\\
+Can you show its area is the same as the sum of the areas of the two blue lunes ?
 \end{document}

@@ -1,0 +1,73 @@
+\documentclass[12pt,a4paper,article,english,firamath]{nsi}
+\pagestyle{empty}
+\begin{document}
+\titre{The Lunes of Alhaze (solution)}
+\classe{Euro 1\ere}
+\maketitle
+
+\dleft{6.5cm}
+{
+    \begin{tikzpicture}[rotate=-143.13]
+        % Draw triangle
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (4,0);
+        \coordinate (C) at (0,3);
+        % Draw half circles on each side
+        \draw[fill=UGLiBlue!25] (A)  arc (180:360:4/2) -- (B) -- cycle;
+        \draw[fill=UGLiBlue!25] (C)  arc (90:270:3/2) -- (A) -- cycle;
+        \draw[fill=UGLiGreen!25] (B) arc[start angle = -36.87, delta angle=180,radius=2.5] -- (C)--cycle;
+        \draw[fill=UGLiRed!25](A)--(B)--(C)--cycle;
+    \end{tikzpicture}
+}
+{
+    Since the triangle is rectangle, the Pythagorean theorem applies : the square of the length the hypotenuse is equal to the sum of the squares of the lengths of the two other sides.\\
+
+    But as a half circle's area is proportional to its diameter, this means that the blue area and the green one are equal.
+}
+\dright{6.5 cm}
+{
+    Now consider the symmetrical of the green half disk with respect to the hypotenuse. Its area is the same so the equation still holds.
+}
+{
+    \begin{tikzpicture}[rotate=-143.13]
+        % Draw triangle
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (4,0);
+        \coordinate (C) at (0,3);
+        % Draw half circles on each side
+        \draw[fill=UGLiBlue!25] (A)  arc (180:360:4/2) -- (B) -- cycle;
+        \draw[fill=UGLiBlue!25] (C)  arc (90:270:3/2) -- (A) -- cycle;
+        \draw[fill=UGLiRed!25](A)--(B)--(C)--cycle;
+        \draw[semitransparent,fill=UGLiGreen!25] (C) arc[start angle = 180-36.87, delta angle=180,radius=2.5] -- (B)--cycle;
+    \end{tikzpicture}
+}
+\\
+
+\dleft{6cm}
+{
+    \begin{tikzpicture}[rotate=-143.13]
+        % Draw triangle
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (4,0);
+        \coordinate (C) at (0,3);
+        % Draw half circles on each side
+        \draw[fill=UGLiBlue!25] (A)  arc (180:360:4/2) -- (B) -- cycle;
+        \draw[fill=UGLiBlue!25] (C)  arc (90:270:3/2) -- (A) -- cycle;
+        \draw[fill=UGLiRed!25](A)--(B)--(C)--cycle;
+        \draw[semitransparent,fill=UGLiGreen!25] (C) arc[start angle = 180-36.87, delta angle=180,radius=2.5] -- (B)--cycle;
+        \node at (4/3,1) {a};
+        \node at (2,-.5) {b};
+        \node at (2,-1.45) {c};
+        \node at (-.25,1.5) {d};
+        \node at (-.95,1.45) {e};
+    \end{tikzpicture}
+}
+{
+    Naming all the regions, we can derive the following equation :
+    $$b+c+e+d = a+b+d$$
+    Hence, subtracting $b+d$ on both sides, we get 
+    $$c + e = a$$
+}\\
+
+which proves that the blue lunes have the same area as the red triangle.
+\end{document}
