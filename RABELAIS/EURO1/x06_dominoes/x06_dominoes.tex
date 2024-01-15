@@ -4,7 +4,10 @@
 \titre{A chessboard and dominoes}
 \classe{Euro 1\ere}
 \maketitle
-Assemble by teams of 2 and try to find the answers to the following problems.\\ For each problem solved, you get 3 points !
+Assemble by teams of 2 and try to find the answers to the following problems.\\ For each problem solved, you get 3 points, the team with the most points wins the game.\\
+
+If need be, you can always ask the teacher for a hint, but it will cost you one point.
+
 
 \subsection*{Problem 1}
 
@@ -42,44 +45,4 @@ chessboard, what is the minimum number of long-edge to long-edge pairs ?
 
 Prove that in any cover of a whole chessboard with dominoes, the number of horizontal
 dominoes with a black left square and the number of horizontal dominoes with a white left square are equal.
-
-\begin{center}
-\titlefont\LARGE\color{UGLiBlue} Chessboard\\[2em]
-
-
-\begin{tikzpicture}[scale=2]
-    \foreach \i in {0,1,...,7} {
-      \foreach \j in {0,1,...,7} {
-        \pgfmathtruncatemacro{\shade}{mod(\i+\j,2)}
-        \ifnum\shade=0
-          \fill[black] (\i,\j) rectangle ++(1,1);
-        \else
-          \fill[white] (\i,\j) rectangle ++(1,1);
-        \fi
-      }
-    }
-    \draw (0,0) rectangle (8,8);
-  \end{tikzpicture}
-
-
-\newpage
-Dominoes\\[2em]
-
-\begin{tikzpicture}[scale=2]
-  \foreach \i in {0,1,...,7} {
-    \foreach \j in {0,2,...,6} {
-    \pgfmathtruncatemacro{\shade}{mod(\i+\j,3)}
-    \ifnum\shade=0
-      \draw[fill=UGLiBlue!50] (\i,\j) rectangle ++(1,2);
-    \else
-    \ifnum\shade=1
-    \draw[fill=UGLiRed!50] (\i,\j) rectangle ++(1,2);
-    \else
-    \draw[fill=UGLiGreen!50] (\i,\j) rectangle ++(1,2);
-    \fi
-    \fi
-    }
-    }
-\end{tikzpicture}
-\end{center}
 \end{document}
